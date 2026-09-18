@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Honourable Mentions | MAJU Code Craft</title>
+<meta name="description" content="Celebrating society members and student teams who have brought accolades to MAJU at national hackathons and contests.">
+<link rel="icon" type="image/png" href="logos/community_logo_clean.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mc-theme.css">
+<style>
+  /* ===== Honourable Mentions Page Styling ===== */
+  .page-hero{
+    padding:60px 24px 40px;
+    text-align:center;
+    position:relative;
+    z-index:2;
+  }
+  .page-hero-scrim{
+    display:inline-block;
+    background:rgba(6,6,8,0.55);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+    padding:28px 36px;
+    border-radius:2px;
+    box-shadow:0 0 0 1px rgba(255,138,61,0.14), 0 10px 0 rgba(0,0,0,0.3);
+    width:100%;
+    max-width:760px;
+  }
+  .hero-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--font-pixel);
+    font-size:clamp(11px, 1.35vw, 14px);
+    letter-spacing:2px;
+    color:#FFFFFF;
+    background:linear-gradient(90deg, rgba(232,68,44,0.55), rgba(255,138,61,0.4));
+    border:2px solid var(--gold);
+    padding:8px 18px;
+    box-shadow:inset 1px 1px 0 rgba(255,255,255,0.25), inset -1px -1px 0 rgba(0,0,0,0.5), 0 0 14px rgba(255,138,61,0.45);
+    text-shadow:1px 1px 0 #000, 0 0 8px rgba(255,138,61,0.6);
+    font-weight:bold;
+  }
+  .page-title{
+    font-family:var(--font-pixel);
+    font-size:clamp(20px, 3.8vw, 34px);
+    line-height:1.6;
+    color:var(--text-dark);
+    margin-bottom:14px;
+    text-shadow:3px 3px 0 rgba(0,0,0,0.4);
+  }
+  .page-title .accent{
+    background:linear-gradient(90deg, var(--ember), var(--grass-side));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .page-sub{
+    font-size:20px;
+    line-height:1.5;
+    color:#d8d8de;
+    max-width:620px;
+    margin:0 auto;
+    text-shadow:1px 1px 0 rgba(0,0,0,0.7);
+  }
+
+  /* ---- Mentions Trophy Showcase ---- */
+  .mentions-wrap{
+    max-width:1160px;
+    margin:0 auto 80px;
+    padding:0 24px;
+    position:relative;
+    z-index:2;
+  }
+  .mentions-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(340px, 1fr));
+    gap:28px;
+  }
+  .advancement-card{
+    background:var(--ui-bg);
+    border:5px solid var(--ui-dark);
+    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.15), inset -3px -3px 0 rgba(0,0,0,0.5), 0 0 0 2px rgba(232,68,44,0.22), 0 10px 0 rgba(0,0,0,0.4);
+    padding:26px;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    overflow:hidden;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .advancement-card:hover{
+    transform:translateY(-4px);
+    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.25), inset -3px -3px 0 rgba(0,0,0,0.5), 0 0 0 2px var(--gold), 0 14px 0 rgba(0,0,0,0.45), 0 0 20px rgba(255,138,61,0.25);
+  }
+  .advancement-badge{
+    display:inline-block;
+    align-self:flex-start;
+    font-family:var(--font-pixel);
+    font-size:9px;
+    padding:5px 10px;
+    margin-bottom:14px;
+    letter-spacing:1px;
+    box-shadow:inset 1px 1px 0 rgba(255,255,255,0.2), inset -1px -1px 0 rgba(0,0,0,0.4);
+  }
+  .badge-gold{
+    background:linear-gradient(90deg, #D4AF37, #FF8A3D);
+    color:#161002;
+    font-weight:bold;
+  }
+  .badge-silver{
+    background:linear-gradient(90deg, #A8A8B2, #D8D8E0);
+    color:#121218;
+    font-weight:bold;
+  }
+  .badge-star{
+    background:linear-gradient(90deg, #9333EA, #B983FF);
+    color:#FFFFFF;
+    font-weight:bold;
+  }
+
+  .advancement-title{
+    font-family:var(--font-pixel);
+    font-size:15px;
+    line-height:1.5;
+    color:#fff;
+    margin-bottom:8px;
+  }
+  .advancement-subtitle{
+    font-size:18px;
+    color:var(--ember);
+    font-weight:bold;
+    margin-bottom:14px;
+  }
+  .advancement-desc{
+    font-size:17px;
+    line-height:1.55;
+    color:#c4c4ca;
+    margin-bottom:18px;
+    flex:1;
+  }
+  .advancement-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:14px;
+    border-top:2px solid rgba(255,138,61,0.15);
+    font-size:15px;
+    color:#8a8a92;
+  }
+</style>
+</head>
+<body data-biomes="end,obsidian,ember" data-door="skip">
+
+<!-- ============ BIOME BACKGROUND ============ -->
+<div id="biome-layer">
+  <div id="biome-parallax">
+    <div id="ambient-code-layer" class="ambient-code-layer"></div>
+    <div class="biome-terrain" id="biome-terrain"></div>
+  </div>
+</div>
+
+<!-- ============ NAVBAR ============ -->
+<header class="mc-navbar">
+  <a href="index.html" class="mc-nav-brand">
+    <img src="logos/community_logo_clean.png" alt="MAJU Code Craft Logo" class="mc-brand-img">
+    <div class="mc-brand-titles">
+      <span class="mc-brand-uni">MUHAMMAD ALI JINNAH UNIVERSITY</span>
+      <span class="mc-brand-main">MAJU CODE CRAFT</span>
+    </div>
+  </a>
+  <button class="mc-nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  <nav class="mc-nav-links">
+    <a href="index.html#about" class="mc-nav-link">About</a>
+    <a href="index.html#highlights" class="mc-nav-link">Highlights</a>
+    <a href="index.html#what-we-run" class="mc-nav-link">What We Run</a>
+    <a href="events.html" class="mc-nav-link">Events</a>
+    <a href="hierarchy.html" class="mc-nav-link">Hierarchy</a>
+    <a href="mentions.html" class="mc-nav-link active">Mentions</a>
+    <a href="executive-community.html" class="mc-nav-link">Alumni</a>
+    <a href="index.html#contact" class="mc-nav-link">Contact</a>
+    <a href="apply.html" class="mc-nav-apply" data-portal-nav="apply.html">Apply</a>
+  </nav>
+  <div class="mc-daynight" title="Toggle day / night"><div class="orb"></div></div>
+</header>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero" data-biome-trigger="end">
+  <div class="page-hero-scrim">
+    <div class="hero-pill">&#x1F3C6; MAJU HALL OF FAME &amp; STUDENT ACCOLADES</div>
+    <h1 class="page-title">Honourable <span class="accent">Mentions</span></h1>
+    <p class="page-sub">Celebrating society members and student teams who have brought prestigious accolades and championship trophies to MAJU at national contests.</p>
+  </div>
+</section>
+
+<!-- ============ SHOWCASE GRID ============ -->
+<section class="mentions-wrap" data-biome-trigger="obsidian">
+  <div class="mentions-grid">
+
+    <!-- Card 1: 1st Place National Hackathon -->
+    <div class="advancement-card">
+      <span class="advancement-badge badge-gold">&#x1F3C6; 1ST PLACE &bull; NATIONAL HACKATHON 2025</span>
+      <h3 class="advancement-title">Team NeuroCraft</h3>
+      <div class="advancement-subtitle">Project: AI Stroke Detection Assistant</div>
+      <p class="advancement-desc">Built a real-time computer vision and CT analysis model deployed on edge hardware in under 36 hours. Recognized by healthcare engineers and awarded first place among 60+ university delegations nationwide.</p>
+      <div class="advancement-footer">
+        <span>&#x1F4CD; National Innovation Arena</span>
+        <span style="color:var(--gold);">&#x2714; Champion Rank</span>
+      </div>
+    </div>
+
+    <!-- Card 2: ICPC Speed Programming Contest -->
+    <div class="advancement-card">
+      <span class="advancement-badge badge-silver">&#x1F948; RUNNER UP &bull; SPEED PROGRAMMING</span>
+      <h3 class="advancement-title">Muhammad Zohaib &amp; Saad Farooq</h3>
+      <div class="advancement-subtitle">ICPC Regional Collegiate Qualifier</div>
+      <p class="advancement-desc">Solved 8 algorithmic challenges in competitive C++ during the collegiate regional championship. Defeated top engineering institutions with lightning-fast submission times and zero incorrect submission penalties.</p>
+      <div class="advancement-footer">
+        <span>&#x1F4BB; Competitive C++ / Algorithms</span>
+        <span style="color:var(--ember);">&#x2714; Silver Medalist</span>
+      </div>
+    </div>
+
+    <!-- Card 3: Best Open Source Contribution -->
+    <div class="advancement-card">
+      <span class="advancement-badge badge-star">&#x1F31F; BEST OPEN SOURCE CONTRIBUTION</span>
+      <h3 class="advancement-title">Ayesha Siddiqua</h3>
+      <div class="advancement-subtitle">Contributor to the Rust Ecosystem</div>
+      <p class="advancement-desc">Authored high-performance asynchronous networking patches merged into upstream web frameworks, representing MAJU on global repositories and mentoring campus members on systems engineering.</p>
+      <div class="advancement-footer">
+        <span>&#x2699;&#xFE0F; Rust &amp; Async Systems</span>
+        <span style="color:var(--end-violet);">&#x2714; Global Impact</span>
+      </div>
+    </div>
+
+    <!-- Card 4: Code Incognito Grand Champions -->
+    <div class="advancement-card">
+      <span class="advancement-badge badge-gold">&#x26A1; CODE INCOGNITO GRAND FINALISTS</span>
+      <h3 class="advancement-title">Team ZeroDay</h3>
+      <div class="advancement-subtitle">Project: Mesh-Net Emergency Dispatch</div>
+      <p class="advancement-desc">Engineered an offline-first peer-to-peer disaster communication radio node on ESP32 microcontrollers and mobile web apps within a strict 48-hour continuous coding hackathon.</p>
+      <div class="advancement-footer">
+        <span>&#x1F4E1; IoT &amp; Offline Mesh Systems</span>
+        <span style="color:var(--gold);">&#x2714; Best Hardware Hack</span>
+      </div>
+    </div>
+
+    <!-- Card 5: Best Technical Workshop Mentor -->
+    <div class="advancement-card">
+      <span class="advancement-badge badge-star">&#x1F4DA; WORKSHOP EXCELLENCE CITATION</span>
+      <h3 class="advancement-title">Rayyan Munir</h3>
+      <div class="advancement-subtitle">Full-Stack Bootcamp Architect</div>
+      <p class="advancement-desc">Led 12 interactive weekend coding labs covering Next.js, Docker containers, and PostgreSQL for over 350 junior students, achieving a 100% project completion rate across all cohorts.</p>
+      <div class="advancement-footer">
+        <span>&#x1F393; 350+ Students Mentored</span>
+        <span style="color:var(--end-violet);">&#x2714; Society Honors</span>
+      </div>
+    </div>
+
+    <!-- Card 6: AI Innovation Award -->
+    <div class="advancement-card">
+      <span class="advancement-badge badge-silver">&#x1F916; AI INNOVATION MERIT</span>
+      <h3 class="advancement-title">Team Synthia</h3>
+      <div class="advancement-subtitle">Low-Latency Campus Navigation Bot</div>
+      <p class="advancement-desc">Created a local offline speech recognition agent that helps visually impaired students navigate MAJU campus blocks using ultrasonic sensor beacons and spatial audio feedback.</p>
+      <div class="advancement-footer">
+        <span>&#x1F30E; Accessibility &amp; Edge AI</span>
+        <span style="color:var(--ember);">&#x2714; Special Mention</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="mc-footer" data-biome-trigger="cave">
+  <div class="mc-footer-inner">
+    <div class="mc-footer-grid">
+      <div>
+        <div class="mc-footer-brand" style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+          <img src="logos/community_logo_clean.png" alt="MAJU Code Craft" class="mc-brand-img">
+          <span style="font-family:var(--font-pixel); font-size:11px; color:#fff;">MAJU CODE CRAFT</span>
+        </div>
+        <p>The student computing and software engineering society at Muhammad Ali Jinnah University, Karachi.</p>
+        <p style="font-size:14px; margin-top:8px;">Open to all university students. Free access.</p>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="events.html">Public Events</a></li>
+          <li><a href="hierarchy.html">Leadership Tree</a></li>
+          <li><a href="apply.html">Join Code Craft</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Community</h5>
+        <ul>
+          <li><a href="mentions.html">Honourable Mentions</a></li>
+          <li><a href="executive-community.html">Alumni Network</a></li>
+          <li><a href="index.html#contact">Contact Council</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Internal Portal</h5>
+        <p style="font-size:14px; margin-bottom:10px;">For executives and department teams to plan, assign, and track operations:</p>
+        <a href="../dynamic_doc/index.html" class="mc-button" style="font-size:9px; padding:8px 12px;">Open System &rarr;</a>
+      </div>
+      <div class="footer-affiliation-wrap">
+        <div class="footer-affiliation-info">
+          <div class="footer-affiliation-title">&#x1F3DB;&#xFE0F; INSTITUTIONAL PATRONAGE &amp; ACADEMIC BACKING</div>
+          <p class="footer-affiliation-desc">
+            The <strong>Industrial Relations Committee (IRC)</strong> at <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer">Muhammad Ali Jinnah University (MAJU)</a> in Karachi is a student- and faculty-driven committee designed to bridge the gap between academic learning and industry demands.
+          </p>
+        </div>
+        <div class="footer-partner-logos">
+          <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Muhammad Ali Jinnah University (MAJU)">
+            <img src="logos/university_logo_clean.png" alt="MAJU" class="footer-partner-badge">
+          </a>
+          <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Industrial Relations Committee (IRC) - Faculty of Computing">
+            <img src="logos/irc_logo_clean.png" alt="IRC" class="footer-partner-badge">
+          </a>
+          <a href="index.html" title="MAJU Code Craft Society">
+            <img src="logos/community_logo_clean.png" alt="MCC" class="footer-partner-badge logo-dark">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="mc-footer-bottom">
+      <div>&copy; 2026 MAJU Code Craft Society. All rights reserved.</div>
+      <div>Ember &amp; Obsidian &mdash; Accolades &amp; Hall of Fame</div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/mc-theme.js"></script>
+<script>
+(function(){
+  // Ambient floating code snippets
+  var ambientLayer = document.getElementById('ambient-code-layer');
+  if(ambientLayer){
+    var snippets = [
+      { text: 'icpc', font: 'pixel', color: 'ember', left: 5, top: 12, anim: 'anim-bob', isBadge: true, delay: -1.0 },
+      { text: 'hackathons', font: 'pixel', color: 'gold', left: 84, top: 14, anim: 'anim-sway', isBadge: true, delay: -2.5 },
+      { text: 'web dev', font: 'pixel', color: 'neon', left: 88, top: 50, anim: 'anim-drift', isBadge: true, delay: -3.8 },
+      { text: 'assert(trophy == 1);', font: 'body', color: 'yellow', left: 4, top: 32, anim: 'anim-drift', delay: -4.0 },
+      { text: 'while (compete) win();', font: 'body', color: 'violet', left: 80, top: 32, anim: 'anim-bob', delay: -1.2 },
+      { text: 'gold_medal.push(team);', font: 'body', color: 'neon', left: 6, top: 60, anim: 'anim-sway', delay: -5.0 },
+      { text: 'git tag v1.0.0-champion', font: 'body', color: 'gold', left: 76, top: 76, anim: 'anim-drift', delay: -3.0 },
+      { text: 'sudo make champion', font: 'body', color: 'white', left: 12, top: 86, anim: 'anim-bob', delay: -2.0 },
+      { text: 'O(log N) RANK', font: 'pixel', color: 'red', left: 72, top: 88, anim: 'anim-bob', delay: -4.5 }
+    ];
+    snippets.forEach(function(item){
+      var el = document.createElement('div');
+      el.className = 'ambient-code-item font-' + item.font + ' color-' + item.color + ' ' + item.anim + (item.isBadge ? ' is-badge' : '');
+      el.textContent = item.text;
+      el.style.left = item.left + '%';
+      el.style.top = item.top + '%';
+      el.style.animationDelay = item.delay + 's';
+      ambientLayer.appendChild(el);
+    });
+  }
+})();
+</script>
+</body>
+</html>

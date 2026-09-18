@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft Textures</title>
+  <style>
+    :root {
+      /* Bookshelf Variables */
+      --w-dark: #4b3d2b; 
+      --w-med: #7d6040;
+      --w-light: #ac8758;
+      --w-vlight: #c29d66;
+      --w-shadow: #3b2c1f;
+      --bg-dark: #1f1811;
+      --bg-light: #2c2118;
+      --red: #a42021;
+      --red-light: #c72b2b;
+      --red-dark: #821818;
+      --blue: #28558c;
+      --blue-light: #356eb5;
+      --green: #679233;
+      --green-dark: #486822;
+      --teal: #108064;
+      --teal-light: #18a885;
+      --grey-light: #a4a4a4;
+      --grey-dark: #7a7a7a;
+      --charcoal: #404040;
+      --yellow: #a29d2b;
+      --yellow-light: #c4be36;
+      --brown: #723214;
+      --brown-light: #94431e;
+    }
+
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      min-height: 100vh;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+
+    .texture-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .texture-label {
+      font-size: 1.2rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .texture-wrapper {
+      width: 256px;
+      height: 256px;
+      display: flex;
+    }
+
+    /* Pixel Art Base */
+    .basalt, .gilded-blackstone, .magma {
+      --px: 32px;
+      width: var(--px);
+      height: var(--px);
+      image-rendering: pixelated;
+    }
+
+    /* Basalt */
+    .basalt {
+      background-color: #212121;
+      box-shadow: 
+        var(--px) 0 #3b3b3b, calc(var(--px)*2) 0 #1a1a1a, calc(var(--px)*3) 0 #2e2e2e, calc(var(--px)*4) 0 #424242, calc(var(--px)*5) 0 #171717, calc(var(--px)*6) 0 #212121, calc(var(--px)*7) 0 #3b3b3b,
+        0 var(--px) #212121, var(--px) var(--px) #424242, calc(var(--px)*2) var(--px) #1a1a1a, calc(var(--px)*3) var(--px) #3b3b3b, calc(var(--px)*4) var(--px) #424242, calc(var(--px)*5) var(--px) #171717, calc(var(--px)*6) var(--px) #2e2e2e, calc(var(--px)*7) var(--px) #212121,
+        0 calc(var(--px)*2) #1a1a1a, var(--px) calc(var(--px)*2) #3b3b3b, calc(var(--px)*2) calc(var(--px)*2) #212121, calc(var(--px)*3) calc(var(--px)*2) #424242, calc(var(--px)*4) calc(var(--px)*2) #2e2e2e, calc(var(--px)*5) calc(var(--px)*2) #171717, calc(var(--px)*6) calc(var(--px)*2) #212121, calc(var(--px)*7) calc(var(--px)*2) #1a1a1a,
+        0 calc(var(--px)*3) #2e2e2e, var(--px) calc(var(--px)*3) #212121, calc(var(--px)*2) calc(var(--px)*3) #1a1a1a, calc(var(--px)*3) calc(var(--px)*3) #3b3b3b, calc(var(--px)*4) calc(var(--px)*3) #2e2e2e, calc(var(--px)*5) calc(var(--px)*3) #212121, calc(var(--px)*6) calc(var(--px)*3) #424242, calc(var(--px)*7) calc(var(--px)*3) #171717,
+        0 calc(var(--px)*4) #212121, var(--px) calc(var(--px)*4) #424242, calc(var(--px)*2) calc(var(--px)*4) #171717, calc(var(--px)*3) calc(var(--px)*4) #2e2e2e, calc(var(--px)*4) calc(var(--px)*4) #424242, calc(var(--px)*5) calc(var(--px)*4) #1a1a1a, calc(var(--px)*6) calc(var(--px)*4) #3b3b3b, calc(var(--px)*7) calc(var(--px)*4) #212121,
+        0 calc(var(--px)*5) #3b3b3b, var(--px) calc(var(--px)*5) #2e2e2e, calc(var(--px)*2) calc(var(--px)*5) #171717, calc(var(--px)*3) calc(var(--px)*5) #212121, calc(var(--px)*4) calc(var(--px)*5) #3b3b3b, calc(var(--px)*5) calc(var(--px)*5) #1a1a1a, calc(var(--px)*6) calc(var(--px)*5) #2e2e2e, calc(var(--px)*7) calc(var(--px)*5) #424242,
+        0 calc(var(--px)*6) #1a1a1a, var(--px) calc(var(--px)*6) #3b3b3b, calc(var(--px)*2) calc(var(--px)*6) #212121, calc(var(--px)*3) calc(var(--px)*6) #424242, calc(var(--px)*4) calc(var(--px)*6) #171717, calc(var(--px)*5) calc(var(--px)*6) #2e2e2e, calc(var(--px)*6) calc(var(--px)*6) #212121, calc(var(--px)*7) calc(var(--px)*6) #1a1a1a,
+        0 calc(var(--px)*7) #212121, var(--px) calc(var(--px)*7) #1a1a1a, calc(var(--px)*2) calc(var(--px)*7) #3b3b3b, calc(var(--px)*3) calc(var(--px)*7) #2e2e2e, calc(var(--px)*4) calc(var(--px)*7) #424242, calc(var(--px)*5) calc(var(--px)*7) #171717, calc(var(--px)*6) calc(var(--px)*7) #3b3b3b, calc(var(--px)*7) calc(var(--px)*7) #212121;
+    }
+
+    /* Gilded Blackstone */
+    .gilded-blackstone {
+      background-color: #2a282c;
+      box-shadow: 
+        var(--px) 0 #1b1a1c, calc(var(--px)*2) 0 #4a4545, calc(var(--px)*3) 0 #ffaa00, calc(var(--px)*4) 0 #ffd700, calc(var(--px)*5) 0 #1b1a1c, calc(var(--px)*6) 0 #2a282c, calc(var(--px)*7) 0 #3d3939,
+        0 var(--px) #3d3939, var(--px) var(--px) #2a282c, calc(var(--px)*2) var(--px) #1b1a1c, calc(var(--px)*3) var(--px) #4a4545, calc(var(--px)*4) var(--px) #ffaa00, calc(var(--px)*5) var(--px) #2a282c, calc(var(--px)*6) var(--px) #1b1a1c, calc(var(--px)*7) var(--px) #2a282c,
+        0 calc(var(--px)*2) #1b1a1c, var(--px) calc(var(--px)*2) #2a282c, calc(var(--px)*2) calc(var(--px)*2) #3d3939, calc(var(--px)*3) calc(var(--px)*2) #1b1a1c, calc(var(--px)*4) calc(var(--px)*2) #2a282c, calc(var(--px)*5) calc(var(--px)*2) #4a4545, calc(var(--px)*6) calc(var(--px)*2) #2a282c, calc(var(--px)*7) calc(var(--px)*2) #1b1a1c,
+        0 calc(var(--px)*3) #2a282c, var(--px) calc(var(--px)*3) #4a4545, calc(var(--px)*2) calc(var(--px)*3) #2a282c, calc(var(--px)*3) calc(var(--px)*3) #1b1a1c, calc(var(--px)*4) calc(var(--px)*3) #3d3939, calc(var(--px)*5) calc(var(--px)*3) #ffaa00, calc(var(--px)*6) calc(var(--px)*3) #ffd700, calc(var(--px)*7) calc(var(--px)*3) #1b1a1c,
+        0 calc(var(--px)*4) #ffaa00, var(--px) calc(var(--px)*4) #ffd700, calc(var(--px)*2) calc(var(--px)*4) #1b1a1c, calc(var(--px)*3) calc(var(--px)*4) #2a282c, calc(var(--px)*4) calc(var(--px)*4) #1b1a1c, calc(var(--px)*5) calc(var(--px)*4) #2a282c, calc(var(--px)*6) calc(var(--px)*4) #4a4545, calc(var(--px)*7) calc(var(--px)*4) #2a282c,
+        0 calc(var(--px)*5) #2a282c, var(--px) calc(var(--px)*5) #ffaa00, calc(var(--px)*2) calc(var(--px)*5) #2a282c, calc(var(--px)*3) calc(var(--px)*5) #3d3939, calc(var(--px)*4) calc(var(--px)*5) #2a282c, calc(var(--px)*5) calc(var(--px)*5) #1b1a1c, calc(var(--px)*6) calc(var(--px)*5) #2a282c, calc(var(--px)*7) calc(var(--px)*5) #3d3939,
+        0 calc(var(--px)*6) #1b1a1c, var(--px) calc(var(--px)*6) #2a282c, calc(var(--px)*2) calc(var(--px)*6) #1b1a1c, calc(var(--px)*3) calc(var(--px)*6) #2a282c, calc(var(--px)*4) calc(var(--px)*6) #4a4545, calc(var(--px)*5) calc(var(--px)*6) #ffaa00, calc(var(--px)*6) calc(var(--px)*6) #2a282c, calc(var(--px)*7) calc(var(--px)*6) #1b1a1c,
+        0 calc(var(--px)*7) #3d3939, var(--px) calc(var(--px)*7) #1b1a1c, calc(var(--px)*2) calc(var(--px)*7) #2a282c, calc(var(--px)*3) calc(var(--px)*7) #ffaa00, calc(var(--px)*4) calc(var(--px)*7) #ffd700, calc(var(--px)*5) calc(var(--px)*7) #1b1a1c, calc(var(--px)*6) calc(var(--px)*7) #2a282c, calc(var(--px)*7) calc(var(--px)*7) #4a4545;
+    }
+
+    /* Magma Block */
+    .magma {
+      background-color: #3b140b;
+      box-shadow: 
+        var(--px) 0 #6e2009, calc(var(--px)*2) 0 #a3320c, calc(var(--px)*3) 0 #e86b0a, calc(var(--px)*4) 0 #fcdb1b, calc(var(--px)*5) 0 #e86b0a, calc(var(--px)*6) 0 #3b140b, calc(var(--px)*7) 0 #210a05,
+        0 var(--px) #210a05, var(--px) var(--px) #3b140b, calc(var(--px)*2) var(--px) #6e2009, calc(var(--px)*3) var(--px) #a3320c, calc(var(--px)*4) var(--px) #e86b0a, calc(var(--px)*5) var(--px) #a3320c, calc(var(--px)*6) var(--px) #6e2009, calc(var(--px)*7) var(--px) #3b140b,
+        0 calc(var(--px)*2) #3b140b, var(--px) calc(var(--px)*2) #210a05, calc(var(--px)*2) calc(var(--px)*2) #3b140b, calc(var(--px)*3) calc(var(--px)*2) #6e2009, calc(var(--px)*4) calc(var(--px)*2) #a3320c, calc(var(--px)*5) calc(var(--px)*2) #3b140b, calc(var(--px)*6) calc(var(--px)*2) #210a05, calc(var(--px)*7) calc(var(--px)*2) #3b140b,
+        0 calc(var(--px)*3) #6e2009, var(--px) calc(var(--px)*3) #3b140b, calc(var(--px)*2) calc(var(--px)*3) #210a05, calc(var(--px)*3) calc(var(--px)*3) #3b140b, calc(var(--px)*4) calc(var(--px)*3) #6e2009, calc(var(--px)*5) calc(var(--px)*3) #e86b0a, calc(var(--px)*6) calc(var(--px)*3) #fcdb1b, calc(var(--px)*7) calc(var(--px)*3) #e86b0a,
+        0 calc(var(--px)*4) #a3320c, var(--px) calc(var(--px)*4) #6e2009, calc(var(--px)*2) calc(var(--px)*4) #3b140b, calc(var(--px)*3) calc(var(--px)*4) #210a05, calc(var(--px)*4) calc(var(--px)*4) #3b140b, calc(var(--px)*5) calc(var(--px)*4) #a3320c, calc(var(--px)*6) calc(var(--px)*4) #e86b0a, calc(var(--px)*7) calc(var(--px)*4) #a3320c,
+        0 calc(var(--px)*5) #e86b0a, var(--px) calc(var(--px)*5) #a3320c, calc(var(--px)*2) calc(var(--px)*5) #6e2009, calc(var(--px)*3) calc(var(--px)*5) #3b140b, calc(var(--px)*4) calc(var(--px)*5) #210a05, calc(var(--px)*5) calc(var(--px)*5) #3b140b, calc(var(--px)*6) calc(var(--px)*5) #6e2009, calc(var(--px)*7) calc(var(--px)*5) #3b140b,
+        0 calc(var(--px)*6) #fcdb1b, var(--px) calc(var(--px)*6) #e86b0a, calc(var(--px)*2) calc(var(--px)*6) #a3320c, calc(var(--px)*3) calc(var(--px)*6) #6e2009, calc(var(--px)*4) calc(var(--px)*6) #3b140b, calc(var(--px)*5) calc(var(--px)*6) #210a05, calc(var(--px)*6) calc(var(--px)*6) #3b140b, calc(var(--px)*7) calc(var(--px)*6) #210a05,
+        0 calc(var(--px)*7) #e86b0a, var(--px) calc(var(--px)*7) #a3320c, calc(var(--px)*2) calc(var(--px)*7) #6e2009, calc(var(--px)*3) calc(var(--px)*7) #3b140b, calc(var(--px)*4) calc(var(--px)*7) #210a05, calc(var(--px)*5) calc(var(--px)*7) #3b140b, calc(var(--px)*6) calc(var(--px)*7) #6e2009, calc(var(--px)*7) calc(var(--px)*7) #3b140b;
+    }
+
+    /* Bookshelf */
+    .bookshelf {
+      display: grid;
+      grid-template-columns: repeat(16, 1fr);
+      grid-template-rows: repeat(16, 1fr);
+      width: 256px; 
+      height: 256px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .bookshelf div {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Bookshelf Color Classes */
+    .wd { background-color: var(--w-dark); }
+    .wm { background-color: var(--w-med); }
+    .wl { background-color: var(--w-light); }
+    .wv { background-color: var(--w-vlight); }
+    .ws { background-color: var(--w-shadow); }
+    .bd { background-color: var(--bg-dark); }
+    .bl { background-color: var(--bg-light); }
+    .r  { background-color: var(--red); }
+    .rl { background-color: var(--red-light); }
+    .rd { background-color: var(--red-dark); }
+    .b  { background-color: var(--blue); }
+    .blt { background-color: var(--blue-light); }
+    .g  { background-color: var(--green); }
+    .gd { background-color: var(--green-dark); }
+    .t  { background-color: var(--teal); }
+    .tl { background-color: var(--teal-light); }
+    .gl { background-color: var(--grey-light); }
+    .gd { background-color: var(--grey-dark); }
+    .ch { background-color: var(--charcoal); }
+    .y  { background-color: var(--yellow); }
+    .yl { background-color: var(--yellow-light); }
+    .br { background-color: var(--brown); }
+    .brl{ background-color: var(--brown-light); }
+    .x1 { background-color: #554433; }
+  </style>
+</head>
+<body>
+
+  <!-- Basalt Block -->
+  <div class="texture-container">
+    <div class="texture-wrapper">
+      <div class="basalt"></div>
+    </div>
+    <div class="texture-label">Basalt</div>
+  </div>
+
+  <!-- Gilded Blackstone Block -->
+  <div class="texture-container">
+    <div class="texture-wrapper">
+      <div class="gilded-blackstone"></div>
+    </div>
+    <div class="texture-label">Gilded Blackstone</div>
+  </div>
+
+  <!-- Magma Block -->
+  <div class="texture-container">
+    <div class="texture-wrapper">
+      <div class="magma"></div>
+    </div>
+    <div class="texture-label">Magma Block</div>
+  </div>
+
+  <!-- Bookshelf Block -->
+  <div class="texture-container">
+    <div class="bookshelf">
+      <!-- Row 1 -->
+      <div class="ws"></div><div class="wl"></div><div class="wv"></div><div class="wv"></div><div class="wl"></div><div class="wl"></div><div class="wv"></div><div class="wl"></div><div class="wl"></div><div class="wv"></div><div class="wl"></div><div class="wl"></div><div class="ws"></div><div class="ws"></div><div class="wv"></div><div class="wl"></div>
+      <!-- Row 2 -->
+      <div class="ws"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="wl"></div>
+      <!-- Row 3 -->
+      <div class="ws"></div><div class="rl"></div><div class="rd"></div><div class="bd"></div><div class="blt"></div><div class="b"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="g"></div><div class="gd"></div><div class="bd"></div><div class="bd"></div><div class="wl"></div>
+      <!-- Row 4 -->
+      <div class="ws"></div><div class="gl"></div><div class="gl"></div><div class="tl"></div><div class="blt"></div><div class="b"></div><div class="ch"></div><div class="ch"></div><div class="rl"></div><div class="rd"></div><div class="bd"></div><div class="g"></div><div class="gd"></div><div class="tl"></div><div class="t"></div><div class="wl"></div>
+      <!-- Row 5 -->
+      <div class="wm"></div><div class="rl"></div><div class="rd"></div><div class="tl"></div><div class="blt"></div><div class="b"></div><div class="ch"></div><div class="ch"></div><div class="rl"></div><div class="rd"></div><div class="bd"></div><div class="g"></div><div class="gd"></div><div class="gl"></div><div class="gl"></div><div class="wm"></div>
+      <!-- Row 6 -->
+      <div class="wl"></div><div class="rl"></div><div class="rd"></div><div class="tl"></div><div class="blt"></div><div class="b"></div><div class="g"></div><div class="gd"></div><div class="rl"></div><div class="rd"></div><div class="rl"></div><div class="g"></div><div class="gd"></div><div class="tl"></div><div class="t"></div><div class="wm"></div>
+      <!-- Row 7 -->
+      <div class="wm"></div><div class="rl"></div><div class="rd"></div><div class="tl"></div><div class="blt"></div><div class="b"></div><div class="g"></div><div class="gd"></div><div class="rl"></div><div class="rd"></div><div class="rl"></div><div class="g"></div><div class="gd"></div><div class="tl"></div><div class="t"></div><div class="wl"></div>
+      <!-- Row 8 -->
+      <div class="ws"></div><div class="ws"></div><div class="wm"></div><div class="wm"></div><div class="ws"></div><div class="wm"></div><div class="ws"></div><div class="wm"></div><div class="wm"></div><div class="ws"></div><div class="ws"></div><div class="wm"></div><div class="wm"></div><div class="ws"></div><div class="ws"></div><div class="ws"></div>
+      <!-- Row 9 -->
+      <div class="ws"></div><div class="wv"></div><div class="wv"></div><div class="wl"></div><div class="wv"></div><div class="wv"></div><div class="wl"></div><div class="wl"></div><div class="wv"></div><div class="wl"></div><div class="wv"></div><div class="wl"></div><div class="wv"></div><div class="wv"></div><div class="wl"></div><div class="ws"></div>
+      <!-- Row 10 -->
+      <div class="ws"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="ws"></div>
+      <!-- Row 11 -->
+      <div class="wm"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="rl"></div><div class="rd"></div><div class="bd"></div><div class="bd"></div><div class="bd"></div><div class="yl"></div><div class="y"></div><div class="bd"></div><div class="blt"></div><div class="b"></div><div class="bd"></div><div class="wl"></div>
+      <!-- Row 12 -->
+      <div class="wl"></div><div class="brl"></div><div class="br"></div><div class="br"></div><div class="rl"></div><div class="rd"></div><div class="blt"></div><div class="bd"></div><div class="g"></div><div class="gl"></div><div class="gl"></div><div class="rl"></div><div class="blt"></div><div class="b"></div><div class="tl"></div><div class="wm"></div>
+      <!-- Row 13 -->
+      <div class="wl"></div><div class="brl"></div><div class="br"></div><div class="br"></div><div class="rl"></div><div class="rd"></div><div class="blt"></div><div class="g"></div><div class="g"></div><div class="yl"></div><div class="y"></div><div class="rl"></div><div class="blt"></div><div class="b"></div><div class="tl"></div><div class="wv"></div>
+      <!-- Row 14 -->
+      <div class="wv"></div><div class="brl"></div><div class="br"></div><div class="br"></div><div class="rl"></div><div class="rd"></div><div class="blt"></div><div class="g"></div><div class="bd"></div><div class="yl"></div><div class="y"></div><div class="rl"></div><div class="blt"></div><div class="b"></div><div class="tl"></div><div class="wv"></div>
+      <!-- Row 15 -->
+      <div class="wv"></div><div class="brl"></div><div class="br"></div><div class="br"></div><div class="rl"></div><div class="rd"></div><div class="blt"></div><div class="g"></div><div class="bd"></div><div class="yl"></div><div class="y"></div><div class="rl"></div><div class="blt"></div><div class="b"></div><div class="tl"></div><div class="wl"></div>
+      <!-- Row 16 -->
+      <div class="ws"></div><div class="wm"></div><div class="ws"></div><div class="wm"></div><div class="wm"></div><div class="ws"></div><div class="wm"></div><div class="wm"></div><div class="ws"></div><div class="wm"></div><div class="wm"></div><div class="wm"></div><div class="ws"></div><div class="wm"></div><div class="wm"></div><div class="ws"></div>
+    </div>
+    <div class="texture-label">Bookshelf</div>
+  </div>
+
+</body>
+</html>

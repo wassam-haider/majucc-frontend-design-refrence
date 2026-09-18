@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Combined Minecraft Textures</title>
+<style>
+  /* --- GLOBAL PAGE SETUP --- */
+  body {
+    background-color: #2c2f33; /* Dark background */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
+    padding: 60px 20px;
+    margin: 0;
+    font-family: sans-serif;
+    color: #ffffff;
+  }
+
+  .block-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .block-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    margin: 0;
+  }
+
+  /* --- COMMON PIXEL CANVAS --- */
+  .pixel-canvas {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: repeat(16, 1fr);
+    width: 320px; /* 20px per pixel */
+    height: 320px;
+  }
+
+  .pixel-canvas div {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* =========================================
+     1. END PORTAL TEXTURE
+     ========================================= */
+  .end-portal-section {
+    width: 100%; /* Force onto its own row as a banner */
+  }
+  .end-portal-section .end-portal {
+    width: 80vw;
+    max-width: 1000px;
+    height: 40vh;
+    min-height: 320px;
+    border: 6px solid #111;
+    border-radius: 4px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), inset 0 0 50px rgba(0,0,0,0.9);
+    background-color: #030005;
+    background-image:
+      radial-gradient(1.5px 1.5px at 10px 10px, #eebaff 100%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 70px 45px, #d27df0 100%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 120px 90px, #f1ccff 100%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 20px 30px, #9322cc 100%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 55px 70px, #a12be0 100%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 90px 15px, #7514a6 100%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 140px 60px, #821db5 100%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 45px 110px, #b03beb 100%, transparent 100%),
+      radial-gradient(2px 2px at 5px 50px, #330b4d 100%, transparent 100%),
+      radial-gradient(2px 2px at 35px 15px, #2a0840 100%, transparent 100%),
+      radial-gradient(2px 2px at 80px 40px, #40105e 100%, transparent 100%),
+      radial-gradient(2px 2px at 100px 80px, #210433 100%, transparent 100%),
+      radial-gradient(2px 2px at 15px 95px, #360a4f 100%, transparent 100%),
+      radial-gradient(2px 2px at 65px 105px, #461463 100%, transparent 100%),
+      radial-gradient(2px 2px at 115px 25px, #1c0529 100%, transparent 100%),
+      radial-gradient(1px 1px at 25px 25px, #180424 100%, transparent 100%),
+      radial-gradient(1px 1px at 60px 5px,  #15031f 100%, transparent 100%),
+      radial-gradient(1px 1px at 95px 65px, #200630 100%, transparent 100%),
+      radial-gradient(1px 1px at 15px 75px, #100217 100%, transparent 100%),
+      radial-gradient(1px 1px at 130px 35px, #1c0529 100%, transparent 100%),
+      radial-gradient(1px 1px at 50px 90px, #15031f 100%, transparent 100%),
+      radial-gradient(1px 1px at 105px 115px, #180424 100%, transparent 100%);
+    background-size:
+      131px 137px, 163px 167px, 191px 193px,
+      67px 71px, 83px 89px, 97px 101px, 107px 109px, 113px 127px,
+      37px 41px, 43px 47px, 53px 59px, 61px 67px, 73px 79px, 89px 97px, 103px 107px,
+      17px 19px, 23px 29px, 31px 37px, 41px 43px, 47px 53px, 59px 61px, 71px 73px;
+    background-attachment: fixed;
+  }
+
+  /* =========================================
+     2. PURPUR BLOCK
+     ========================================= */
+  .purpur-section .pixel-canvas {
+    border: 4px solid #222222;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  }
+  .purpur-section .p1 { background-color: #cdacd0; } 
+  .purpur-section .p2 { background-color: #b997be; } 
+  .purpur-section .p3 { background-color: #aa80ad; } 
+  .purpur-section .p4 { background-color: #946594; } 
+
+  /* =========================================
+     3. WARPED NYLIUM BLOCK
+     ========================================= */
+  .warped-nylium-section .pixel-canvas {
+    border: 4px solid #1a1a1a; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  }
+  .warped-nylium-section .t1 { background-color: #169c8a; } 
+  .warped-nylium-section .t2 { background-color: #0b7c76; } 
+  .warped-nylium-section .t3 { background-color: #245a5d; } 
+  .warped-nylium-section .t4 { background-color: #203e3e; } 
+  .warped-nylium-section .r1 { background-color: #a36162; } 
+  .warped-nylium-section .r2 { background-color: #7b4041; } 
+  .warped-nylium-section .r3 { background-color: #5d2b2b; } 
+  .warped-nylium-section .r4 { background-color: #3b1b1b; } 
+  .warped-nylium-section .r5 { background-color: #210d0d; } 
+
+  /* =========================================
+     4. NETHER BRICK
+     ========================================= */
+  .nether-brick-section .pixel-canvas {
+    border: 4px solid #111111; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+  }
+  .nether-brick-section .n1 { background-color: #741111; } 
+  .nether-brick-section .n2 { background-color: #560808; } 
+  .nether-brick-section .n3 { background-color: #3a0404; } 
+  .nether-brick-section .n4 { background-color: #210202; } 
+  .nether-brick-section .n5 { background-color: #120101; } 
+
+  /* =========================================
+     5. LAVA BLOCK
+     ========================================= */
+  .lava-section .pixel-canvas {
+    border: 4px solid #111111; 
+    box-shadow: 0 15px 35px rgba(255, 87, 34, 0.2); 
+  }
+  .lava-section .l1 { background-color: #ffeb3b; } 
+  .lava-section .l2 { background-color: #fdd835; } 
+  .lava-section .l3 { background-color: #fb8c00; } 
+  .lava-section .l4 { background-color: #e65100; } 
+  .lava-section .l5 { background-color: #bf360c; } 
+
+  /* =========================================
+     6. GRASS BLOCK
+     ========================================= */
+  .grass-section .pixel-canvas {
+    border: 4px solid #222222; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  }
+  .grass-section .g1 { background-color: #86c74d; } 
+  .grass-section .g2 { background-color: #79b642; } 
+  .grass-section .g3 { background-color: #6ba13a; } 
+  .grass-section .g4 { background-color: #5b8731; } 
+  .grass-section .g5 { background-color: #4d7429; } 
+  .grass-section .d1 { background-color: #966c56; } 
+  .grass-section .d2 { background-color: #86604c; } 
+  .grass-section .d3 { background-color: #745444; } 
+  .grass-section .d4 { background-color: #604538; } 
+  .grass-section .s1 { background-color: #787878; } 
+  .grass-section .s2 { background-color: #646464; } 
+
+  /* =========================================
+     7. DIRT BLOCK
+     ========================================= */
+  .dirt-section .pixel-canvas {
+    border: 4px solid #222222; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  }
+  .dirt-section .d1 { background-color: #a47657; } 
+  .dirt-section .d2 { background-color: #8f654a; } 
+  .dirt-section .d3 { background-color: #79553f; } 
+  .dirt-section .d4 { background-color: #5c4030; } 
+  .dirt-section .s1 { background-color: #858786; } 
+
+  /* =========================================
+     8. COBBLESTONE BLOCK
+     ========================================= */
+  .cobblestone-section .pixel-canvas {
+    border: 4px solid #222222; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  }
+  .cobblestone-section .c1 { background-color: #b4b4b4; } 
+  .cobblestone-section .c2 { background-color: #9a9a9a; } 
+  .cobblestone-section .c3 { background-color: #7b7b7b; } 
+  .cobblestone-section .c4 { background-color: #5e5e5e; } 
+  .cobblestone-section .c5 { background-color: #404040; } 
+
+  /* =========================================
+     9. END STONE BLOCK
+     ========================================= */
+  .end-stone-section .pixel-canvas {
+    border: 4px solid #222222; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  }
+  .end-stone-section .e1 { background-color: #fcfecf; } 
+  .end-stone-section .e2 { background-color: #eaf1ae; } 
+  .end-stone-section .e3 { background-color: #dbe494; } 
+  .end-stone-section .e4 { background-color: #c4cc7b; } 
+  .end-stone-section .e5 { background-color: #b2ba65; } 
+
+</style>
+</head>
+<body>
+
+  <!-- 1. End Portal Texture -->
+  <div class="block-section end-portal-section">
+    <h2 class="block-name">End Portal Texture</h2>
+    <div class="end-portal"></div>
+  </div>
+
+  <!-- 2. Purpur Block -->
+  <div class="block-section purpur-section">
+    <h2 class="block-name">Purpur Block</h2>
+    <div class="pixel-canvas">
+      <!-- Row 1 --><div class="p2"></div><div class="p1"></div><div class="p1"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p2"></div><div class="p4"></div><div class="p2"></div><div class="p1"></div><div class="p1"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p2"></div><div class="p4"></div>
+      <!-- Row 2 --><div class="p1"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p3"></div><div class="p4"></div><div class="p1"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p3"></div><div class="p4"></div>
+      <!-- Row 3 --><div class="p1"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p3"></div><div class="p4"></div><div class="p1"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p3"></div><div class="p4"></div>
+      <!-- Row 4 --><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p3"></div><div class="p4"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p3"></div><div class="p4"></div>
+      <!-- Row 5 --><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p4"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p4"></div>
+      <!-- Row 6 --><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p4"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p4"></div>
+      <!-- Row 7 --><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p2"></div><div class="p4"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p2"></div><div class="p4"></div>
+      <!-- Row 8 --><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div>
+      <!-- Row 9 --><div class="p2"></div><div class="p1"></div><div class="p1"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p2"></div><div class="p4"></div><div class="p2"></div><div class="p1"></div><div class="p1"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p2"></div><div class="p4"></div>
+      <!-- Row 10 --><div class="p1"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p3"></div><div class="p4"></div><div class="p1"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p3"></div><div class="p4"></div>
+      <!-- Row 11 --><div class="p1"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p3"></div><div class="p4"></div><div class="p1"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p3"></div><div class="p4"></div>
+      <!-- Row 12 --><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p3"></div><div class="p4"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p3"></div><div class="p4"></div>
+      <!-- Row 13 --><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p4"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p4"></div>
+      <!-- Row 14 --><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p4"></div><div class="p2"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p4"></div>
+      <!-- Row 15 --><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p2"></div><div class="p4"></div><div class="p3"></div><div class="p3"></div><div class="p2"></div><div class="p2"></div><div class="p2"></div><div class="p3"></div><div class="p2"></div><div class="p4"></div>
+      <!-- Row 16 --><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div><div class="p4"></div>
+    </div>
+  </div>
+
+  <!-- 3. Warped Nylium Block -->
+  <div class="block-section warped-nylium-section">
+    <h2 class="block-name">Warped Nylium Block</h2>
+    <div class="pixel-canvas">
+      <!-- Row 1 --><div class="t2"></div><div class="t2"></div><div class="t1"></div><div class="t1"></div><div class="t2"></div><div class="t1"></div><div class="t1"></div><div class="t1"></div><div class="t2"></div><div class="t1"></div><div class="t1"></div><div class="t2"></div><div class="t2"></div><div class="t3"></div><div class="t3"></div><div class="t2"></div>
+      <!-- Row 2 --><div class="t3"></div><div class="t3"></div><div class="t3"></div><div class="t2"></div><div class="t3"></div><div class="t2"></div><div class="t3"></div><div class="t2"></div><div class="t2"></div><div class="t3"></div><div class="t4"></div><div class="t3"></div><div class="t4"></div><div class="t4"></div><div class="t3"></div><div class="t3"></div>
+      <!-- Row 3 --><div class="t4"></div><div class="t4"></div><div class="t4"></div><div class="t3"></div><div class="t4"></div><div class="t4"></div><div class="t4"></div><div class="t4"></div><div class="t4"></div><div class="t4"></div><div class="t4"></div><div class="r5"></div><div class="t4"></div><div class="t4"></div><div class="t2"></div><div class="t4"></div>
+      <!-- Row 4 --><div class="r3"></div><div class="t4"></div><div class="t4"></div><div class="t4"></div><div class="t4"></div><div class="t4"></div><div class="t4"></div><div class="r5"></div><div class="t4"></div><div class="r5"></div><div class="r5"></div><div class="r5"></div><div class="t4"></div><div class="r3"></div><div class="r3"></div><div class="r4"></div>
+      <!-- Row 5 --><div class="r4"></div><div class="r2"></div><div class="r3"></div><div class="r2"></div><div class="r4"></div><div class="t4"></div><div class="r5"></div><div class="r5"></div><div class="r2"></div><div class="r4"></div><div class="r5"></div><div class="t4"></div><div class="t4"></div><div class="r2"></div><div class="r3"></div><div class="r4"></div>
+      <!-- Row 6 --><div class="r3"></div><div class="r3"></div><div class="r2"></div><div class="r4"></div><div class="r4"></div><div class="t4"></div><div class="r4"></div><div class="r3"></div><div class="r4"></div><div class="r3"></div><div class="t4"></div><div class="r4"></div><div class="t4"></div><div class="t4"></div><div class="r2"></div><div class="r3"></div>
+      <!-- Row 7 --><div class="r4"></div><div class="r4"></div><div class="r3"></div><div class="t4"></div><div class="r5"></div><div class="r3"></div><div class="r4"></div><div class="t2"></div><div class="t2"></div><div class="t4"></div><div class="r4"></div><div class="r4"></div><div class="t4"></div><div class="t3"></div><div class="r3"></div><div class="r4"></div>
+      <!-- Row 8 --><div class="r5"></div><div class="r5"></div><div class="r4"></div><div class="r3"></div><div class="r3"></div><div class="r3"></div><div class="t4"></div><div class="t3"></div><div class="r4"></div><div class="r3"></div><div class="r3"></div><div class="t4"></div><div class="t2"></div><div class="t4"></div><div class="r4"></div><div class="r4"></div>
+      <!-- Row 9 --><div class="r4"></div><div class="r5"></div><div class="r3"></div><div class="r4"></div><div class="r4"></div><div class="r4"></div><div class="r5"></div><div class="r5"></div><div class="r4"></div><div class="r3"></div><div class="r3"></div><div class="r3"></div><div class="t2"></div><div class="t2"></div><div class="t4"></div><div class="t4"></div>
+      <!-- Row 10 --><div class="r5"></div><div class="r4"></div><div class="r3"></div><div class="r5"></div><div class="r5"></div><div class="r5"></div><div class="r4"></div><div class="r4"></div><div class="r4"></div><div class="r3"></div><div class="r3"></div><div class="r2"></div><div class="r3"></div><div class="r3"></div><div class="r5"></div><div class="r5"></div>
+      <!-- Row 11 --><div class="r4"></div><div class="r1"></div><div class="t4"></div><div class="r5"></div><div class="r5"></div><div class="r4"></div><div class="r3"></div><div class="r3"></div><div class="r4"></div><div class="r5"></div><div class="r5"></div><div class="r5"></div><div class="r4"></div><div class="r3"></div><div class="r3"></div><div class="r2"></div>
+      <!-- Row 12 --><div class="r2"></div><div class="r1"></div><div class="t3"></div><div class="t4"></div><div class="r2"></div><div class="r3"></div><div class="r5"></div><div class="r5"></div><div class="r4"></div><div class="r4"></div><div class="r5"></div><div class="r5"></div><div class="r3"></div><div class="r2"></div><div class="r3"></div><div class="r4"></div>
+      <!-- Row 13 --><div class="r3"></div><div class="r5"></div><div class="r1"></div><div class="r1"></div><div class="r1"></div><div class="r2"></div><div class="r4"></div><div class="r5"></div><div class="r5"></div><div class="r5"></div><div class="r4"></div><div class="r3"></div><div class="r3"></div><div class="r2"></div><div class="r2"></div><div class="r5"></div>
+      <!-- Row 14 --><div class="r5"></div><div class="r4"></div><div class="r2"></div><div class="r1"></div><div class="r5"></div><div class="r3"></div><div class="r3"></div><div class="r4"></div><div class="r5"></div><div class="r5"></div><div class="r4"></div><div class="r3"></div><div class="r3"></div><div class="r2"></div><div class="r2"></div><div class="r2"></div>
+      <!-- Row 15 --><div class="r4"></div><div class="r3"></div><div class="r2"></div><div class="r1"></div><div class="r2"></div><div class="r3"></div><div class="r2"></div><div class="r2"></div><div class="r5"></div><div class="r4"></div><div class="r3"></div><div class="r3"></div><div class="r4"></div><div class="r3"></div><div class="r3"></div><div class="r2"></div>
+      <!-- Row 16 --><div class="r5"></div><div class="r5"></div><div class="r4"></div><div class="r2"></div><div class="r3"></div><div class="r4"></div><div class="r5"></div><div class="r4"></div><div class="r3"></div><div class="r2"></div><div class="r3"></div><div class="r4"></div><div class="r3"></div><div class="r2"></div><div class="r2"></div><div class="r3"></div>
+    </div>
+  </div>
+
+  <!-- 4. Nether Brick -->
+  <div class="block-section nether-brick-section">
+    <h2 class="block-name">Nether Brick</h2>
+    <div class="pixel-canvas">
+      <!-- Row 1 --><div class="n3"></div><div class="n2"></div><div class="n3"></div><div class="n5"></div><div class="n2"></div><div class="n3"></div><div class="n1"></div><div class="n2"></div><div class="n2"></div><div class="n3"></div><div class="n4"></div><div class="n5"></div><div class="n3"></div><div class="n2"></div><div class="n2"></div><div class="n3"></div>
+      <!-- Row 2 --><div class="n4"></div><div class="n3"></div><div class="n2"></div><div class="n5"></div><div class="n4"></div><div class="n2"></div><div class="n2"></div><div class="n1"></div><div class="n3"></div><div class="n2"></div><div class="n4"></div><div class="n5"></div><div class="n4"></div><div class="n3"></div><div class="n2"></div><div class="n2"></div>
+      <!-- Row 3 --><div class="n4"></div><div class="n4"></div><div class="n3"></div><div class="n5"></div><div class="n4"></div><div class="n4"></div><div class="n3"></div><div class="n2"></div><div class="n2"></div><div class="n3"></div><div class="n4"></div><div class="n5"></div><div class="n4"></div><div class="n4"></div><div class="n3"></div><div class="n3"></div>
+      <!-- Row 4 --><div class="n5"></div><div class="n5"></div><div class="n4"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n4"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n4"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div>
+      <!-- Row 5 --><div class="n2"></div><div class="n3"></div><div class="n2"></div><div class="n1"></div><div class="n2"></div><div class="n3"></div><div class="n4"></div><div class="n5"></div><div class="n3"></div><div class="n2"></div><div class="n2"></div><div class="n1"></div><div class="n3"></div><div class="n3"></div><div class="n4"></div><div class="n5"></div>
+      <!-- Row 6 --><div class="n3"></div><div class="n2"></div><div class="n2"></div><div class="n2"></div><div class="n3"></div><div class="n2"></div><div class="n4"></div><div class="n5"></div><div class="n4"></div><div class="n3"></div><div class="n2"></div><div class="n2"></div><div class="n2"></div><div class="n2"></div><div class="n4"></div><div class="n5"></div>
+      <!-- Row 7 --><div class="n4"></div><div class="n4"></div><div class="n3"></div><div class="n3"></div><div class="n3"></div><div class="n3"></div><div class="n4"></div><div class="n5"></div><div class="n4"></div><div class="n4"></div><div class="n3"></div><div class="n3"></div><div class="n3"></div><div class="n3"></div><div class="n4"></div><div class="n5"></div>
+      <!-- Row 8 --><div class="n5"></div><div class="n4"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n4"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n4"></div><div class="n5"></div><div class="n5"></div>
+      <!-- Row 9 --><div class="n2"></div><div class="n2"></div><div class="n1"></div><div class="n5"></div><div class="n2"></div><div class="n3"></div><div class="n2"></div><div class="n3"></div><div class="n1"></div><div class="n2"></div><div class="n4"></div><div class="n5"></div><div class="n2"></div><div class="n2"></div><div class="n1"></div><div class="n2"></div>
+      <!-- Row 10 --><div class="n3"></div><div class="n2"></div><div class="n2"></div><div class="n5"></div><div class="n4"></div><div class="n3"></div><div class="n3"></div><div class="n2"></div><div class="n2"></div><div class="n3"></div><div class="n4"></div><div class="n5"></div><div class="n3"></div><div class="n3"></div><div class="n2"></div><div class="n2"></div>
+      <!-- Row 11 --><div class="n4"></div><div class="n4"></div><div class="n3"></div><div class="n5"></div><div class="n4"></div><div class="n4"></div><div class="n4"></div><div class="n3"></div><div class="n3"></div><div class="n3"></div><div class="n4"></div><div class="n5"></div><div class="n4"></div><div class="n4"></div><div class="n3"></div><div class="n3"></div>
+      <!-- Row 12 --><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n4"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div>
+      <!-- Row 13 --><div class="n3"></div><div class="n1"></div><div class="n2"></div><div class="n2"></div><div class="n3"></div><div class="n3"></div><div class="n4"></div><div class="n5"></div><div class="n2"></div><div class="n3"></div><div class="n1"></div><div class="n2"></div><div class="n2"></div><div class="n3"></div><div class="n4"></div><div class="n5"></div>
+      <!-- Row 14 --><div class="n4"></div><div class="n2"></div><div class="n2"></div><div class="n3"></div><div class="n3"></div><div class="n4"></div><div class="n4"></div><div class="n5"></div><div class="n3"></div><div class="n2"></div><div class="n2"></div><div class="n2"></div><div class="n3"></div><div class="n2"></div><div class="n4"></div><div class="n5"></div>
+      <!-- Row 15 --><div class="n4"></div><div class="n4"></div><div class="n3"></div><div class="n3"></div><div class="n4"></div><div class="n4"></div><div class="n4"></div><div class="n5"></div><div class="n4"></div><div class="n4"></div><div class="n3"></div><div class="n3"></div><div class="n3"></div><div class="n3"></div><div class="n4"></div><div class="n5"></div>
+      <!-- Row 16 --><div class="n5"></div><div class="n4"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n4"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div><div class="n5"></div>
+    </div>
+  </div>
+
+  <!-- 5. Lava Block -->
+  <div class="block-section lava-section">
+    <h2 class="block-name">Lava Block</h2>
+    <div class="pixel-canvas">
+      <!-- Row 1 --><div class="l4"></div><div class="l4"></div><div class="l3"></div><div class="l3"></div><div class="l4"></div><div class="l4"></div><div class="l3"></div><div class="l1"></div><div class="l3"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div>
+      <!-- Row 2 --><div class="l4"></div><div class="l3"></div><div class="l4"></div><div class="l5"></div><div class="l3"></div><div class="l3"></div><div class="l4"></div><div class="l2"></div><div class="l3"></div><div class="l4"></div><div class="l5"></div><div class="l4"></div><div class="l2"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div>
+      <!-- Row 3 --><div class="l3"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l3"></div><div class="l3"></div><div class="l2"></div><div class="l3"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l2"></div><div class="l5"></div><div class="l4"></div><div class="l3"></div><div class="l4"></div>
+      <!-- Row 4 --><div class="l3"></div><div class="l3"></div><div class="l3"></div><div class="l3"></div><div class="l2"></div><div class="l4"></div><div class="l5"></div><div class="l4"></div><div class="l3"></div><div class="l3"></div><div class="l3"></div><div class="l3"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div>
+      <!-- Row 5 --><div class="l3"></div><div class="l4"></div><div class="l3"></div><div class="l4"></div><div class="l3"></div><div class="l2"></div><div class="l3"></div><div class="l3"></div><div class="l3"></div><div class="l5"></div><div class="l3"></div><div class="l3"></div><div class="l4"></div><div class="l2"></div><div class="l5"></div><div class="l4"></div>
+      <!-- Row 6 --><div class="l4"></div><div class="l3"></div><div class="l2"></div><div class="l3"></div><div class="l4"></div><div class="l3"></div><div class="l4"></div><div class="l3"></div><div class="l3"></div><div class="l3"></div><div class="l3"></div><div class="l2"></div><div class="l4"></div><div class="l3"></div><div class="l3"></div><div class="l3"></div>
+      <!-- Row 7 --><div class="l3"></div><div class="l4"></div><div class="l2"></div><div class="l3"></div><div class="l3"></div><div class="l4"></div><div class="l4"></div><div class="l5"></div><div class="l4"></div><div class="l2"></div><div class="l3"></div><div class="l3"></div><div class="l3"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div>
+      <!-- Row 8 --><div class="l4"></div><div class="l3"></div><div class="l2"></div><div class="l3"></div><div class="l4"></div><div class="l3"></div><div class="l5"></div><div class="l4"></div><div class="l4"></div><div class="l2"></div><div class="l4"></div><div class="l4"></div><div class="l2"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div>
+      <!-- Row 9 --><div class="l2"></div><div class="l2"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l3"></div><div class="l3"></div><div class="l4"></div><div class="l2"></div><div class="l4"></div><div class="l3"></div><div class="l2"></div><div class="l3"></div><div class="l4"></div><div class="l4"></div>
+      <!-- Row 10 --><div class="l1"></div><div class="l2"></div><div class="l3"></div><div class="l3"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l3"></div><div class="l5"></div><div class="l5"></div><div class="l2"></div><div class="l5"></div><div class="l4"></div><div class="l3"></div><div class="l3"></div><div class="l3"></div>
+      <!-- Row 11 --><div class="l4"></div><div class="l5"></div><div class="l3"></div><div class="l2"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l3"></div><div class="l4"></div><div class="l3"></div><div class="l2"></div><div class="l3"></div><div class="l3"></div><div class="l4"></div><div class="l2"></div>
+      <!-- Row 12 --><div class="l5"></div><div class="l4"></div><div class="l3"></div><div class="l5"></div><div class="l3"></div><div class="l2"></div><div class="l2"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l5"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l3"></div>
+      <!-- Row 13 --><div class="l3"></div><div class="l2"></div><div class="l4"></div><div class="l3"></div><div class="l1"></div><div class="l3"></div><div class="l2"></div><div class="l3"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l3"></div><div class="l4"></div><div class="l5"></div><div class="l2"></div>
+      <!-- Row 14 --><div class="l4"></div><div class="l3"></div><div class="l4"></div><div class="l4"></div><div class="l3"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l3"></div><div class="l4"></div><div class="l3"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l3"></div>
+      <!-- Row 15 --><div class="l4"></div><div class="l4"></div><div class="l4"></div><div class="l5"></div><div class="l4"></div><div class="l3"></div><div class="l4"></div><div class="l3"></div><div class="l3"></div><div class="l5"></div><div class="l2"></div><div class="l4"></div><div class="l3"></div><div class="l5"></div><div class="l3"></div><div class="l4"></div>
+      <!-- Row 16 --><div class="l4"></div><div class="l4"></div><div class="l5"></div><div class="l4"></div><div class="l3"></div><div class="l2"></div><div class="l3"></div><div class="l4"></div><div class="l4"></div><div class="l5"></div><div class="l4"></div><div class="l4"></div><div class="l3"></div><div class="l4"></div><div class="l4"></div><div class="l4"></div>
+    </div>
+  </div>
+
+  <!-- 6. Grass Block -->
+  <div class="block-section grass-section">
+    <h2 class="block-name">Grass Block</h2>
+    <div class="pixel-canvas">
+      <!-- Row 1 --><div class="g3"></div><div class="g2"></div><div class="g2"></div><div class="g3"></div><div class="g2"></div><div class="g1"></div><div class="g2"></div><div class="g2"></div><div class="g3"></div><div class="g2"></div><div class="g2"></div><div class="g1"></div><div class="g2"></div><div class="g3"></div><div class="g2"></div><div class="g2"></div>
+      <!-- Row 2 --><div class="g2"></div><div class="g1"></div><div class="g3"></div><div class="g2"></div><div class="g2"></div><div class="g3"></div><div class="g2"></div><div class="g1"></div><div class="g2"></div><div class="g2"></div><div class="g3"></div><div class="g2"></div><div class="g1"></div><div class="g2"></div><div class="g2"></div><div class="g3"></div>
+      <!-- Row 3 --><div class="g4"></div><div class="g2"></div><div class="g2"></div><div class="g3"></div><div class="g4"></div><div class="g2"></div><div class="g2"></div><div class="g3"></div><div class="g4"></div><div class="g2"></div><div class="g2"></div><div class="g3"></div><div class="g4"></div><div class="g2"></div><div class="g2"></div><div class="g3"></div>
+      <!-- Row 4 --><div class="g4"></div><div class="g4"></div><div class="g3"></div><div class="g2"></div><div class="g4"></div><div class="g4"></div><div class="g3"></div><div class="g2"></div><div class="g4"></div><div class="g4"></div><div class="g3"></div><div class="g2"></div><div class="g4"></div><div class="g4"></div><div class="g3"></div><div class="g2"></div>
+      <!-- Row 5 --><div class="g4"></div><div class="d2"></div><div class="d2"></div><div class="g5"></div><div class="g4"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="g4"></div><div class="d2"></div><div class="d3"></div><div class="g5"></div><div class="g4"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div>
+      <!-- Row 6 --><div class="d3"></div><div class="d2"></div><div class="s1"></div><div class="d2"></div><div class="d4"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d2"></div><div class="s2"></div><div class="d2"></div><div class="d4"></div><div class="d2"></div><div class="d2"></div>
+      <!-- Row 7 --><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d4"></div><div class="d3"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d4"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div>
+      <!-- Row 8 --><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="s1"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div>
+      <!-- Row 9 --><div class="d2"></div><div class="d3"></div><div class="d4"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div>
+      <!-- Row 10 --><div class="d3"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div>
+      <!-- Row 11 --><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="s2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div><div class="d2"></div><div class="s1"></div>
+      <!-- Row 12 --><div class="d2"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div>
+      <!-- Row 13 --><div class="s1"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div>
+      <!-- Row 14 --><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div><div class="d2"></div>
+      <!-- Row 15 --><div class="d1"></div><div class="d2"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="s1"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div>
+      <!-- Row 16 --><div class="d2"></div><div class="d3"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div><div class="d2"></div><div class="d1"></div>
+    </div>
+  </div>
+
+  <!-- 7. Dirt Block -->
+  <div class="block-section dirt-section">
+    <h2 class="block-name">Dirt Block</h2>
+    <div class="pixel-canvas">
+      <!-- Row 1 --><div class="d1"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div>
+      <!-- Row 2 --><div class="d2"></div><div class="d2"></div><div class="d4"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="s1"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div>
+      <!-- Row 3 --><div class="d3"></div><div class="s1"></div><div class="d2"></div><div class="d1"></div><div class="d1"></div><div class="d3"></div><div class="d2"></div><div class="d4"></div><div class="d2"></div><div class="d2"></div><div class="d4"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div>
+      <!-- Row 4 --><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div><div class="d2"></div><div class="d4"></div><div class="d4"></div><div class="d4"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div><div class="d2"></div>
+      <!-- Row 5 --><div class="d2"></div><div class="d4"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d1"></div>
+      <!-- Row 6 --><div class="d1"></div><div class="d1"></div><div class="d2"></div><div class="s1"></div><div class="d2"></div><div class="d3"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div><div class="d2"></div><div class="d3"></div><div class="d2"></div>
+      <!-- Row 7 --><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div><div class="d3"></div><div class="d2"></div><div class="d4"></div><div class="d3"></div><div class="s1"></div><div class="d3"></div><div class="d2"></div>
+      <!-- Row 8 --><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="d4"></div><div class="d4"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d4"></div><div class="d3"></div>
+      <!-- Row 9 --><div class="d3"></div><div class="d1"></div><div class="d4"></div><div class="d4"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d4"></div><div class="d4"></div><div class="d1"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div>
+      <!-- Row 10 --><div class="d3"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d1"></div><div class="d3"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="s1"></div><div class="d4"></div><div class="d2"></div>
+      <!-- Row 11 --><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div><div class="d3"></div><div class="d2"></div><div class="d4"></div><div class="s1"></div><div class="d3"></div><div class="d4"></div><div class="d4"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div>
+      <!-- Row 12 --><div class="d2"></div><div class="d4"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d1"></div>
+      <!-- Row 13 --><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="d4"></div><div class="d4"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div>
+      <!-- Row 14 --><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div><div class="d2"></div><div class="d2"></div><div class="d3"></div><div class="d4"></div><div class="d2"></div><div class="d1"></div>
+      <!-- Row 15 --><div class="d1"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d4"></div><div class="d3"></div><div class="d2"></div><div class="d2"></div><div class="d2"></div><div class="d4"></div>
+      <!-- Row 16 --><div class="d2"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d1"></div><div class="s1"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div><div class="d3"></div><div class="d1"></div><div class="s1"></div><div class="d2"></div><div class="d1"></div><div class="d2"></div>
+    </div>
+  </div>
+
+  <!-- 8. Cobblestone Block -->
+  <div class="block-section cobblestone-section">
+    <h2 class="block-name">Cobblestone Block</h2>
+    <div class="pixel-canvas">
+      <!-- Row 1 --><div class="c3"></div><div class="c3"></div><div class="c4"></div><div class="c3"></div><div class="c4"></div><div class="c2"></div><div class="c3"></div><div class="c2"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div><div class="c5"></div><div class="c4"></div><div class="c3"></div><div class="c4"></div><div class="c3"></div>
+      <!-- Row 2 --><div class="c3"></div><div class="c4"></div><div class="c1"></div><div class="c2"></div><div class="c2"></div><div class="c3"></div><div class="c3"></div><div class="c2"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div><div class="c5"></div><div class="c4"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div>
+      <!-- Row 3 --><div class="c4"></div><div class="c4"></div><div class="c2"></div><div class="c1"></div><div class="c2"></div><div class="c4"></div><div class="c4"></div><div class="c3"></div><div class="c2"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div><div class="c4"></div><div class="c3"></div><div class="c2"></div><div class="c3"></div>
+      <!-- Row 4 --><div class="c4"></div><div class="c4"></div><div class="c3"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div><div class="c3"></div><div class="c3"></div><div class="c4"></div><div class="c5"></div><div class="c5"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div>
+      <!-- Row 5 --><div class="c2"></div><div class="c2"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div><div class="c3"></div><div class="c3"></div><div class="c5"></div><div class="c5"></div><div class="c2"></div><div class="c2"></div><div class="c2"></div><div class="c3"></div><div class="c3"></div><div class="c4"></div>
+      <!-- Row 6 --><div class="c1"></div><div class="c2"></div><div class="c2"></div><div class="c1"></div><div class="c2"></div><div class="c2"></div><div class="c4"></div><div class="c5"></div><div class="c4"></div><div class="c1"></div><div class="c2"></div><div class="c3"></div><div class="c3"></div><div class="c3"></div><div class="c2"></div><div class="c3"></div>
+      <!-- Row 7 --><div class="c3"></div><div class="c2"></div><div class="c3"></div><div class="c2"></div><div class="c2"></div><div class="c3"></div><div class="c3"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div><div class="c3"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div>
+      <!-- Row 8 --><div class="c3"></div><div class="c3"></div><div class="c4"></div><div class="c5"></div><div class="c5"></div><div class="c5"></div><div class="c5"></div><div class="c3"></div><div class="c3"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div><div class="c5"></div><div class="c4"></div><div class="c4"></div>
+      <!-- Row 9 --><div class="c4"></div><div class="c1"></div><div class="c2"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div><div class="c2"></div><div class="c3"></div><div class="c2"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div><div class="c3"></div><div class="c3"></div><div class="c4"></div><div class="c4"></div>
+      <!-- Row 10 --><div class="c4"></div><div class="c2"></div><div class="c3"></div><div class="c3"></div><div class="c3"></div><div class="c4"></div><div class="c4"></div><div class="c3"></div><div class="c2"></div><div class="c2"></div><div class="c4"></div><div class="c3"></div><div class="c4"></div><div class="c4"></div><div class="c2"></div><div class="c2"></div>
+      <!-- Row 11 --><div class="c5"></div><div class="c4"></div><div class="c4"></div><div class="c3"></div><div class="c4"></div><div class="c5"></div><div class="c5"></div><div class="c4"></div><div class="c5"></div><div class="c4"></div><div class="c4"></div><div class="c5"></div><div class="c4"></div><div class="c3"></div><div class="c2"></div><div class="c3"></div>
+      <!-- Row 12 --><div class="c4"></div><div class="c3"></div><div class="c4"></div><div class="c4"></div><div class="c3"></div><div class="c4"></div><div class="c2"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div><div class="c2"></div><div class="c3"></div><div class="c3"></div><div class="c4"></div>
+      <!-- Row 13 --><div class="c4"></div><div class="c4"></div><div class="c2"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div><div class="c3"></div><div class="c2"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div><div class="c4"></div><div class="c2"></div><div class="c3"></div><div class="c3"></div><div class="c4"></div>
+      <!-- Row 14 --><div class="c3"></div><div class="c2"></div><div class="c3"></div><div class="c2"></div><div class="c4"></div><div class="c5"></div><div class="c4"></div><div class="c3"></div><div class="c3"></div><div class="c4"></div><div class="c3"></div><div class="c4"></div><div class="c3"></div><div class="c3"></div><div class="c3"></div><div class="c4"></div>
+      <!-- Row 15 --><div class="c3"></div><div class="c2"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div><div class="c3"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div><div class="c4"></div>
+      <!-- Row 16 --><div class="c4"></div><div class="c4"></div><div class="c3"></div><div class="c3"></div><div class="c4"></div><div class="c5"></div><div class="c4"></div><div class="c3"></div><div class="c2"></div><div class="c3"></div><div class="c4"></div><div class="c5"></div><div class="c4"></div><div class="c3"></div><div class="c3"></div><div class="c4"></div>
+    </div>
+  </div>
+
+  <!-- 9. End Stone Block -->
+  <div class="block-section end-stone-section">
+    <h2 class="block-name">End Stone Block</h2>
+    <div class="pixel-canvas">
+      <!-- Row 1 --><div class="e3"></div><div class="e2"></div><div class="e1"></div><div class="e3"></div><div class="e2"></div><div class="e1"></div><div class="e2"></div><div class="e4"></div><div class="e4"></div><div class="e3"></div><div class="e3"></div><div class="e2"></div><div class="e1"></div><div class="e1"></div><div class="e3"></div><div class="e3"></div>
+      <!-- Row 2 --><div class="e2"></div><div class="e1"></div><div class="e4"></div><div class="e3"></div><div class="e3"></div><div class="e2"></div><div class="e4"></div><div class="e3"></div><div class="e2"></div><div class="e4"></div><div class="e4"></div><div class="e3"></div><div class="e3"></div><div class="e3"></div><div class="e4"></div><div class="e3"></div>
+      <!-- Row 3 --><div class="e1"></div><div class="e4"></div><div class="e3"></div><div class="e3"></div><div class="e2"></div><div class="e1"></div><div class="e3"></div><div class="e4"></div><div class="e3"></div><div class="e3"></div><div class="e2"></div><div class="e1"></div><div class="e2"></div><div class="e2"></div><div class="e1"></div><div class="e2"></div>
+      <!-- Row 4 --><div class="e2"></div><div class="e3"></div><div class="e3"></div><div class="e2"></div><div class="e2"></div><div class="e2"></div><div class="e1"></div><div class="e3"></div><div class="e3"></div><div class="e3"></div><div class="e1"></div><div class="e1"></div><div class="e4"></div><div class="e3"></div><div class="e1"></div><div class="e1"></div>
+      <!-- Row 5 --><div class="e4"></div><div class="e4"></div><div class="e2"></div><div class="e1"></div><div class="e1"></div><div class="e1"></div><div class="e2"></div><div class="e3"></div><div class="e1"></div><div class="e3"></div><div class="e4"></div><div class="e4"></div><div class="e3"></div><div class="e3"></div><div class="e2"></div><div class="e3"></div>
+      <!-- Row 6 --><div class="e4"></div><div class="e3"></div><div class="e2"></div><div class="e4"></div><div class="e4"></div><div class="e4"></div><div class="e2"></div><div class="e2"></div><div class="e1"></div><div class="e4"></div><div class="e4"></div><div class="e3"></div><div class="e4"></div><div class="e4"></div><div class="e3"></div><div class="e2"></div>
+      <!-- Row 7 --><div class="e2"></div><div class="e3"></div><div class="e3"></div><div class="e4"></div><div class="e2"></div><div class="e2"></div><div class="e2"></div><div class="e3"></div><div class="e3"></div><div class="e2"></div><div class="e2"></div><div class="e3"></div><div class="e3"></div><div class="e2"></div><div class="e1"></div><div class="e1"></div>
+      <!-- Row 8 --><div class="e2"></div><div class="e2"></div><div class="e2"></div><div class="e1"></div><div class="e1"></div><div class="e1"></div><div class="e2"></div><div class="e4"></div><div class="e4"></div><div class="e3"></div><div class="e2"></div><div class="e2"></div><div class="e3"></div><div class="e1"></div><div class="e2"></div><div class="e3"></div>
+      <!-- Row 9 --><div class="e1"></div><div class="e4"></div><div class="e4"></div><div class="e4"></div><div class="e3"></div><div class="e2"></div><div class="e4"></div><div class="e4"></div><div class="e4"></div><div class="e4"></div><div class="e4"></div><div class="e3"></div><div class="e4"></div><div class="e3"></div><div class="e2"></div><div class="e2"></div>
+      <!-- Row 10 --><div class="e2"></div><div class="e3"></div><div class="e3"></div><div class="e4"></div><div class="e3"></div><div class="e2"></div><div class="e1"></div><div class="e2"></div><div class="e3"></div><div class="e4"></div><div class="e4"></div><div class="e3"></div><div class="e2"></div><div class="e1"></div><div class="e3"></div><div class="e4"></div>
+      <!-- Row 11 --><div class="e1"></div><div class="e2"></div><div class="e2"></div><div class="e3"></div><div class="e3"></div><div class="e1"></div><div class="e2"></div><div class="e3"></div><div class="e2"></div><div class="e2"></div><div class="e3"></div><div class="e3"></div><div class="e1"></div><div class="e4"></div><div class="e4"></div><div class="e3"></div>
+      <!-- Row 12 --><div class="e1"></div><div class="e1"></div><div class="e2"></div><div class="e3"></div><div class="e3"></div><div class="e2"></div><div class="e4"></div><div class="e3"></div><div class="e3"></div><div class="e2"></div><div class="e1"></div><div class="e2"></div><div class="e4"></div><div class="e3"></div><div class="e3"></div><div class="e3"></div>
+      <!-- Row 13 --><div class="e2"></div><div class="e4"></div><div class="e4"></div><div class="e3"></div><div class="e3"></div><div class="e2"></div><div class="e3"></div><div class="e4"></div><div class="e3"></div><div class="e4"></div><div class="e4"></div><div class="e2"></div><div class="e4"></div><div class="e3"></div><div class="e3"></div><div class="e1"></div>
+      <!-- Row 14 --><div class="e4"></div><div class="e4"></div><div class="e3"></div><div class="e3"></div><div class="e2"></div><div class="e2"></div><div class="e2"></div><div class="e1"></div><div class="e2"></div><div class="e3"></div><div class="e3"></div><div class="e3"></div><div class="e2"></div><div class="e3"></div><div class="e3"></div><div class="e1"></div>
+      <!-- Row 15 --><div class="e1"></div><div class="e3"></div><div class="e4"></div><div class="e3"></div><div class="e3"></div><div class="e2"></div><div class="e3"></div><div class="e3"></div><div class="e2"></div><div class="e1"></div><div class="e1"></div><div class="e3"></div><div class="e2"></div><div class="e1"></div><div class="e1"></div><div class="e2"></div>
+      <!-- Row 16 --><div class="e2"></div><div class="e1"></div><div class="e3"></div><div class="e4"></div><div class="e4"></div><div class="e3"></div><div class="e1"></div><div class="e2"></div><div class="e4"></div><div class="e3"></div><div class="e3"></div><div class="e1"></div><div class="e2"></div><div class="e4"></div><div class="e4"></div><div class="e3"></div>
+    </div>
+  </div>
+
+</body>
+</html>

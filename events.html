@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events Directory | MAJU Code Craft</title>
+<meta name="description" content="Browse upcoming hackathons, tech workshops, and speaker sessions at MAJU Code Craft. No login required to view or register.">
+<link rel="icon" type="image/png" href="logos/community_logo_clean.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mc-theme.css">
+<style>
+  /* ===== Events Directory Page Styling ===== */
+  .page-hero{
+    padding:60px 24px 40px;
+    text-align:center;
+    position:relative;
+    z-index:2;
+  }
+  .page-hero-scrim{
+    display:inline-block;
+    background:rgba(6,6,8,0.55);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+    padding:28px 36px;
+    border-radius:2px;
+    box-shadow:0 0 0 1px rgba(255,138,61,0.14), 0 10px 0 rgba(0,0,0,0.3);
+    width:100%;
+    max-width:760px;
+  }
+  .hero-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--font-pixel);
+    font-size:clamp(11px, 1.35vw, 14px);
+    letter-spacing:2px;
+    color:#FFFFFF;
+    background:linear-gradient(90deg, rgba(232,68,44,0.55), rgba(255,138,61,0.4));
+    border:2px solid var(--gold);
+    padding:8px 18px;
+    box-shadow:inset 1px 1px 0 rgba(255,255,255,0.25), inset -1px -1px 0 rgba(0,0,0,0.5), 0 0 14px rgba(255,138,61,0.45);
+    text-shadow:1px 1px 0 #000, 0 0 8px rgba(255,138,61,0.6);
+    font-weight:bold;
+  }
+  .page-title{
+    font-family:var(--font-pixel);
+    font-size:clamp(20px, 3.8vw, 34px);
+    line-height:1.6;
+    color:var(--text-dark);
+    margin-bottom:14px;
+    text-shadow:3px 3px 0 rgba(0,0,0,0.4);
+  }
+  .page-title .accent{
+    background:linear-gradient(90deg, var(--ember), var(--grass-side));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .page-sub{
+    font-size:20px;
+    line-height:1.5;
+    color:#d8d8de;
+    max-width:620px;
+    margin:0 auto;
+    text-shadow:1px 1px 0 rgba(0,0,0,0.7);
+  }
+
+  /* ---- Filter Controls ---- */
+  .filters-wrap{
+    max-width:1160px;
+    margin:0 auto 34px;
+    padding:0 24px;
+    position:relative;
+    z-index:3;
+  }
+  .filters-bar{
+    background:rgba(28,28,32,0.75);
+    backdrop-filter:blur(6px);
+    border:4px solid var(--ui-dark);
+    padding:16px 20px;
+    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.12), inset -3px -3px 0 rgba(0,0,0,0.45), 0 8px 0 rgba(0,0,0,0.3);
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .filter-cluster{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    align-items:center;
+  }
+  .filter-label{
+    font-family:var(--font-pixel);
+    font-size:9px;
+    color:var(--ember);
+    letter-spacing:1px;
+    margin-right:4px;
+    text-transform:uppercase;
+  }
+  .filter-btn{
+    font-family:var(--font-pixel);
+    font-size:9px;
+    color:#b4b4ba;
+    background:var(--slot-bg);
+    border:2px solid var(--ui-dark);
+    padding:8px 12px;
+    cursor:pointer;
+    box-shadow:inset 2px 2px 0 rgba(0,0,0,0.6), inset -2px -2px 0 rgba(255,138,61,0.06);
+    transition:all 0.15s ease;
+    white-space:nowrap;
+  }
+  .filter-btn:hover{
+    color:#fff;
+    border-color:var(--ember);
+    transform:translateY(-1px);
+  }
+  .filter-btn.active{
+    color:#fff;
+    background:linear-gradient(90deg, rgba(232,68,44,0.4), rgba(255,138,61,0.3));
+    border-color:var(--gold);
+    box-shadow:inset 2px 2px 0 rgba(255,255,255,0.15), inset -2px -2px 0 rgba(0,0,0,0.4), 0 0 8px rgba(255,138,61,0.35);
+  }
+
+  /* ---- Events Grid & Cards ---- */
+  .events-wrap{
+    max-width:1160px;
+    margin:0 auto 70px;
+    padding:0 24px;
+    position:relative;
+    z-index:2;
+  }
+  .events-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));
+    gap:26px;
+  }
+  .event-card{
+    background:var(--ui-bg);
+    border:5px solid var(--ui-dark);
+    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.15), inset -3px -3px 0 rgba(0,0,0,0.45), 0 0 0 2px rgba(232,68,44,0.22), 0 10px 0 rgba(0,0,0,0.4);
+    display:flex;
+    flex-direction:column;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .event-card:hover{
+    transform:translateY(-4px);
+    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.25), inset -3px -3px 0 rgba(0,0,0,0.45), 0 0 0 2px var(--gold), 0 14px 0 rgba(0,0,0,0.45), 0 0 18px rgba(255,138,61,0.2);
+  }
+  .event-banner{
+    padding:14px 18px;
+    font-family:var(--font-pixel);
+    font-size:10px;
+    letter-spacing:1px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:3px solid var(--ui-dark);
+  }
+  .banner-hackathon{
+    background:linear-gradient(90deg, #3A150D, #551E0E);
+    color:var(--ember);
+    border-top:3px solid var(--grass-top);
+  }
+  .banner-session{
+    background:linear-gradient(90deg, #102436, #14354D);
+    color:#73D2FF;
+    border-top:3px solid #21D4E0;
+  }
+  .event-status-tag{
+    font-family:var(--font-pixel);
+    font-size:8px;
+    padding:4px 8px;
+    box-shadow:inset 1px 1px 0 rgba(255,255,255,0.2), inset -1px -1px 0 rgba(0,0,0,0.4);
+  }
+  .tag-open{ background:var(--cave-neon); color:#0A1E14; text-shadow:none; font-weight:bold; }
+  .tag-promo{ background:var(--ember); color:#241200; text-shadow:none; font-weight:bold; }
+  .tag-wrapped{ background:#4A4A52; color:#D0D0D8; text-shadow:none; }
+
+  .event-content{
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+  }
+  .event-title{
+    font-family:var(--font-pixel);
+    font-size:14px;
+    line-height:1.6;
+    color:#fff;
+    margin-bottom:12px;
+  }
+  .event-meta{
+    font-size:17px;
+    color:var(--ember);
+    margin-bottom:12px;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .event-meta span{
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .event-desc{
+    font-size:18px;
+    line-height:1.5;
+    color:#c4c4ca;
+    margin-bottom:20px;
+    flex:1;
+  }
+  .event-action{
+    margin-top:auto;
+  }
+
+  /* ---- Modal for Event Registration ---- */
+  .modal-overlay{
+    position:fixed;
+    inset:0;
+    z-index:999;
+    background:rgba(6,6,8,0.75);
+    backdrop-filter:blur(4px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+  }
+  .modal-overlay.active{ display:flex; }
+  .modal-panel{
+    background:var(--ui-bg);
+    border:6px solid var(--ui-dark);
+    box-shadow:inset 4px 4px 0 rgba(255,138,61,0.15), inset -4px -4px 0 rgba(0,0,0,0.5), 0 0 0 3px rgba(232,68,44,0.35), 0 16px 0 rgba(0,0,0,0.6);
+    max-width:540px;
+    width:100%;
+    padding:28px;
+    position:relative;
+    animation:popIn 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  }
+  @keyframes popIn{
+    from{ transform:scale(0.92); opacity:0; }
+    to{ transform:scale(1); opacity:1; }
+  }
+  .modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:16px;
+    border-bottom:3px solid var(--ui-dark);
+    padding-bottom:12px;
+  }
+  .modal-title{
+    font-family:var(--font-pixel);
+    font-size:13px;
+    color:var(--text-dark);
+    line-height:1.5;
+  }
+  .modal-close{
+    font-family:var(--font-pixel);
+    background:transparent;
+    border:2px solid var(--ui-dark);
+    color:#ff7070;
+    cursor:pointer;
+    padding:4px 8px;
+    font-size:12px;
+  }
+  .modal-close:hover{
+    background:#e8442c;
+    color:#fff;
+  }
+  .modal-form .form-group{
+    margin-bottom:14px;
+  }
+  .modal-form label{
+    display:block;
+    font-size:16px;
+    color:var(--ember);
+    margin-bottom:4px;
+  }
+  .modal-form input, .modal-form select{
+    width:100%;
+    font-family:var(--font-body);
+    font-size:18px;
+    color:#fff;
+    background:var(--slot-bg);
+    border:3px solid var(--ui-dark);
+    padding:8px 12px;
+    box-shadow:inset 2px 2px 0 rgba(0,0,0,0.6), inset -2px -2px 0 rgba(255,138,61,0.08);
+  }
+  .modal-form input:focus, .modal-form select:focus{
+    outline:none;
+    border-color:var(--gold);
+    box-shadow:0 0 0 2px var(--gold);
+  }
+  .modal-success{
+    display:none;
+    text-align:center;
+    padding:24px 12px;
+  }
+  .modal-success-icon{
+    font-size:44px;
+    margin-bottom:12px;
+  }
+  .modal-success h4{
+    font-family:var(--font-pixel);
+    font-size:15px;
+    color:var(--cave-neon);
+    margin-bottom:10px;
+  }
+  .modal-success p{
+    font-size:18px;
+    color:#c4c4ca;
+    margin-bottom:18px;
+  }
+
+  #emptyState{
+    display:none;
+    text-align:center;
+    padding:60px 20px;
+    background:var(--ui-bg);
+    border:4px solid var(--ui-dark);
+    max-width:600px;
+    margin:40px auto;
+  }
+  #emptyState h3{
+    font-family:var(--font-pixel);
+    font-size:14px;
+    color:var(--ember);
+    margin-bottom:10px;
+  }
+  #emptyState p{
+    font-size:18px;
+    color:#aaa;
+  }
+</style>
+</head>
+<body data-biomes="obsidian,nether,end,cave" data-door="skip">
+
+<!-- ============ BIOME BACKGROUND ============ -->
+<div id="biome-layer">
+  <div id="biome-parallax">
+    <div id="ambient-code-layer" class="ambient-code-layer"></div>
+    <div class="biome-terrain" id="biome-terrain"></div>
+  </div>
+</div>
+
+<!-- ============ NAVBAR ============ -->
+<header class="mc-navbar">
+  <a href="index.html" class="mc-nav-brand">
+    <img src="logos/community_logo_clean.png" alt="MAJU Code Craft Logo" class="mc-brand-img">
+    <div class="mc-brand-titles">
+      <span class="mc-brand-uni">MUHAMMAD ALI JINNAH UNIVERSITY</span>
+      <span class="mc-brand-main">MAJU CODE CRAFT</span>
+    </div>
+  </a>
+  <button class="mc-nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  <nav class="mc-nav-links">
+    <a href="index.html#about" class="mc-nav-link">About</a>
+    <a href="index.html#highlights" class="mc-nav-link">Highlights</a>
+    <a href="index.html#what-we-run" class="mc-nav-link">What We Run</a>
+    <a href="events.html" class="mc-nav-link active">Events</a>
+    <a href="hierarchy.html" class="mc-nav-link">Hierarchy</a>
+    <a href="mentions.html" class="mc-nav-link">Mentions</a>
+    <a href="executive-community.html" class="mc-nav-link">Alumni</a>
+    <a href="index.html#contact" class="mc-nav-link">Contact</a>
+    <a href="apply.html" class="mc-nav-apply" data-portal-nav="apply.html">Apply</a>
+  </nav>
+  <div class="mc-daynight" title="Toggle day / night"><div class="orb"></div></div>
+</header>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero" data-biome-trigger="obsidian">
+  <div class="page-hero-scrim">
+    <div class="hero-pill">CAMPUS EVENTS &amp; SPRINT SCHEDULE</div>
+    <h1 class="page-title">Upcoming <span class="accent">Events</span></h1>
+    <p class="page-sub">Live listings from Event Context. Registration is public for all students &mdash; no gated login required.</p>
+    <div class="hero-affil-pill" style="margin-top:14px;">
+      <span style="font-family:var(--font-pixel); font-size:8px; color:var(--ember); letter-spacing:1px; margin-right:4px;">IN PARTNERSHIP WITH:</span>
+      <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Muhammad Ali Jinnah University (MAJU)">
+        <img src="logos/university_logo_clean.png" alt="MAJU" class="hero-affil-mini">
+      </a>
+      <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Industrial Relations Committee (IRC)">
+        <img src="logos/irc_logo_clean.png" alt="IRC" class="hero-affil-mini">
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FILTERS BAR ============ -->
+<section class="filters-wrap">
+  <div class="filters-bar">
+    <!-- When -->
+    <div class="filter-cluster">
+      <span class="filter-label">Timing:</span>
+      <button class="filter-btn active" data-filter="when" data-val="upcoming">Upcoming</button>
+      <button class="filter-btn" data-filter="when" data-val="past">Past</button>
+      <button class="filter-btn" data-filter="when" data-val="all">All</button>
+    </div>
+
+    <!-- Type -->
+    <div class="filter-cluster">
+      <span class="filter-label">Type:</span>
+      <button class="filter-btn active" data-filter="type" data-val="all">All Types</button>
+      <button class="filter-btn" data-filter="type" data-val="hackathon">Hackathons</button>
+      <button class="filter-btn" data-filter="type" data-val="session">Workshops</button>
+    </div>
+
+    <!-- Mode -->
+    <div class="filter-cluster">
+      <span class="filter-label">Venue:</span>
+      <button class="filter-btn active" data-filter="mode" data-val="all">Any Mode</button>
+      <button class="filter-btn" data-filter="mode" data-val="offline">On Campus</button>
+      <button class="filter-btn" data-filter="mode" data-val="online">Online</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVENTS GRID CONTAINER ============ -->
+<section class="events-wrap" data-biome-trigger="nether">
+  <div class="events-grid" id="eventsContainer">
+    <!-- Rendered dynamically by script -->
+  </div>
+
+  <div id="emptyState">
+    <h3>No Quests Found</h3>
+    <p>No events match your current filter combination. Try resetting to 'All' or check back soon!</p>
+  </div>
+</section>
+
+<!-- ============ REGISTRATION MODAL ============ -->
+<div class="modal-overlay" id="regModal">
+  <div class="modal-panel">
+    <div class="modal-header">
+      <div>
+        <span style="font-size:12px; color:var(--ember); letter-spacing:1px;">&#x2694; EVENT REGISTRATION</span>
+        <h3 class="modal-title" id="modalEventTitle">Event Pass</h3>
+      </div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close modal">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <p id="modalEventMeta" style="font-size:16px; color:#aaa; margin-bottom:16px;"></p>
+
+      <form class="modal-form" id="regForm" onsubmit="handleRegSubmit(event)">
+        <div class="form-group">
+          <label for="regName">Full Name *</label>
+          <input type="text" id="regName" placeholder="e.g. Asad Malik" required>
+        </div>
+
+        <div class="form-group">
+          <label for="regEmail">Student Email * (@maju.edu.pk or personal)</label>
+          <input type="email" id="regEmail" placeholder="student@maju.edu.pk" required>
+        </div>
+
+        <div class="form-group" id="teamGroup">
+          <label for="regTeam">Team Name (Optional for Hackathons)</label>
+          <input type="text" id="regTeam" placeholder="e.g. Syntax Squad">
+        </div>
+
+        <div class="form-group">
+          <label for="regYear">Academic Year</label>
+          <select id="regYear">
+            <option value="1">1st Year / Freshman</option>
+            <option value="2">2nd Year / Sophomore</option>
+            <option value="3">3rd Year / Junior</option>
+            <option value="4">4th Year / Senior</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="regNotes">Questions or Accessibility Requests</label>
+          <input type="text" id="regNotes" placeholder="Optional dietary or seating request">
+        </div>
+
+        <button type="submit" class="mc-button" style="width:100%; margin-top:8px;">CONFIRM PASS &rarr;</button>
+      </form>
+
+      <div class="modal-success" id="regSuccess">
+        <div class="modal-success-icon">&#x1F389;</div>
+        <h4>Pass Registered!</h4>
+        <p>Your entry ticket for this session has been recorded. We will dispatch details to your email address before the countdown begins!</p>
+        <button type="button" class="mc-button" style="font-size:10px;" onclick="closeModal()">DONE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="mc-footer" data-biome-trigger="cave">
+  <div class="mc-footer-inner">
+    <div class="mc-footer-grid">
+      <div>
+        <div class="mc-footer-brand" style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+          <img src="logos/community_logo_clean.png" alt="MAJU Code Craft" class="mc-brand-img">
+          <span style="font-family:var(--font-pixel); font-size:11px; color:#fff;">MAJU CODE CRAFT</span>
+        </div>
+        <p>The student computing and software engineering society at Muhammad Ali Jinnah University, Karachi.</p>
+        <p style="font-size:14px; margin-top:8px;">Open to all university students. Free access.</p>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="events.html">Public Events</a></li>
+          <li><a href="hierarchy.html">Leadership Tree</a></li>
+          <li><a href="apply.html">Join Code Craft</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Community</h5>
+        <ul>
+          <li><a href="mentions.html">Honourable Mentions</a></li>
+          <li><a href="executive-community.html">Alumni Network</a></li>
+          <li><a href="index.html#contact">Contact Council</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Internal Portal</h5>
+        <p style="font-size:14px; margin-bottom:10px;">For executives and department teams to plan, assign, and track operations:</p>
+        <a href="../dynamic_doc/index.html" class="mc-button" style="font-size:9px; padding:8px 12px;">Open System &rarr;</a>
+      </div>
+      <div class="footer-affiliation-wrap">
+        <div class="footer-affiliation-info">
+          <div class="footer-affiliation-title">&#x1F3DB;&#xFE0F; INSTITUTIONAL PATRONAGE &amp; ACADEMIC BACKING</div>
+          <p class="footer-affiliation-desc">
+            The <strong>Industrial Relations Committee (IRC)</strong> at <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer">Muhammad Ali Jinnah University (MAJU)</a> in Karachi is a student- and faculty-driven committee designed to bridge the gap between academic learning and industry demands.
+          </p>
+        </div>
+        <div class="footer-partner-logos">
+          <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Muhammad Ali Jinnah University (MAJU)">
+            <img src="logos/university_logo_clean.png" alt="MAJU" class="footer-partner-badge">
+          </a>
+          <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Industrial Relations Committee (IRC) - Faculty of Computing">
+            <img src="logos/irc_logo_clean.png" alt="IRC" class="footer-partner-badge">
+          </a>
+          <a href="index.html" title="MAJU Code Craft Society">
+            <img src="logos/community_logo_clean.png" alt="MCC" class="footer-partner-badge logo-dark">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="mc-footer-bottom">
+      <div>&copy; 2026 MAJU Code Craft Society. All rights reserved.</div>
+      <div>Ember &amp; Obsidian &mdash; MCC Events Directory</div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/mc-theme.js"></script>
+<script>
+(function(){
+  // Event dataset
+  var eventsData = [
+    {
+      id: 'ev-1',
+      title: 'Code Incognito 2026: Campus Hackathon',
+      type: 'hackathon',
+      mode: 'offline',
+      status: 'registration_open',
+      startsAt: '2026-10-10T09:00:00+05:00',
+      venue: 'MAJU Main Auditorium & Lab 4',
+      description: '24-hour sprint to build AI-powered solutions, developer productivity tooling, and mobile apps. Cash prizes, food, and mentorship included.',
+      typeBadge: 'Hackathon · Offline',
+      isPast: false
+    },
+    {
+      id: 'ev-2',
+      title: 'Building Full-Stack Next.js 15 Apps with TypeScript',
+      type: 'session',
+      mode: 'offline',
+      status: 'registration_open',
+      startsAt: '2026-09-28T15:00:00+05:00',
+      venue: 'CS Lab 2, 3rd Floor',
+      description: 'Hands-on masterclass covering Server Components, Drizzle ORM, state management, and deploying to Vercel.',
+      typeBadge: 'Session · Offline',
+      isPast: false
+    },
+    {
+      id: 'ev-3',
+      title: 'Decentralized Systems & Web3 Architecture Talk',
+      type: 'session',
+      mode: 'online',
+      status: 'promo_live',
+      startsAt: '2026-10-24T18:00:00+05:00',
+      venue: 'Google Meet',
+      description: 'Exploring peer-to-peer protocols, consensus mechanisms, and how distributed computing operates at global scale.',
+      typeBadge: 'Session · Online',
+      isPast: false
+    },
+    {
+      id: 'ev-4',
+      title: 'Summer Algorithm Sprint 2026',
+      type: 'hackathon',
+      mode: 'offline',
+      status: 'wrapped',
+      startsAt: '2026-06-15T10:00:00+05:00',
+      venue: 'Auditorium',
+      description: 'Speed problem-solving contest testing graph algorithms, dynamic programming, and data structures.',
+      typeBadge: 'Hackathon · Offline',
+      isPast: true
+    },
+    {
+      id: 'ev-5',
+      title: 'Git, GitHub & Open Source Contribution 101',
+      type: 'session',
+      mode: 'offline',
+      status: 'wrapped',
+      startsAt: '2026-05-20T14:00:00+05:00',
+      venue: 'CS Lab 1',
+      description: 'Introductory workshop on version control, pull requests, branching strategies, and open-source etiquette.',
+      typeBadge: 'Session · Offline',
+      isPast: true
+    }
+  ];
+
+  var filters = { when: 'upcoming', type: 'all', mode: 'all' };
+
+  function renderEvents(){
+    var container = document.getElementById('eventsContainer');
+    var emptyMsg = document.getElementById('emptyState');
+    container.innerHTML = '';
+
+    var filtered = eventsData.filter(function(ev){
+      if(filters.when === 'upcoming' && ev.isPast) return false;
+      if(filters.when === 'past' && !ev.isPast) return false;
+      if(filters.type !== 'all' && ev.type !== filters.type) return false;
+      if(filters.mode !== 'all' && ev.mode !== filters.mode) return false;
+      return true;
+    });
+
+    if(filtered.length === 0){
+      emptyMsg.style.display = 'block';
+      return;
+    }
+    emptyMsg.style.display = 'none';
+
+    filtered.forEach(function(ev){
+      var dateFormatted = new Intl.DateTimeFormat('en-PK', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+        timeZone: 'Asia/Karachi'
+      }).format(new Date(ev.startsAt));
+
+      var statusPill = '';
+      var actionArea = '';
+
+      if(ev.status === 'registration_open'){
+        statusPill = '<span class="event-status-tag tag-open">OPEN</span>';
+        actionArea = '<button class="mc-button" style="width:100%; font-size:10px;" onclick="window.openEventModal(\'' + ev.id + '\')">REGISTER PASS &rarr;</button>';
+      } else if(ev.status === 'promo_live'){
+        statusPill = '<span class="event-status-tag tag-promo">SOON</span>';
+        actionArea = '<div style="font-size:15px; color:#aaa; text-align:center; padding:10px; background:var(--slot-bg); border:2px solid var(--ui-dark);">Signups Opening Soon</div>';
+      } else {
+        statusPill = '<span class="event-status-tag tag-wrapped">CONCLUDED</span>';
+        actionArea = '<div style="font-size:15px; color:#777; text-align:center; padding:10px; background:var(--slot-bg); border:2px solid var(--ui-dark);">Event Concluded</div>';
+      }
+
+      var card = document.createElement('div');
+      card.className = 'event-card';
+      var bannerClass = ev.type === 'hackathon' ? 'banner-hackathon' : 'banner-session';
+
+      card.innerHTML = 
+        '<div class="event-banner ' + bannerClass + '">' +
+          '<span>' + (ev.type === 'hackathon' ? '&#x26A1; HACKATHON' : '&#x1F6E0; WORKSHOP') + ' &bull; ' + ev.mode.toUpperCase() + '</span>' +
+          statusPill +
+        '</div>' +
+        '<div class="event-content">' +
+          '<h3 class="event-title">' + ev.title + '</h3>' +
+          '<div class="event-meta">' +
+            '<span>&#x1F4C5; ' + dateFormatted + ' PKT</span>' +
+            '<span>&#x1F4CD; ' + ev.venue + '</span>' +
+          '</div>' +
+          '<p class="event-desc">' + ev.description + '</p>' +
+          '<div class="event-action">' + actionArea + '</div>' +
+        '</div>';
+
+      container.appendChild(card);
+    });
+  }
+
+  // Filter click bindings
+  document.querySelectorAll('.filter-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var group = this.dataset.filter;
+      var val = this.dataset.val;
+      this.parentElement.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+      this.classList.add('active');
+      filters[group] = val;
+      renderEvents();
+    });
+  });
+
+  // Modal logic
+  window.openEventModal = function(id){
+    var ev = eventsData.find(function(e){ return e.id === id; });
+    if(!ev) return;
+    document.getElementById('modalEventTitle').textContent = ev.title;
+    document.getElementById('modalEventMeta').textContent = ev.venue + ' | ' + ev.mode.toUpperCase();
+    document.getElementById('teamGroup').style.display = ev.type === 'hackathon' ? 'block' : 'none';
+    document.getElementById('regForm').reset();
+    document.getElementById('regForm').style.display = 'block';
+    document.getElementById('regSuccess').style.display = 'none';
+    document.getElementById('regModal').classList.add('active');
+  };
+
+  window.closeModal = function(){
+    document.getElementById('regModal').classList.remove('active');
+  };
+
+  window.handleRegSubmit = function(e){
+    e.preventDefault();
+    document.getElementById('regForm').style.display = 'none';
+    document.getElementById('regSuccess').style.display = 'block';
+  };
+
+  document.getElementById('regModal').addEventListener('click', function(e){
+    if(e.target === this) window.closeModal();
+  });
+
+  // Ambient floating code snippets
+  var ambientLayer = document.getElementById('ambient-code-layer');
+  if(ambientLayer){
+    var snippets = [
+      { text: 'icpc', font: 'pixel', color: 'ember', left: 5, top: 10, anim: 'anim-bob', isBadge: true, delay: -1.0 },
+      { text: 'hackathons', font: 'pixel', color: 'gold', left: 84, top: 14, anim: 'anim-sway', isBadge: true, delay: -2.5 },
+      { text: 'web dev', font: 'pixel', color: 'neon', left: 88, top: 50, anim: 'anim-drift', isBadge: true, delay: -3.8 },
+      { text: '#include <bits/stdc++.h>', font: 'body', color: 'ember', left: 4, top: 32, anim: 'anim-drift', delay: -4.0 },
+      { text: 'while (t--) solve();', font: 'body', color: 'yellow', left: 80, top: 30, anim: 'anim-bob', delay: -1.2 },
+      { text: 'vector<int> dp;', font: 'body', color: 'neon', left: 6, top: 60, anim: 'anim-sway', delay: -5.0 },
+      { text: 'git commit -m "ship it"', font: 'body', color: 'gold', left: 78, top: 76, anim: 'anim-drift', delay: -3.0 },
+      { text: 'npm run dev', font: 'body', color: 'white', left: 12, top: 86, anim: 'anim-bob', delay: -2.0 },
+      { text: 'O(N log N)', font: 'pixel', color: 'red', left: 70, top: 88, anim: 'anim-bob', delay: -4.5 }
+    ];
+    snippets.forEach(function(item){
+      var el = document.createElement('div');
+      el.className = 'ambient-code-item font-' + item.font + ' color-' + item.color + ' ' + item.anim + (item.isBadge ? ' is-badge' : '');
+      el.textContent = item.text;
+      el.style.left = item.left + '%';
+      el.style.top = item.top + '%';
+      el.style.animationDelay = item.delay + 's';
+      ambientLayer.appendChild(el);
+    });
+  }
+
+  renderEvents();
+})();
+</script>
+</body>
+</html>

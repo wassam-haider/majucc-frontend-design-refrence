@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leadership & Hierarchy | MAJU Code Craft</title>
+<meta name="description" content="Meet the executive council and departmental leads powering MAJU Code Craft Society.">
+<link rel="icon" type="image/png" href="logos/community_logo_clean.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mc-theme.css">
+<style>
+  /* ===== Hierarchy / Skill Tree Page Specific ===== */
+  .page-hero{
+    padding:60px 24px 40px;
+    text-align:center;
+    position:relative;
+    z-index:2;
+  }
+  .page-hero-scrim{
+    display:inline-block;
+    background:rgba(6,6,8,0.55);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+    padding:28px 36px;
+    border-radius:2px;
+    box-shadow:0 0 0 1px rgba(255,138,61,0.14), 0 10px 0 rgba(0,0,0,0.3);
+    width:100%;
+    max-width:760px;
+  }
+  .hero-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--font-pixel);
+    font-size:clamp(11px, 1.35vw, 14px);
+    letter-spacing:2px;
+    color:#FFFFFF;
+    background:linear-gradient(90deg, rgba(232,68,44,0.55), rgba(255,138,61,0.4));
+    border:2px solid var(--gold);
+    padding:8px 18px;
+    box-shadow:inset 1px 1px 0 rgba(255,255,255,0.25), inset -1px -1px 0 rgba(0,0,0,0.5), 0 0 14px rgba(255,138,61,0.45);
+    text-shadow:1px 1px 0 #000, 0 0 8px rgba(255,138,61,0.6);
+    font-weight:bold;
+  }
+  .page-title{
+    font-family:var(--font-pixel);
+    font-size:clamp(20px, 3.8vw, 34px);
+    line-height:1.6;
+    color:var(--text-dark);
+    margin-bottom:14px;
+    text-shadow:3px 3px 0 rgba(0,0,0,0.4);
+  }
+  .page-title .accent{
+    background:linear-gradient(90deg, var(--ember), var(--grass-side));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .page-sub{
+    font-size:20px;
+    line-height:1.5;
+    color:#d8d8de;
+    max-width:620px;
+    margin:0 auto;
+    text-shadow:1px 1px 0 rgba(0,0,0,0.7);
+  }
+
+  /* ---- Skill Tree Hierarchy Layout ---- */
+  .tree-wrap{
+    max-width:1160px;
+    margin:0 auto 80px;
+    padding:0 24px;
+    position:relative;
+    z-index:2;
+  }
+
+  /* Section tier headers */
+  .tier-header{
+    text-align:center;
+    margin-bottom:20px;
+  }
+  .tier-tag{
+    display:inline-block;
+    font-family:var(--font-pixel);
+    font-size:10px;
+    letter-spacing:1px;
+    color:var(--ember);
+    background:var(--ui-bg);
+    border:2px solid var(--ui-dark);
+    padding:6px 14px;
+    box-shadow:inset 2px 2px 0 rgba(255,138,61,0.1), inset -2px -2px 0 rgba(0,0,0,0.4);
+  }
+
+  /* Connecting vertical and branch lines */
+  .conduit-line{
+    width:4px;
+    height:36px;
+    background:repeating-linear-gradient(180deg, var(--gold) 0 8px, #3A1208 8px 14px);
+    margin:0 auto;
+    box-shadow:0 0 8px rgba(255,138,61,0.4);
+  }
+  .conduit-fork{
+    position:relative;
+    width:70%;
+    height:24px;
+    margin:0 auto;
+    border-top:4px solid var(--gold);
+    border-left:4px solid var(--gold);
+    border-right:4px solid var(--gold);
+    box-shadow:0 0 8px rgba(255,138,61,0.3);
+  }
+
+  /* Node Cards */
+  .node-card{
+    background:var(--ui-bg);
+    border:5px solid var(--ui-dark);
+    padding:22px;
+    text-align:center;
+    position:relative;
+    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.15), inset -3px -3px 0 rgba(0,0,0,0.5), 0 0 0 2px rgba(232,68,44,0.25), 0 10px 0 rgba(0,0,0,0.4);
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .node-card:hover{
+    transform:translateY(-4px);
+    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.25), inset -3px -3px 0 rgba(0,0,0,0.5), 0 0 0 2px var(--gold), 0 14px 0 rgba(0,0,0,0.45), 0 0 18px rgba(255,138,61,0.25);
+  }
+
+  .node-avatar-box{
+    width:64px;
+    height:64px;
+    margin:0 auto 14px;
+    background:var(--slot-bg);
+    border:3px solid var(--ui-dark);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    box-shadow:inset 2px 2px 0 rgba(0,0,0,0.6), inset -2px -2px 0 rgba(255,138,61,0.1);
+    position:relative;
+  }
+  .node-lvl{
+    position:absolute;
+    bottom:-8px;
+    right:-8px;
+    background:linear-gradient(90deg, var(--grass-top), var(--gold));
+    font-family:var(--font-pixel);
+    font-size:7px;
+    color:#fff;
+    padding:2px 5px;
+    border:1px solid #000;
+  }
+
+  .node-name{
+    font-family:var(--font-pixel);
+    font-size:14px;
+    color:#fff;
+    margin-bottom:6px;
+    line-height:1.4;
+  }
+  .node-role{
+    font-size:18px;
+    color:var(--ember);
+    font-weight:bold;
+    margin-bottom:8px;
+  }
+  .node-desc{
+    font-size:16px;
+    color:#b8b8be;
+    line-height:1.45;
+  }
+
+  /* Tier 1: Chairperson Center */
+  .tier-chair-box{
+    max-width:440px;
+    margin:0 auto;
+  }
+  .node-card.chair-special{
+    border-color:#1A1208;
+    box-shadow:inset 4px 4px 0 rgba(255,215,42,0.25), inset -4px -4px 0 rgba(0,0,0,0.6), 0 0 0 3px var(--gold), 0 12px 0 rgba(0,0,0,0.5), 0 0 24px rgba(255,138,61,0.3);
+  }
+  .node-card.chair-special .node-name{
+    color:var(--spark-yellow);
+  }
+
+  /* Tier 2: Executive Board */
+  .tier-board-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:24px;
+    max-width:760px;
+    margin:0 auto;
+  }
+
+  /* Tier 3: Departments */
+  .tier-dept-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+    gap:22px;
+  }
+  .dept-lead-pill{
+    display:inline-block;
+    background:var(--slot-bg);
+    border:1px solid rgba(255,138,61,0.25);
+    color:var(--gold);
+    font-family:var(--font-pixel);
+    font-size:8px;
+    padding:4px 8px;
+    margin-bottom:10px;
+  }
+</style>
+</head>
+<body data-biomes="obsidian,nether,cave" data-door="skip">
+
+<!-- ============ BIOME BACKGROUND ============ -->
+<div id="biome-layer">
+  <div id="biome-parallax">
+    <div id="ambient-code-layer" class="ambient-code-layer"></div>
+    <div class="biome-terrain" id="biome-terrain"></div>
+  </div>
+</div>
+
+<!-- ============ NAVBAR ============ -->
+<header class="mc-navbar">
+  <a href="index.html" class="mc-nav-brand">
+    <img src="logos/community_logo_clean.png" alt="MAJU Code Craft Logo" class="mc-brand-img">
+    <div class="mc-brand-titles">
+      <span class="mc-brand-uni">MUHAMMAD ALI JINNAH UNIVERSITY</span>
+      <span class="mc-brand-main">MAJU CODE CRAFT</span>
+    </div>
+  </a>
+  <button class="mc-nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  <nav class="mc-nav-links">
+    <a href="index.html#about" class="mc-nav-link">About</a>
+    <a href="index.html#highlights" class="mc-nav-link">Highlights</a>
+    <a href="index.html#what-we-run" class="mc-nav-link">What We Run</a>
+    <a href="events.html" class="mc-nav-link">Events</a>
+    <a href="hierarchy.html" class="mc-nav-link active">Hierarchy</a>
+    <a href="mentions.html" class="mc-nav-link">Mentions</a>
+    <a href="executive-community.html" class="mc-nav-link">Alumni</a>
+    <a href="index.html#contact" class="mc-nav-link">Contact</a>
+    <a href="apply.html" class="mc-nav-apply" data-portal-nav="apply.html">Apply</a>
+  </nav>
+  <div class="mc-daynight" title="Toggle day / night"><div class="orb"></div></div>
+</header>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero" data-biome-trigger="obsidian">
+  <div class="page-hero-scrim">
+    <div class="hero-pill">SOCIETY GOVERNANCE &amp; TECH COUNCIL</div>
+    <h1 class="page-title">Society <span class="accent">Hierarchy</span></h1>
+    <p class="page-sub">The leadership and departmental council orchestrating tech conferences, sprint hacks, and workshops at Muhammad Ali Jinnah University.</p>
+  </div>
+</section>
+
+<!-- ============ SKILL TREE CONTAINER ============ -->
+<section class="tree-wrap" data-biome-trigger="nether">
+
+  <!-- INSTITUTIONAL PATRONAGE: MAJU & IRC -->
+  <div class="tier-header">
+    <span class="tier-tag">&#x1F3DB;&#xFE0F; INSTITUTIONAL PATRONAGE &amp; ACADEMIC BACKING</span>
+  </div>
+
+  <div style="max-width:640px; margin:0 auto 28px;">
+    <div class="node-card" style="border-color:var(--cave-neon); box-shadow:inset 3px 3px 0 rgba(57,255,154,0.2), 0 0 0 3px var(--cave-neon), 0 12px 0 rgba(0,0,0,0.55); padding:28px 24px;">
+      <div style="display:flex; justify-content:center; align-items:center; gap:24px; margin-bottom:16px;">
+        <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Muhammad Ali Jinnah University (MAJU)">
+          <img src="logos/university_logo_clean.png" alt="MAJU University Crest" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid var(--gold); background:#fff; box-shadow:0 0 14px rgba(255,138,61,0.4);">
+        </a>
+        <span style="font-family:var(--font-pixel); font-size:16px; color:var(--gold);">&times;</span>
+        <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Industrial Relations Committee (IRC) - Faculty of Computing">
+          <img src="logos/irc_logo_clean.png" alt="IRC Logo" style="width:100px; height:100px; border-radius:50%; object-fit:cover; border:3px solid var(--gold); background:#fff; box-shadow:0 0 14px rgba(255,138,61,0.4);">
+        </a>
+      </div>
+      <h3 class="node-name" style="color:var(--cave-neon); font-size:16px;">Industrial Relations Committee (IRC)</h3>
+      <div class="node-role" style="font-size:22px; color:var(--spark-yellow); font-weight:bold; margin-bottom:6px; text-shadow:0 0 10px rgba(247,249,46,0.35);">MUHAMMAD ALI JINNAH UNIVERSITY (MAJU)</div>
+      <div style="font-size:18px; color:#e0e0e8; margin-bottom:12px;">Faculty of Computing &bull; Industrial Relations Committee (IRC)</div>
+      <p class="node-desc" style="font-size:18px; line-height:1.55;">
+        A student- and faculty-driven committee designed to bridge the gap between academic learning and industry demands, providing continuous faculty guidance, industry linkups, and ecosystem patronage to MAJU Code Craft.
+      </p>
+    </div>
+  </div>
+
+  <div class="conduit-line" style="height:44px; margin-bottom:28px;"></div>
+
+  <!-- TIER 1: CHAIRPERSON -->
+  <div class="tier-header">
+    <span class="tier-tag">&#x1F451; EXECUTIVE HEAD</span>
+  </div>
+
+  <div class="tier-chair-box">
+    <div class="node-card chair-special">
+      <div class="node-avatar-box">
+        &#x1F451;
+        <span class="node-lvl">CHAIR</span>
+      </div>
+      <h3 class="node-name">Farhan Qazi</h3>
+      <div class="node-role">Society Chairperson</div>
+      <p class="node-desc">Strategic direction, university liaison, campus computing leadership, and ecosystem roadmap.</p>
+    </div>
+  </div>
+
+  <div class="conduit-line"></div>
+  <div class="conduit-fork"></div>
+
+  <!-- TIER 2: EXECUTIVE BOARD -->
+  <div style="margin-top:24px;">
+    <div class="tier-header">
+      <span class="tier-tag">&#x2694; EXECUTIVE BOARD</span>
+    </div>
+
+    <div class="tier-board-grid">
+      <!-- Vice Chair -->
+      <div class="node-card">
+        <div class="node-avatar-box">
+          &#x1F6E1;&#xFE0F;
+          <span class="node-lvl">VP</span>
+        </div>
+        <h3 class="node-name">Areeba Tariq</h3>
+        <div class="node-role">Vice Chairperson</div>
+        <p class="node-desc">Operations governance, cross-team alignment, society execution sprints, and member mentorship.</p>
+      </div>
+
+      <!-- General Secretary -->
+      <div class="node-card">
+        <div class="node-avatar-box">
+          &#x1F4DC;
+          <span class="node-lvl">SEC</span>
+        </div>
+        <h3 class="node-name">Hamza Siddiqui</h3>
+        <div class="node-role">General Secretary</div>
+        <p class="node-desc">Governance protocols, official records, inter-society coordination, and university compliance.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="conduit-line" style="margin-top:24px; height:40px;"></div>
+
+  <!-- TIER 3: DEPARTMENTAL LEADS -->
+  <div style="margin-top:16px;">
+    <div class="tier-header">
+      <span class="tier-tag">&#x1F6E0; DEPARTMENTAL LEADS</span>
+    </div>
+
+    <div class="tier-dept-grid">
+      <!-- Operations -->
+      <div class="node-card">
+        <div class="node-avatar-box">&#x2699;&#xFE0F;</div>
+        <span class="dept-lead-pill">LEAD: DANIYAL AHMED</span>
+        <h3 class="node-name">Operations &amp; Logistics</h3>
+        <p class="node-desc">Lab allocations, venue bookings, university permissions, hardware setups, and on-ground sprint logistics.</p>
+      </div>
+
+      <!-- Awareness & Marketing -->
+      <div class="node-card">
+        <div class="node-avatar-box">&#x1F4E2;</div>
+        <span class="dept-lead-pill">LEAD: FATIMA NOOR</span>
+        <h3 class="node-name">Awareness &amp; Marketing</h3>
+        <p class="node-desc">Public outreach, digital bulletins, social media broadcasts, announcements, and university student relations.</p>
+      </div>
+
+      <!-- Graphics & Media -->
+      <div class="node-card">
+        <div class="node-avatar-box">&#x1F3A8;</div>
+        <span class="dept-lead-pill">LEAD: ZAID SHEIKH</span>
+        <h3 class="node-name">Graphics &amp; Creative Media</h3>
+        <p class="node-desc">Brand aesthetics, keynote visuals, motion assets, badge designs, promotional graphics, and UI kits.</p>
+      </div>
+
+      <!-- Technical / Event Master -->
+      <div class="node-card">
+        <div class="node-avatar-box">&#x1F4BB;</div>
+        <span class="dept-lead-pill">LEAD: BILAL REHMAN</span>
+        <h3 class="node-name">Technical &amp; Event Master</h3>
+        <p class="node-desc">Problem statements, hackathon test suites, judging rubrics, technical workshops, and coding challenges.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="mc-footer" data-biome-trigger="cave">
+  <div class="mc-footer-inner">
+    <div class="mc-footer-grid">
+      <div>
+        <div class="mc-footer-brand" style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+          <img src="logos/community_logo_clean.png" alt="MAJU Code Craft" class="mc-brand-img">
+          <span style="font-family:var(--font-pixel); font-size:11px; color:#fff;">MAJU CODE CRAFT</span>
+        </div>
+        <p>The student computing and software engineering society at Muhammad Ali Jinnah University, Karachi.</p>
+        <p style="font-size:14px; margin-top:8px;">Open to all university students. Free access.</p>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="events.html">Public Events</a></li>
+          <li><a href="hierarchy.html">Leadership Tree</a></li>
+          <li><a href="apply.html">Join Code Craft</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Community</h5>
+        <ul>
+          <li><a href="mentions.html">Honourable Mentions</a></li>
+          <li><a href="executive-community.html">Alumni Network</a></li>
+          <li><a href="index.html#contact">Contact Council</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Internal Portal</h5>
+        <p style="font-size:14px; margin-bottom:10px;">For executives and department teams to plan, assign, and track operations:</p>
+        <a href="../dynamic_doc/index.html" class="mc-button" style="font-size:9px; padding:8px 12px;">Open System &rarr;</a>
+      </div>
+      <div class="footer-affiliation-wrap">
+        <div class="footer-affiliation-info">
+          <div class="footer-affiliation-title">&#x1F3DB;&#xFE0F; INSTITUTIONAL PATRONAGE &amp; ACADEMIC BACKING</div>
+          <p class="footer-affiliation-desc">
+            The <strong>Industrial Relations Committee (IRC)</strong> at <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer">Muhammad Ali Jinnah University (MAJU)</a> in Karachi is a student- and faculty-driven committee designed to bridge the gap between academic learning and industry demands.
+          </p>
+        </div>
+        <div class="footer-partner-logos">
+          <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Muhammad Ali Jinnah University (MAJU)">
+            <img src="logos/university_logo_clean.png" alt="MAJU" class="footer-partner-badge">
+          </a>
+          <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Industrial Relations Committee (IRC) - Faculty of Computing">
+            <img src="logos/irc_logo_clean.png" alt="IRC" class="footer-partner-badge">
+          </a>
+          <a href="index.html" title="MAJU Code Craft Society">
+            <img src="logos/community_logo_clean.png" alt="MCC" class="footer-partner-badge logo-dark">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="mc-footer-bottom">
+      <div>&copy; 2026 MAJU Code Craft Society. All rights reserved.</div>
+      <div>Ember &amp; Obsidian &mdash; MCC Governance</div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/mc-theme.js"></script>
+<script>
+(function(){
+  // Ambient code snippets
+  var ambientLayer = document.getElementById('ambient-code-layer');
+  if(ambientLayer){
+    var snippets = [
+      { text: 'icpc', font: 'pixel', color: 'ember', left: 4, top: 12, anim: 'anim-bob', isBadge: true, delay: -1.0 },
+      { text: 'hackathons', font: 'pixel', color: 'gold', left: 86, top: 15, anim: 'anim-sway', isBadge: true, delay: -2.5 },
+      { text: 'web dev', font: 'pixel', color: 'neon', left: 86, top: 48, anim: 'anim-drift', isBadge: true, delay: -3.5 },
+      { text: 'class Council {', font: 'body', color: 'ember', left: 4, top: 32, anim: 'anim-drift', delay: -4.0 },
+      { text: 'dispatchTask(dept);', font: 'body', color: 'yellow', left: 80, top: 32, anim: 'anim-bob', delay: -1.2 },
+      { text: 'void leadSprints()', font: 'body', color: 'neon', left: 5, top: 58, anim: 'anim-sway', delay: -5.0 },
+      { text: 'git merge --no-ff', font: 'body', color: 'gold', left: 78, top: 76, anim: 'anim-drift', delay: -3.0 },
+      { text: 'await campus.ship()', font: 'body', color: 'white', left: 14, top: 86, anim: 'anim-bob', delay: -2.0 },
+      { text: 'O(1) ACCESS', font: 'pixel', color: 'red', left: 72, top: 88, anim: 'anim-bob', delay: -4.5 }
+    ];
+    snippets.forEach(function(item){
+      var el = document.createElement('div');
+      el.className = 'ambient-code-item font-' + item.font + ' color-' + item.color + ' ' + item.anim + (item.isBadge ? ' is-badge' : '');
+      el.textContent = item.text;
+      el.style.left = item.left + '%';
+      el.style.top = item.top + '%';
+      el.style.animationDelay = item.delay + 's';
+      ambientLayer.appendChild(el);
+    });
+  }
+})();
+</script>
+</body>
+</html>

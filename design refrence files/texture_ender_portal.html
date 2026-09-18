@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>End Portal Texture</title>
+    <style>
+        body {
+            background-color: #2c2f33;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        .end-portal {
+            position: relative;
+            width: 80vw;
+            max-width: 1000px;
+            height: 40vh;
+            min-height: 320px;
+            border: 6px solid #111;
+            border-radius: 4px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), inset 0 0 50px rgba(0, 0, 0, 0.9);
+            background-color: #030005;
+            overflow: hidden;
+            background-image:
+                radial-gradient(1.5px 1.5px at 10px 10px, #eebaff 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 70px 45px, #d27df0 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 120px 90px, #f1ccff 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 20px 30px, #9322cc 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 55px 70px, #a12be0 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 90px 15px, #7514a6 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 140px 60px, #821db5 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 45px 110px, #b03beb 100%, transparent 100%),
+                radial-gradient(2px 2px at 5px 50px, #330b4d 100%, transparent 100%),
+                radial-gradient(2px 2px at 35px 15px, #2a0840 100%, transparent 100%),
+                radial-gradient(2px 2px at 80px 40px, #40105e 100%, transparent 100%),
+                radial-gradient(2px 2px at 100px 80px, #210433 100%, transparent 100%),
+                radial-gradient(2px 2px at 15px 95px, #360a4f 100%, transparent 100%),
+                radial-gradient(2px 2px at 65px 105px, #461463 100%, transparent 100%),
+                radial-gradient(2px 2px at 115px 25px, #1c0529 100%, transparent 100%),
+                radial-gradient(1px 1px at 25px 25px, #180424 100%, transparent 100%),
+                radial-gradient(1px 1px at 60px 5px, #15031f 100%, transparent 100%),
+                radial-gradient(1px 1px at 95px 65px, #200630 100%, transparent 100%),
+                radial-gradient(1px 1px at 15px 75px, #100217 100%, transparent 100%),
+                radial-gradient(1px 1px at 130px 35px, #1c0529 100%, transparent 100%),
+                radial-gradient(1px 1px at 50px 90px, #15031f 100%, transparent 100%),
+                radial-gradient(1px 1px at 105px 115px, #180424 100%, transparent 100%);
+            background-size:
+                131px 137px, 163px 167px, 191px 193px,
+                67px 71px, 83px 89px, 97px 101px, 107px 109px, 113px 127px,
+                37px 41px, 43px 47px, 53px 59px, 61px 67px, 73px 79px, 89px 97px, 103px 107px,
+                17px 19px, 23px 29px, 31px 37px, 41px 43px, 47px 53px, 59px 61px, 71px 73px;
+            background-attachment: fixed;
+        }
+
+        /* Hidden easter egg: dots arranged to spell "MAJU CC", mirrored, using the same
+     starfield palette/sizes so it reads as ordinary dust unless you're looking for it.
+     Flip a screenshot horizontally (or view in a mirror) to read it correctly. */
+        .end-portal::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 259px;
+            height: 49px;
+            transform: translate(-50%, -50%) scaleX(-1);
+            background-repeat: no-repeat;
+            background-size: 259px 49px;
+            opacity: 0.55;
+            pointer-events: none;
+            background-image:
+                radial-gradient(1px 1px at 3.4px 3.9px, #d27df0 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 30.5px 3.8px, #9322cc 100%, transparent 100%),
+                radial-gradient(2px 2px at 4.3px 10.4px, #f1ccff 100%, transparent 100%),
+                radial-gradient(1px 1px at 11.8px 8.8px, #a12be0 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 24.8px 9.3px, #b03beb 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 30.9px 10.1px, #821db5 100%, transparent 100%),
+                radial-gradient(2px 2px at 2.9px 17.9px, #7514a6 100%, transparent 100%),
+                radial-gradient(1px 1px at 17.7px 15.6px, #eebaff 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 31.6px 16.3px, #d27df0 100%, transparent 100%),
+                radial-gradient(2px 2px at 2.4px 23.4px, #9322cc 100%, transparent 100%),
+                radial-gradient(1px 1px at 30.9px 24.6px, #f1ccff 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 3.1px 30.7px, #a12be0 100%, transparent 100%),
+                radial-gradient(2px 2px at 31.4px 30.2px, #b03beb 100%, transparent 100%),
+                radial-gradient(1px 1px at 3.6px 37.3px, #821db5 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 30.7px 37.1px, #7514a6 100%, transparent 100%),
+                radial-gradient(2px 2px at 4.2px 43.3px, #eebaff 100%, transparent 100%),
+                radial-gradient(1px 1px at 31.1px 43.9px, #d27df0 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 51.8px 4.3px, #9322cc 100%, transparent 100%),
+                radial-gradient(2px 2px at 58.2px 3.6px, #f1ccff 100%, transparent 100%),
+                radial-gradient(1px 1px at 64.4px 4.1px, #a12be0 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 45.6px 10.3px, #b03beb 100%, transparent 100%),
+                radial-gradient(2px 2px at 69.8px 9.7px, #821db5 100%, transparent 100%),
+                radial-gradient(1px 1px at 46.2px 16.1px, #7514a6 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 69.3px 15.4px, #eebaff 100%, transparent 100%),
+                radial-gradient(2px 2px at 45.8px 22.9px, #d27df0 100%, transparent 100%),
+                radial-gradient(1px 1px at 52.3px 23.6px, #9322cc 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 58.1px 22.4px, #f1ccff 100%, transparent 100%),
+                radial-gradient(2px 2px at 63.7px 23.8px, #a12be0 100%, transparent 100%),
+                radial-gradient(1px 1px at 69.9px 24.3px, #b03beb 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 46.3px 29.6px, #821db5 100%, transparent 100%),
+                radial-gradient(2px 2px at 70.1px 30.4px, #7514a6 100%, transparent 100%),
+                radial-gradient(1px 1px at 45.7px 37.2px, #eebaff 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 69.6px 36.9px, #d27df0 100%, transparent 100%),
+                radial-gradient(2px 2px at 46.4px 43.1px, #9322cc 100%, transparent 100%),
+                radial-gradient(1px 1px at 70.3px 43.8px, #f1ccff 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 98.3px 4.2px, #a12be0 100%, transparent 100%),
+                radial-gradient(2px 2px at 104.7px 3.7px, #b03beb 100%, transparent 100%),
+                radial-gradient(1px 1px at 111.1px 4.3px, #821db5 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 104.9px 10.4px, #7514a6 100%, transparent 100%),
+                radial-gradient(2px 2px at 104.2px 16.3px, #eebaff 100%, transparent 100%),
+                radial-gradient(1px 1px at 104.6px 22.9px, #d27df0 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 89.4px 30.2px, #9322cc 100%, transparent 100%),
+                radial-gradient(2px 2px at 105.1px 29.7px, #f1ccff 100%, transparent 100%),
+                radial-gradient(1px 1px at 96.3px 37.4px, #a12be0 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 103.7px 37.1px, #b03beb 100%, transparent 100%),
+                radial-gradient(2px 2px at 165.7px 3.8px, #821db5 100%, transparent 100%),
+                radial-gradient(1px 1px at 172.3px 4.4px, #7514a6 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 178.9px 3.6px, #eebaff 100%, transparent 100%),
+                radial-gradient(2px 2px at 185.2px 4.2px, #d27df0 100%, transparent 100%),
+                radial-gradient(1px 1px at 159.6px 10.3px, #9322cc 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 158.9px 16.2px, #f1ccff 100%, transparent 100%),
+                radial-gradient(2px 2px at 159.4px 22.8px, #a12be0 100%, transparent 100%),
+                radial-gradient(1px 1px at 160.1px 29.6px, #b03beb 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 159.7px 36.4px, #821db5 100%, transparent 100%),
+                radial-gradient(2px 2px at 166.3px 37.1px, #7514a6 100%, transparent 100%),
+                radial-gradient(1px 1px at 172.9px 43.8px, #eebaff 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 179.4px 37.2px, #d27df0 100%, transparent 100%),
+                radial-gradient(2px 2px at 185.8px 43.1px, #9322cc 100%, transparent 100%),
+                radial-gradient(1px 1px at 202.6px 4.1px, #f1ccff 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 208.9px 3.7px, #a12be0 100%, transparent 100%),
+                radial-gradient(2px 2px at 215.2px 4.3px, #b03beb 100%, transparent 100%),
+                radial-gradient(1px 1px at 221.6px 3.9px, #821db5 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 196.4px 9.7px, #7514a6 100%, transparent 100%),
+                radial-gradient(2px 2px at 196.1px 16.3px, #eebaff 100%, transparent 100%),
+                radial-gradient(1px 1px at 195.7px 22.9px, #d27df0 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 196.3px 29.6px, #9322cc 100%, transparent 100%),
+                radial-gradient(2px 2px at 195.9px 36.2px, #f1ccff 100%, transparent 100%),
+                radial-gradient(1px 1px at 202.4px 43.3px, #a12be0 100%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 208.7px 43.8px, #b03beb 100%, transparent 100%),
+                radial-gradient(2px 2px at 215.3px 43.1px, #821db5 100%, transparent 100%),
+                radial-gradient(1px 1px at 221.8px 43.6px, #7514a6 100%, transparent 100%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="end-portal"></div>
+</body>
+
+</html>

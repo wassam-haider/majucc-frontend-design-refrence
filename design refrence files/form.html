@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAJU CodeCraft — Member Setup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky-top:#1A1A1E;
+    --sky-bottom:#302426;
+    --grass-top:#E8442C;
+    --grass-side:#B32F1E;
+    --dirt:#241E1D;
+    --dirt-dark:#141010;
+    --stone:#3A3A3E;
+    --stone-dark:#232326;
+    --plank:#B8863E;
+    --plank-dark:#96692C;
+    --ui-bg:#1C1C20;
+    --ui-dark:#0A0A0C;
+    --slot-bg:#101013;
+    --gold:#FF8A3D;
+    --ember:#FFB238;
+    --text-dark:#F2F2F2;
+    --font-pixel:'Press Start 2P', monospace;
+    --font-body:'VT323', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{ width:100%; min-height:100%; font-family:var(--font-body); }
+  body{
+    position:relative;
+    min-height:100vh;
+    background:linear-gradient(var(--sky-top), var(--sky-bottom) 60%);
+    overflow-x:hidden;
+    padding:32px 16px 60px;
+  }
+
+  /* subtle drifting cloud backdrop */
+  .cloud{ position:absolute; opacity:0.85; animation:drift linear infinite; z-index:0; }
+  .cloud svg{ display:block; width:100%; height:100%; }
+  @keyframes drift{ from{transform:translateX(-140px);} to{transform:translateX(calc(100vw + 140px));} }
+
+  .wrap{
+    position:relative;
+    z-index:1;
+    max-width:720px;
+    margin:0 auto;
+  }
+
+  /* Header: username display like a player card */
+  .player-bar{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:var(--ui-bg);
+    border:5px solid var(--ui-dark);
+    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.15), inset -3px -3px 0 rgba(0,0,0,0.4), 0 0 0 2px rgba(232,68,44,0.3);
+    padding:12px 16px;
+    margin-bottom:20px;
+  }
+  .avatar{
+    width:44px; height:44px;
+    background:linear-gradient(135deg, var(--grass-top), var(--gold));
+    box-shadow:inset -4px 0 0 rgba(0,0,0,0.25), inset 0 -4px 0 rgba(0,0,0,0.3);
+    flex-shrink:0;
+  }
+  .player-name{
+    font-family:var(--font-pixel);
+    font-size:13px;
+    color:var(--text-dark);
+  }
+  .player-sub{
+    font-size:15px;
+    color:#9a9aa0;
+    margin-top:4px;
+  }
+
+  /* Hotbar step indicator */
+  .hotbar{
+    display:flex;
+    gap:6px;
+    background:var(--ui-bg);
+    border:5px solid var(--ui-dark);
+    padding:8px;
+    margin-bottom:22px;
+    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.15), inset -3px -3px 0 rgba(0,0,0,0.4), 0 0 0 2px rgba(232,68,44,0.3);
+  }
+  .hotbar-slot{
+    flex:1;
+    aspect-ratio:1;
+    max-width:60px;
+    background:var(--slot-bg);
+    box-shadow:inset 2px 2px 0 rgba(0,0,0,0.5), inset -2px -2px 0 rgba(255,138,61,0.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--font-pixel);
+    font-size:10px;
+    color:#8a8a90;
+    position:relative;
+    transition:box-shadow 0.2s;
+  }
+  .hotbar-slot.active{
+    box-shadow:inset 2px 2px 0 rgba(0,0,0,0.5), inset -2px -2px 0 rgba(255,138,61,0.08), 0 0 0 3px var(--gold);
+    color:#fff;
+  }
+  .hotbar-slot.done::after{
+    content:"✓";
+    position:absolute;
+    color:var(--ember);
+    font-size:16px;
+    text-shadow:1px 1px 0 #000;
+  }
+
+  /* Crafting panel */
+  .crafting-panel{
+    background:var(--ui-bg);
+    border:6px solid var(--ui-dark);
+    box-shadow:inset 4px 4px 0 rgba(255,138,61,0.15), inset -4px -4px 0 rgba(0,0,0,0.4), 0 0 0 2px rgba(232,68,44,0.25), 0 10px 0 rgba(0,0,0,0.4);
+    padding:24px;
+  }
+
+  .section-title{
+    font-family:var(--font-pixel);
+    font-size:13px;
+    background:linear-gradient(90deg, var(--ember), var(--grass-side));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    margin-bottom:18px;
+  }
+
+  .grid-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-bottom:16px;
+  }
+  @media (max-width:520px){ .grid-row{ grid-template-columns:1fr; } }
+
+  .field{ margin-bottom:16px; }
+  .field-label{
+    display:block;
+    font-size:16px;
+    color:var(--text-dark);
+    margin-bottom:5px;
+  }
+  .field input, .field select, .field textarea{
+    width:100%;
+    font-family:var(--font-body);
+    font-size:18px;
+    padding:10px 12px;
+    background:var(--slot-bg);
+    border:none;
+    outline:none;
+    color:#fff;
+    box-shadow:inset 3px 3px 0 rgba(0,0,0,0.5), inset -3px -3px 0 rgba(255,138,61,0.08);
+    caret-color:var(--ember);
+    appearance:none;
+  }
+  .field select{
+    cursor:pointer;
+    background-image:linear-gradient(45deg, transparent 50%, #fff 50%), linear-gradient(135deg, #fff 50%, transparent 50%);
+    background-position: calc(100% - 18px) center, calc(100% - 12px) center;
+    background-size:6px 6px, 6px 6px;
+    background-repeat:no-repeat;
+  }
+  .field textarea{ resize:vertical; min-height:80px; font-family:var(--font-body); }
+  .field input::placeholder, .field textarea::placeholder{ color:#5a5a60; }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    box-shadow:inset 3px 3px 0 rgba(0,0,0,0.5), inset -3px -3px 0 rgba(255,138,61,0.08), 0 0 0 3px var(--gold);
+  }
+  .field-error{
+    font-size:14px;
+    color:#FF6B5B;
+    margin-top:4px;
+    display:none;
+  }
+  .field.invalid .field-error{ display:block; }
+  .field.invalid input, .field.invalid select{
+    box-shadow:inset 3px 3px 0 rgba(0,0,0,0.5), inset -3px -3px 0 rgba(255,138,61,0.08), 0 0 0 3px #FF6B5B;
+  }
+
+  /* Skill picker (like enchant/attribute allocation) */
+  .skill-picker{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .skill-chip{
+    font-size:16px;
+    padding:8px 14px;
+    background:var(--slot-bg);
+    color:#fff;
+    box-shadow:inset 2px 2px 0 rgba(0,0,0,0.4), inset -2px -2px 0 rgba(255,138,61,0.08);
+    cursor:pointer;
+    user-select:none;
+    transition:transform 0.05s;
+  }
+  .skill-chip:hover{ filter:brightness(1.2); }
+  .skill-chip.selected{
+    background:linear-gradient(90deg, var(--grass-side), var(--gold));
+    box-shadow:inset 2px 2px 0 rgba(255,255,255,0.2), inset -2px -2px 0 rgba(0,0,0,0.4), 0 0 0 2px var(--ember);
+  }
+  .skill-chip:active{ transform:translateY(1px); }
+
+  .nav-row{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:22px;
+  }
+  .mc-button{
+    font-family:var(--font-pixel);
+    font-size:12px;
+    color:#fff;
+    text-shadow:2px 2px 0 rgba(0,0,0,0.5);
+    background:linear-gradient(90deg, var(--grass-top), var(--gold));
+    border:none;
+    padding:14px 22px;
+    cursor:pointer;
+    box-shadow:inset 3px 3px 0 rgba(255,255,255,0.2), inset -4px -4px 0 rgba(0,0,0,0.35);
+    transition:transform 0.05s;
+  }
+  .mc-button.secondary{ background:var(--stone-dark); }
+  .mc-button:hover{ filter:brightness(1.1); }
+  .mc-button:active{ transform:translateY(2px); box-shadow:inset 3px 3px 0 rgba(0,0,0,0.3), inset -2px -2px 0 rgba(255,255,255,0.1); }
+  .mc-button:disabled{ opacity:0.5; cursor:not-allowed; }
+
+  .step-panel{ display:none; animation:fadeStep 0.25s steps(4); }
+  .step-panel.active{ display:block; }
+  @keyframes fadeStep{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  .success-panel{ display:none; text-align:center; padding:20px 0; }
+  .success-panel.active{ display:block; }
+  .success-badge{
+    width:80px; height:80px;
+    margin:0 auto 18px;
+    background:linear-gradient(135deg, var(--grass-top), var(--gold));
+    box-shadow:inset 4px 4px 0 rgba(255,255,255,0.25), inset -4px -4px 0 rgba(0,0,0,0.35), 0 0 24px rgba(255,138,61,0.4);
+    display:flex; align-items:center; justify-content:center;
+    font-size:36px;
+    animation:popIn 0.4s steps(6);
+  }
+  @keyframes popIn{ from{ transform:scale(0); } to{ transform:scale(1); } }
+  .success-title{ font-family:var(--font-pixel); font-size:15px; color:var(--text-dark); margin-bottom:10px; }
+  .success-sub{ font-size:18px; color:#9a9aa0; }
+
+  .toast{
+    position:fixed; bottom:24px; left:50%;
+    transform:translateX(-50%) translateY(20px);
+    background:rgba(0,0,0,0.75); color:#fff;
+    font-size:16px; padding:8px 16px; border:2px solid #000;
+    opacity:0; transition:all 0.25s; pointer-events:none; z-index:50;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cloud" style="width:110px; height:46px; top:4%; animation-duration:55s;">
+  <svg viewBox="0 0 100 42"><g fill="#4A4045" opacity="0.8"><rect x="10" y="18" width="70" height="18"/><rect x="20" y="8" width="40" height="14"/><rect x="0" y="24" width="14" height="10"/><rect x="82" y="22" width="14" height="10"/></g></svg>
+</div>
+<div class="cloud" style="width:80px; height:34px; top:10%; animation-duration:70s; animation-delay:-20s;">
+  <svg viewBox="0 0 100 42"><g fill="#4A4045" opacity="0.8"><rect x="10" y="18" width="70" height="18"/><rect x="20" y="8" width="40" height="14"/><rect x="0" y="24" width="14" height="10"/><rect x="82" y="22" width="14" height="10"/></g></svg>
+</div>
+
+<div class="wrap">
+  <div class="player-bar">
+    <div class="avatar"></div>
+    <div>
+      <div class="player-name" id="player-name">PLAYER</div>
+      <div class="player-sub">let's set up your character</div>
+    </div>
+  </div>
+
+  <div class="hotbar" id="hotbar">
+    <div class="hotbar-slot active" data-step="1">1</div>
+    <div class="hotbar-slot" data-step="2">2</div>
+    <div class="hotbar-slot" data-step="3">3</div>
+  </div>
+
+  <div class="crafting-panel">
+
+    <!-- Step 1: Basic info -->
+    <div class="step-panel active" data-panel="1">
+      <div class="section-title">STEP 1 — SPAWN DETAILS</div>
+      <div class="grid-row">
+        <div class="field" id="f-first">
+          <label class="field-label">First name</label>
+          <input type="text" placeholder="Steve" data-required>
+          <div class="field-error">This slot can't be empty</div>
+        </div>
+        <div class="field" id="f-last">
+          <label class="field-label">Last name</label>
+          <input type="text" placeholder="Alexson" data-required>
+          <div class="field-error">This slot can't be empty</div>
+        </div>
+      </div>
+      <div class="field" id="f-email">
+        <label class="field-label">Email</label>
+        <input type="email" placeholder="you@overworld.com" data-required>
+        <div class="field-error">Enter a valid email</div>
+      </div>
+      <div class="field" id="f-bio">
+        <label class="field-label">Bio (optional)</label>
+        <textarea placeholder="Tell us about your adventures..."></textarea>
+      </div>
+      <div class="nav-row">
+        <span></span>
+        <button class="mc-button" data-next="2">NEXT →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Character setup -->
+    <div class="step-panel" data-panel="2">
+      <div class="section-title">STEP 2 — CHARACTER CLASS</div>
+      <div class="grid-row">
+        <div class="field" id="f-class">
+          <label class="field-label">Class</label>
+          <select data-required>
+            <option value="">Choose a class</option>
+            <option>Builder</option>
+            <option>Miner</option>
+            <option>Explorer</option>
+            <option>Redstone Engineer</option>
+          </select>
+          <div class="field-error">Pick a class to continue</div>
+        </div>
+        <div class="field" id="f-difficulty">
+          <label class="field-label">Difficulty</label>
+          <select data-required>
+            <option value="">Choose difficulty</option>
+            <option>Peaceful</option>
+            <option>Easy</option>
+            <option>Normal</option>
+            <option>Hard</option>
+          </select>
+          <div class="field-error">Pick a difficulty to continue</div>
+        </div>
+      </div>
+
+      <label class="field-label">Skills (pick any)</label>
+      <div class="skill-picker" id="skill-picker">
+        <div class="skill-chip">⛏ Mining</div>
+        <div class="skill-chip">🌾 Farming</div>
+        <div class="skill-chip">⚔ Combat</div>
+        <div class="skill-chip">🏗 Building</div>
+        <div class="skill-chip">🧪 Brewing</div>
+        <div class="skill-chip">🐴 Taming</div>
+      </div>
+
+      <div class="nav-row">
+        <button class="mc-button secondary" data-prev="1">← BACK</button>
+        <button class="mc-button" data-next="3">NEXT →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Confirm -->
+    <div class="step-panel" data-panel="3">
+      <div class="section-title">STEP 3 — CONFIRM AND SPAWN</div>
+      <div class="field" id="f-world">
+        <label class="field-label">World name</label>
+        <input type="text" placeholder="My New World" data-required>
+        <div class="field-error">Name your world</div>
+      </div>
+      <div class="field">
+        <label class="field-label">Seed (optional)</label>
+        <input type="text" placeholder="12345678">
+      </div>
+      <div class="nav-row">
+        <button class="mc-button secondary" data-prev="2">← BACK</button>
+        <button class="mc-button" id="submit-btn">SPAWN IN</button>
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div class="success-panel" id="success-panel">
+      <div class="success-badge">✓</div>
+      <div class="success-title">WORLD CREATED</div>
+      <div class="success-sub">Your character is ready. Have fun out there.</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  // Player name from login page (if available)
+  try{
+    const name = sessionStorage.getItem('mc_username');
+    if(name) document.getElementById('player-name').textContent = name.toUpperCase();
+  }catch(e){}
+
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=>toast.classList.remove('show'), 1600);
+  }
+
+  // Skill chip toggle
+  document.querySelectorAll('.skill-chip').forEach(chip=>{
+    chip.addEventListener('click', ()=> chip.classList.toggle('selected'));
+  });
+
+  const panels = document.querySelectorAll('.step-panel');
+  const hotbarSlots = document.querySelectorAll('.hotbar-slot');
+
+  function validateStep(panel){
+    let valid = true;
+    panel.querySelectorAll('.field').forEach(field=>{
+      const input = field.querySelector('[data-required]');
+      if(!input) return;
+      let ok = input.value.trim().length > 0;
+      if(ok && input.type === 'email'){
+        ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+      }
+      field.classList.toggle('invalid', !ok);
+      if(!ok) valid = false;
+    });
+    return valid;
+  }
+
+  function goToStep(n){
+    panels.forEach(p => p.classList.toggle('active', p.dataset.panel === String(n)));
+    hotbarSlots.forEach(s=>{
+      const step = Number(s.dataset.step);
+      s.classList.toggle('active', step === n);
+      s.classList.toggle('done', step < n);
+    });
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  document.querySelectorAll('[data-next]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const currentPanel = btn.closest('.step-panel');
+      if(!validateStep(currentPanel)){
+        showToast('Fill in the highlighted slots first!');
+        return;
+      }
+      goToStep(Number(btn.dataset.next));
+    });
+  });
+  document.querySelectorAll('[data-prev]').forEach(btn=>{
+    btn.addEventListener('click', ()=> goToStep(Number(btn.dataset.prev)));
+  });
+
+  document.getElementById('submit-btn').addEventListener('click', function(){
+    const currentPanel = this.closest('.step-panel');
+    if(!validateStep(currentPanel)){
+      showToast('Fill in the highlighted slots first!');
+      return;
+    }
+    this.disabled = true;
+    this.textContent = 'GENERATING...';
+    setTimeout(()=>{
+      document.querySelector('.crafting-panel .step-panel.active').classList.remove('active');
+      document.getElementById('success-panel').classList.add('active');
+      document.getElementById('hotbar').querySelectorAll('.hotbar-slot').forEach(s=>{
+        s.classList.remove('active');
+        s.classList.add('done');
+      });
+    }, 700);
+  });
+})();
+</script>
+</body>
+</html>

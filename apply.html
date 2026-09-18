@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Code Craft | MAJU Recruitment</title>
+<meta name="description" content="Apply to join the leadership or departmental teams of MAJU Code Craft Society. Interactive Minecraft crafting-table application form.">
+<link rel="icon" type="image/png" href="logos/community_logo_clean.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mc-theme.css">
+<style>
+  /* ===== Apply / Crafting Table Multi-Step Form ===== */
+  .page-hero{
+    padding:50px 24px 30px;
+    text-align:center;
+    position:relative;
+    z-index:2;
+  }
+  .page-hero-scrim{
+    display:inline-block;
+    background:rgba(6,6,8,0.55);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+    padding:26px 34px;
+    border-radius:2px;
+    box-shadow:0 0 0 1px rgba(255,138,61,0.14), 0 10px 0 rgba(0,0,0,0.3);
+    width:100%;
+    max-width:760px;
+  }
+  .hero-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--font-pixel);
+    font-size:clamp(11px, 1.35vw, 14px);
+    letter-spacing:2px;
+    color:#FFFFFF;
+    background:linear-gradient(90deg, rgba(232,68,44,0.55), rgba(255,138,61,0.4));
+    border:2px solid var(--gold);
+    padding:8px 18px;
+    box-shadow:inset 1px 1px 0 rgba(255,255,255,0.25), inset -1px -1px 0 rgba(0,0,0,0.5), 0 0 14px rgba(255,138,61,0.45);
+    text-shadow:1px 1px 0 #000, 0 0 8px rgba(255,138,61,0.6);
+    font-weight:bold;
+  }
+  .page-title{
+    font-family:var(--font-pixel);
+    font-size:clamp(20px, 3.8vw, 34px);
+    line-height:1.6;
+    color:var(--text-dark);
+    margin-bottom:12px;
+    text-shadow:3px 3px 0 rgba(0,0,0,0.4);
+  }
+  .page-title .accent{
+    background:linear-gradient(90deg, var(--ember), var(--grass-side));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .page-sub{
+    font-size:20px;
+    line-height:1.5;
+    color:#d8d8de;
+    max-width:620px;
+    margin:0 auto;
+    text-shadow:1px 1px 0 rgba(0,0,0,0.7);
+  }
+
+  /* Main Form Card Container */
+  .crafting-container{
+    max-width:760px;
+    margin:0 auto 80px;
+    padding:0 20px;
+    position:relative;
+    z-index:2;
+  }
+
+  /* Player Bar */
+  .player-bar{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:var(--ui-bg);
+    border:5px solid var(--ui-dark);
+    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.15), inset -3px -3px 0 rgba(0,0,0,0.4), 0 0 0 2px rgba(232,68,44,0.3);
+    padding:12px 18px;
+    margin-bottom:18px;
+  }
+  .player-avatar{
+    width:44px; height:44px;
+    background:linear-gradient(135deg, var(--grass-top), var(--gold));
+    box-shadow:inset -3px 0 0 rgba(0,0,0,0.3), inset 0 -3px 0 rgba(0,0,0,0.35);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+  }
+  .player-info h3{
+    font-family:var(--font-pixel);
+    font-size:12px;
+    color:#fff;
+  }
+  .player-info p{
+    font-size:16px;
+    color:#9a9aa0;
+  }
+
+  /* Hotbar Step Indicator */
+  .hotbar-steps{
+    display:flex;
+    gap:8px;
+    background:var(--ui-bg);
+    border:5px solid var(--ui-dark);
+    padding:8px;
+    margin-bottom:20px;
+    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.15), inset -3px -3px 0 rgba(0,0,0,0.4), 0 0 0 2px rgba(232,68,44,0.25);
+  }
+  .hotbar-step{
+    flex:1;
+    background:var(--slot-bg);
+    border:2px solid var(--ui-dark);
+    padding:10px 6px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    box-shadow:inset 2px 2px 0 rgba(0,0,0,0.6), inset -2px -2px 0 rgba(255,138,61,0.06);
+    transition:all 0.2s ease;
+    cursor:pointer;
+    user-select:none;
+  }
+  .hotbar-step .step-num{
+    font-family:var(--font-pixel);
+    font-size:11px;
+    color:#777;
+  }
+  .hotbar-step .step-label{
+    font-family:var(--font-pixel);
+    font-size:7px;
+    color:#888;
+    text-transform:uppercase;
+  }
+  .hotbar-step.active{
+    border-color:var(--gold);
+    box-shadow:inset 2px 2px 0 rgba(255,255,255,0.15), inset -2px -2px 0 rgba(0,0,0,0.4), 0 0 8px rgba(255,138,61,0.4);
+  }
+  .hotbar-step.active .step-num{ color:var(--ember); }
+  .hotbar-step.active .step-label{ color:#fff; }
+  .hotbar-step.done{
+    border-color:var(--cave-neon);
+  }
+  .hotbar-step.done .step-num{ color:var(--cave-neon); }
+
+  /* Crafting Table Panel */
+  .crafting-panel{
+    background:var(--ui-bg);
+    border:6px solid var(--ui-dark);
+    box-shadow:inset 4px 4px 0 rgba(255,138,61,0.15), inset -4px -4px 0 rgba(0,0,0,0.5), 0 0 0 3px rgba(232,68,44,0.3), 0 14px 0 rgba(0,0,0,0.5);
+    padding:28px 24px;
+    position:relative;
+  }
+
+  .crafting-panel-title{
+    font-family:var(--font-pixel);
+    font-size:13px;
+    color:var(--text-dark);
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    border-bottom:3px solid var(--ui-dark);
+    padding-bottom:12px;
+  }
+
+  /* Form Fields */
+  .step-pane{ display:none; }
+  .step-pane.active{ display:block; animation:stepFade 0.25s ease-out; }
+  @keyframes stepFade{
+    from{ opacity:0; transform:translateY(6px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .form-group{
+    margin-bottom:18px;
+  }
+  .form-group label{
+    display:block;
+    font-family:var(--font-body);
+    font-size:17px;
+    color:var(--ember);
+    margin-bottom:6px;
+  }
+  .form-group input, .form-group select, .form-group textarea{
+    width:100%;
+    font-family:var(--font-body);
+    font-size:18px;
+    color:#fff;
+    background:var(--slot-bg);
+    border:3px solid var(--ui-dark);
+    padding:10px 14px;
+    box-shadow:inset 3px 3px 0 rgba(0,0,0,0.6), inset -3px -3px 0 rgba(255,138,61,0.08);
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus{
+    outline:none;
+    border-color:var(--gold);
+    box-shadow:0 0 0 2px var(--gold);
+  }
+  .form-help{
+    font-size:14px;
+    color:#8a8a92;
+    margin-top:4px;
+  }
+
+  /* Skill / Domain Chip selector */
+  .chip-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:8px;
+  }
+  .chip-item{
+    font-family:var(--font-pixel);
+    font-size:8px;
+    padding:8px 12px;
+    background:var(--slot-bg);
+    border:2px solid var(--ui-dark);
+    color:#aaa;
+    cursor:pointer;
+    user-select:none;
+    box-shadow:inset 2px 2px 0 rgba(0,0,0,0.5);
+    transition:all 0.15s ease;
+  }
+  .chip-item:hover{
+    color:#fff;
+    border-color:var(--ember);
+  }
+  .chip-item.selected{
+    color:#fff;
+    background:linear-gradient(90deg, rgba(232,68,44,0.45), rgba(255,138,61,0.35));
+    border-color:var(--gold);
+    box-shadow:0 0 8px rgba(255,138,61,0.35);
+  }
+
+  /* 3x3 Crafting Grid Preview */
+  .crafting-preview{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+    background:var(--slot-bg);
+    border:4px solid var(--ui-dark);
+    padding:18px;
+    margin-bottom:24px;
+  }
+  .craft-grid-3x3{
+    display:grid;
+    grid-template-columns:repeat(3, 38px);
+    gap:4px;
+  }
+  .craft-cell{
+    width:38px; height:38px;
+    background:#1E1E24;
+    border:2px solid var(--ui-dark);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+    box-shadow:inset 2px 2px 0 rgba(0,0,0,0.5);
+  }
+  .craft-arrow{
+    font-family:var(--font-pixel);
+    font-size:20px;
+    color:var(--gold);
+  }
+  .craft-result{
+    width:56px; height:56px;
+    background:#262024;
+    border:3px solid var(--gold);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+    box-shadow:0 0 12px rgba(255,138,61,0.3), inset 2px 2px 0 rgba(255,255,255,0.1);
+  }
+
+  /* Navigation Buttons in Form */
+  .form-nav-row{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:24px;
+    padding-top:16px;
+    border-top:2px solid rgba(255,138,61,0.15);
+  }
+
+  /* Review Box */
+  .review-box{
+    background:var(--slot-bg);
+    border:3px solid var(--ui-dark);
+    padding:18px;
+    margin-bottom:18px;
+  }
+  .review-line{
+    display:flex;
+    justify-content:space-between;
+    font-size:17px;
+    margin-bottom:8px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    padding-bottom:4px;
+  }
+  .review-label{ color:var(--ember); font-weight:bold; }
+  .review-val{ color:#fff; }
+
+  /* Success Advancement state */
+  .craft-success-panel{
+    display:none;
+    text-align:center;
+    padding:30px 16px;
+  }
+  .craft-success-icon{
+    font-size:52px;
+    margin-bottom:16px;
+  }
+  .craft-success-title{
+    font-family:var(--font-pixel);
+    font-size:17px;
+    color:var(--cave-neon);
+    margin-bottom:12px;
+    text-shadow:0 0 10px rgba(57,255,154,0.4);
+  }
+  .craft-success-desc{
+    font-size:20px;
+    line-height:1.5;
+    color:#d0d0d8;
+    max-width:540px;
+    margin:0 auto 24px;
+  }
+</style>
+</head>
+<body data-biomes="ember,obsidian,nether" data-door="skip">
+
+<!-- ============ BIOME BACKGROUND ============ -->
+<div id="biome-layer">
+  <div id="biome-parallax">
+    <div id="ambient-code-layer" class="ambient-code-layer"></div>
+    <div class="biome-terrain" id="biome-terrain"></div>
+  </div>
+</div>
+
+<!-- ============ NAVBAR ============ -->
+<header class="mc-navbar">
+  <a href="index.html" class="mc-nav-brand">
+    <img src="logos/community_logo_clean.png" alt="MAJU Code Craft Logo" class="mc-brand-img">
+    <div class="mc-brand-titles">
+      <span class="mc-brand-uni">MUHAMMAD ALI JINNAH UNIVERSITY</span>
+      <span class="mc-brand-main">MAJU CODE CRAFT</span>
+    </div>
+  </a>
+  <button class="mc-nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  <nav class="mc-nav-links">
+    <a href="index.html#about" class="mc-nav-link">About</a>
+    <a href="index.html#highlights" class="mc-nav-link">Highlights</a>
+    <a href="index.html#what-we-run" class="mc-nav-link">What We Run</a>
+    <a href="events.html" class="mc-nav-link">Events</a>
+    <a href="hierarchy.html" class="mc-nav-link">Hierarchy</a>
+    <a href="mentions.html" class="mc-nav-link">Mentions</a>
+    <a href="executive-community.html" class="mc-nav-link">Alumni</a>
+    <a href="index.html#contact" class="mc-nav-link">Contact</a>
+    <a href="apply.html" class="mc-nav-apply active" data-portal-nav="apply.html">Apply</a>
+  </nav>
+  <div class="mc-daynight" title="Toggle day / night"><div class="orb"></div></div>
+</header>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero" data-biome-trigger="ember">
+  <div class="page-hero-scrim">
+    <div class="hero-pill">&#x2728; RECRUITMENT DRIVE &bull; FALL 2026 TENURE</div>
+    <h1 class="page-title">Join <span class="accent">Code Craft</span></h1>
+    <p class="page-sub">Craft your role in the society team shaping developer culture, hackathons, and software engineering at Muhammad Ali Jinnah University.</p>
+  </div>
+</section>
+
+<!-- ============ CRAFTING TABLE CONTAINER ============ -->
+<section class="crafting-container" data-biome-trigger="obsidian">
+
+  <!-- Player Profile Header -->
+  <div class="player-bar">
+    <img src="logos/community_logo_clean.png" alt="MAJU Code Craft Logo" style="width:64px; height:64px; border-radius:50%; object-fit:cover; border:3px solid var(--gold); box-shadow:0 0 12px rgba(255,138,61,0.5); flex-shrink:0;">
+    <div class="player-info" style="flex:1;">
+      <h3 id="playerDisplay" style="font-size:14px;">CANDIDATE BUILDER</h3>
+      <p id="playerSub" style="font-size:17px; margin-top:4px;">Official Society Recruitment &bull; IRC &bull; Faculty of Computing, MAJU</p>
+    </div>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Muhammad Ali Jinnah University (MAJU)">
+        <img src="logos/university_logo_clean.png" alt="MAJU" style="width:62px; height:62px; border-radius:50%; background:#fff; border:2px solid var(--gold); box-shadow:0 0 8px rgba(255,138,61,0.3);">
+      </a>
+      <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Industrial Relations Committee (IRC)">
+        <img src="logos/irc_logo_clean.png" alt="IRC" style="width:62px; height:62px; border-radius:50%; background:#fff; border:2px solid var(--gold); box-shadow:0 0 8px rgba(255,138,61,0.3);">
+      </a>
+    </div>
+  </div>
+
+  <!-- Hotbar Step Indicator -->
+  <div class="hotbar-steps" id="hotbarSteps">
+    <div class="hotbar-step active" data-step="1">
+      <span class="step-num">1</span>
+      <span class="step-label">Identity</span>
+    </div>
+    <div class="hotbar-step" data-step="2">
+      <span class="step-num">2</span>
+      <span class="step-label">Domains</span>
+    </div>
+    <div class="hotbar-step" data-step="3">
+      <span class="step-num">3</span>
+      <span class="step-label">Motivation</span>
+    </div>
+    <div class="hotbar-step" data-step="4">
+      <span class="step-num">4</span>
+      <span class="step-label">Craft</span>
+    </div>
+  </div>
+
+  <!-- Main Crafting Panel -->
+  <div class="crafting-panel">
+
+    <!-- 3x3 Recipe Preview -->
+    <div class="crafting-preview">
+      <div class="craft-grid-3x3">
+        <div class="craft-cell" id="gridCell1">&#x1F4D6;</div>
+        <div class="craft-cell" id="gridCell2">&#x270F;&#xFE0F;</div>
+        <div class="craft-cell" id="gridCell3">&#x1F4E7;</div>
+        <div class="craft-cell" id="gridCell4">&#x2699;&#xFE0F;</div>
+        <div class="craft-cell" id="gridCell5">&#x1F4BB;</div>
+        <div class="craft-cell" id="gridCell6">&#x1F3A8;</div>
+        <div class="craft-cell" id="gridCell7">&#x1F525;</div>
+        <div class="craft-cell" id="gridCell8">&#x1F680;</div>
+        <div class="craft-cell" id="gridCell9">&#x1F310;</div>
+      </div>
+      <div class="craft-arrow">&rarr;</div>
+      <div class="craft-result" id="craftResultCell">&#x1F39F;&#xFE0F;</div>
+    </div>
+
+    <!-- Multi-Step Form -->
+    <form id="craftForm" onsubmit="handleCraftSubmit(event)">
+
+      <!-- STEP 1: IDENTITY -->
+      <div class="step-pane active" id="step1">
+        <div class="crafting-panel-title">
+          <span>&#x1F4DC; STEP 1: APPLICANT IDENTITY</span>
+        </div>
+
+        <div class="form-group">
+          <label for="appName">Full Name *</label>
+          <input type="text" id="appName" placeholder="e.g. Asad Malik" required>
+        </div>
+
+        <div class="form-group">
+          <label for="appEmail">University Email * (Must be @maju.edu.pk)</label>
+          <input type="email" id="appEmail" placeholder="id@maju.edu.pk" pattern=".+@maju\.edu\.pk" title="Please enter your official university email (@maju.edu.pk)" required>
+          <div class="form-help">Must be an official @maju.edu.pk address.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="appRoll">Student Registration / Roll No *</label>
+          <input type="text" id="appRoll" placeholder="e.g. BC210200123" required>
+        </div>
+
+        <div class="form-group">
+          <label for="appAge">Age *</label>
+          <input type="number" id="appAge" min="16" max="35" placeholder="19" required>
+        </div>
+
+        <div class="form-nav-row">
+          <div></div>
+          <button type="button" class="mc-button" onclick="goToStep(2)">NEXT: DOMAINS &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: DOMAINS & DEPARTMENT -->
+      <div class="step-pane" id="step2">
+        <div class="crafting-panel-title">
+          <span>&#x2694; STEP 2: DEPARTMENT &amp; SKILLSETS</span>
+        </div>
+
+        <div class="form-group">
+          <label for="appDept">Target Department *</label>
+          <select id="appDept" required>
+            <option value="">Select a department...</option>
+            <option value="event">Event Management &amp; Technical Problems</option>
+            <option value="operations">Operations &amp; Campus Logistics</option>
+            <option value="graphics">Graphics, UI/UX &amp; Media Design</option>
+            <option value="awareness">Public Awareness, Social Media &amp; Marketing</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Domains of Interest (Select all that fit)</label>
+          <div class="chip-grid" id="domainChips">
+            <div class="chip-item" data-domain="Full-Stack Web">Full-Stack Web</div>
+            <div class="chip-item" data-domain="Competitive Programming">ICPC / Problem Solving</div>
+            <div class="chip-item" data-domain="AI &amp; Machine Learning">AI &amp; Machine Learning</div>
+            <div class="chip-item" data-domain="Event Operations">Event Operations</div>
+            <div class="chip-item" data-domain="UI/UX &amp; Graphic Design">UI/UX &amp; Graphics</div>
+            <div class="chip-item" data-domain="Public Relations">PR &amp; Awareness</div>
+            <div class="chip-item" data-domain="DevOps &amp; Cloud">DevOps &amp; Cloud</div>
+            <div class="chip-item" data-domain="Mobile App Dev">Mobile Development</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="appSkillset">Primary Technical Skillset / Tools</label>
+          <input type="text" id="appSkillset" placeholder="React, C++, Figma, Python, Docker…">
+        </div>
+
+        <div class="form-nav-row">
+          <button type="button" class="filter-btn" onclick="goToStep(1)">&larr; BACK</button>
+          <button type="button" class="mc-button" onclick="goToStep(3)">NEXT: MOTIVATION &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: MOTIVATION & PORTFOLIO -->
+      <div class="step-pane" id="step3">
+        <div class="crafting-panel-title">
+          <span>&#x1F4D6; STEP 3: QUEST MOTIVATION &amp; LINKS</span>
+        </div>
+
+        <div class="form-group">
+          <label for="appMotivation">Why MAJU Code Craft? *</label>
+          <textarea id="appMotivation" rows="4" maxlength="500" placeholder="Tell us what you want to build, learn, or run with our campus society team..." required></textarea>
+          <div class="form-help" id="charCount">0 / 500 characters</div>
+        </div>
+
+        <div class="form-group">
+          <label for="appPortfolio">Portfolio / GitHub / LinkedIn URL</label>
+          <input type="url" id="appPortfolio" placeholder="https://github.com/yourhandle">
+        </div>
+
+        <div class="form-nav-row">
+          <button type="button" class="filter-btn" onclick="goToStep(2)">&larr; BACK</button>
+          <button type="button" class="mc-button" onclick="goToStep(4)">REVIEW &amp; CRAFT &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: REVIEW & CRAFT -->
+      <div class="step-pane" id="step4">
+        <div class="crafting-panel-title">
+          <span>&#x1F528; STEP 4: CONFIRM RECIPE &amp; CRAFT APPLICATION</span>
+        </div>
+
+        <div class="review-box">
+          <div class="review-line">
+            <span class="review-label">Candidate Name:</span>
+            <span class="review-val" id="revName">&mdash;</span>
+          </div>
+          <div class="review-line">
+            <span class="review-label">University Email:</span>
+            <span class="review-val" id="revEmail">&mdash;</span>
+          </div>
+          <div class="review-line">
+            <span class="review-label">Roll Number:</span>
+            <span class="review-val" id="revRoll">&mdash;</span>
+          </div>
+          <div class="review-line">
+            <span class="review-label">Target Department:</span>
+            <span class="review-val" id="revDept">&mdash;</span>
+          </div>
+          <div class="review-line">
+            <span class="review-label">Selected Domains:</span>
+            <span class="review-val" id="revDomains">&mdash;</span>
+          </div>
+          <div class="review-line">
+            <span class="review-label">Key Skillset:</span>
+            <span class="review-val" id="revSkills">&mdash;</span>
+          </div>
+        </div>
+
+        <p style="font-size:16px; color:#aaa; margin-bottom:20px; text-align:center;">
+          By submitting, you certify that you are an enrolled student at Muhammad Ali Jinnah University and agree to commit time toward society sprints and events.
+        </p>
+
+        <div class="form-nav-row">
+          <button type="button" class="filter-btn" onclick="goToStep(3)">&larr; BACK</button>
+          <button type="submit" class="mc-button" style="font-size:12px; padding:14px 24px;">&#x2694; CRAFT APPLICATION &rarr;</button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- SUCCESS ADVANCEMENT STATE -->
+    <div class="craft-success-panel" id="craftSuccess">
+      <div class="craft-success-icon">&#x1F389;</div>
+      <h3 class="craft-success-title">Advancement Made: Application Crafted!</h3>
+      <p class="craft-success-desc">
+        Your society application has been forged in the obsidian archives. The Chairperson and Department Leads will inspect your submission in the recruitment pipeline. Check your university email for the interview summons!
+      </p>
+      <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+        <a href="index.html" class="mc-button">RETURN TO OVERWORLD &rarr;</a>
+        <a href="events.html" class="filter-btn" style="font-size:11px; padding:10px 18px;">VIEW EVENTS</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="mc-footer" data-biome-trigger="cave">
+  <div class="mc-footer-inner">
+    <div class="mc-footer-grid">
+      <div>
+        <div class="mc-footer-brand" style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+          <img src="logos/community_logo_clean.png" alt="MAJU Code Craft" class="mc-brand-img">
+          <span style="font-family:var(--font-pixel); font-size:11px; color:#fff;">MAJU CODE CRAFT</span>
+        </div>
+        <p>The student computing and software engineering society at Muhammad Ali Jinnah University, Karachi.</p>
+        <p style="font-size:14px; margin-top:8px;">Open to all university students. Free access.</p>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="events.html">Public Events</a></li>
+          <li><a href="hierarchy.html">Leadership Tree</a></li>
+          <li><a href="apply.html">Join Code Craft</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Community</h5>
+        <ul>
+          <li><a href="mentions.html">Honourable Mentions</a></li>
+          <li><a href="executive-community.html">Alumni Network</a></li>
+          <li><a href="index.html#contact">Contact Council</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Internal Portal</h5>
+        <p style="font-size:14px; margin-bottom:10px;">For executives and department teams to plan, assign, and track operations:</p>
+        <a href="../dynamic_doc/index.html" class="mc-button" style="font-size:9px; padding:8px 12px;">Open System &rarr;</a>
+      </div>
+      <div class="footer-affiliation-wrap">
+        <div class="footer-affiliation-info">
+          <div class="footer-affiliation-title">&#x1F3DB;&#xFE0F; INSTITUTIONAL PATRONAGE &amp; ACADEMIC BACKING</div>
+          <p class="footer-affiliation-desc">
+            The <strong>Industrial Relations Committee (IRC)</strong> at <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer">Muhammad Ali Jinnah University (MAJU)</a> in Karachi is a student- and faculty-driven committee designed to bridge the gap between academic learning and industry demands.
+          </p>
+        </div>
+        <div class="footer-partner-logos">
+          <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Muhammad Ali Jinnah University (MAJU)">
+            <img src="logos/university_logo_clean.png" alt="MAJU" class="footer-partner-badge">
+          </a>
+          <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Industrial Relations Committee (IRC) - Faculty of Computing">
+            <img src="logos/irc_logo_clean.png" alt="IRC" class="footer-partner-badge">
+          </a>
+          <a href="index.html" title="MAJU Code Craft Society">
+            <img src="logos/community_logo_clean.png" alt="MCC" class="footer-partner-badge logo-dark">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="mc-footer-bottom">
+      <div>&copy; 2026 MAJU Code Craft Society. All rights reserved.</div>
+      <div>Ember &amp; Obsidian &mdash; Recruitment Table</div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/mc-theme.js"></script>
+<script>
+(function(){
+  var currentStep = 1;
+  var selectedDomains = [];
+
+  // Domain Chip toggles
+  document.querySelectorAll('#domainChips .chip-item').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      var val = this.dataset.domain;
+      if(this.classList.contains('selected')){
+        this.classList.remove('selected');
+        selectedDomains = selectedDomains.filter(function(d){ return d !== val; });
+      } else {
+        this.classList.add('selected');
+        selectedDomains.push(val);
+      }
+    });
+  });
+
+  // Character counter
+  var motivationEl = document.getElementById('appMotivation');
+  var charCountEl = document.getElementById('charCount');
+  if(motivationEl && charCountEl){
+    motivationEl.addEventListener('input', function(){
+      charCountEl.textContent = this.value.length + ' / 500 characters';
+    });
+  }
+
+  // Name live update
+  var nameInput = document.getElementById('appName');
+  var playerDisplay = document.getElementById('playerDisplay');
+  if(nameInput && playerDisplay){
+    nameInput.addEventListener('input', function(){
+      playerDisplay.textContent = this.value.trim() ? this.value.toUpperCase() : 'CANDIDATE BUILDER';
+    });
+  }
+
+  // Step Switcher
+  window.goToStep = function(step){
+    // Basic validation
+    if(step > 1 && currentStep === 1){
+      var n = document.getElementById('appName').value.trim();
+      var e = document.getElementById('appEmail').value.trim();
+      var r = document.getElementById('appRoll').value.trim();
+      var a = document.getElementById('appAge').value.trim();
+      if(!n || !e || !r || !a){
+        alert('Please fill all required personal information fields.');
+        return;
+      }
+      if(!e.endsWith('@maju.edu.pk')){
+        alert('Please enter a valid official university email (@maju.edu.pk).');
+        return;
+      }
+    }
+    if(step > 2 && currentStep === 2){
+      var dept = document.getElementById('appDept').value;
+      if(!dept){
+        alert('Please select a target department.');
+        return;
+      }
+    }
+    if(step > 3 && currentStep === 3){
+      var mot = document.getElementById('appMotivation').value.trim();
+      if(!mot){
+        alert('Please describe your motivation for joining MAJU Code Craft.');
+        return;
+      }
+      // Populate review step
+      document.getElementById('revName').textContent = document.getElementById('appName').value;
+      document.getElementById('revEmail').textContent = document.getElementById('appEmail').value;
+      document.getElementById('revRoll').textContent = document.getElementById('appRoll').value;
+      var deptSel = document.getElementById('appDept');
+      document.getElementById('revDept').textContent = deptSel.options[deptSel.selectedIndex].text;
+      document.getElementById('revDomains').textContent = selectedDomains.length ? selectedDomains.join(', ') : 'General Member';
+      document.getElementById('revSkills').textContent = document.getElementById('appSkillset').value || 'Open to learn';
+    }
+
+    currentStep = step;
+
+    // Switch panes
+    document.querySelectorAll('.step-pane').forEach(function(p){ p.classList.remove('active'); });
+    var targetPane = document.getElementById('step' + step);
+    if(targetPane) targetPane.classList.add('active');
+
+    // Update hotbar indicator
+    document.querySelectorAll('.hotbar-step').forEach(function(h){
+      var s = parseInt(h.dataset.step, 10);
+      h.classList.remove('active');
+      if(s === currentStep) h.classList.add('active');
+      if(s < currentStep) h.classList.add('done');
+      else h.classList.remove('done');
+    });
+
+    // Animate crafting table grid item appearance
+    var resultIcon = '&#x1F39F;&#xFE0F;';
+    if(step === 2) resultIcon = '&#x2699;&#xFE0F;';
+    else if(step === 3) resultIcon = '&#x1F4D6;';
+    else if(step === 4) resultIcon = '&#x2728;';
+    document.getElementById('craftResultCell').innerHTML = resultIcon;
+
+    // Scroll to panel top smoothly
+    document.querySelector('.crafting-panel').scrollIntoView({ behavior:'smooth', block:'start' });
+  };
+
+  // Hotbar direct click
+  document.querySelectorAll('.hotbar-step').forEach(function(h){
+    h.addEventListener('click', function(){
+      var s = parseInt(this.dataset.step, 10);
+      if(s <= currentStep) goToStep(s);
+    });
+  });
+
+  // Handle Form Submission
+  window.handleCraftSubmit = function(e){
+    e.preventDefault();
+    document.getElementById('craftForm').style.display = 'none';
+    document.querySelector('.crafting-preview').style.display = 'none';
+    document.getElementById('craftSuccess').style.display = 'block';
+  };
+
+  // Ambient floating code snippets
+  var ambientLayer = document.getElementById('ambient-code-layer');
+  if(ambientLayer){
+    var snippets = [
+      { text: 'icpc', font: 'pixel', color: 'ember', left: 4, top: 12, anim: 'anim-bob', isBadge: true, delay: -1.0 },
+      { text: 'hackathons', font: 'pixel', color: 'gold', left: 86, top: 15, anim: 'anim-sway', isBadge: true, delay: -2.5 },
+      { text: 'web dev', font: 'pixel', color: 'neon', left: 86, top: 48, anim: 'anim-drift', delay: -3.5 },
+      { text: 'while (crafting) apply();', font: 'body', color: 'ember', left: 4, top: 32, anim: 'anim-drift', delay: -4.0 },
+      { text: 'git checkout -b new-recruit', font: 'body', color: 'yellow', left: 80, top: 32, anim: 'anim-bob', delay: -1.2 },
+      { text: 'new Member({ name, role })', font: 'body', color: 'neon', left: 5, top: 60, anim: 'anim-sway', delay: -5.0 },
+      { text: 'yarn add @mcc/builder', font: 'body', color: 'gold', left: 78, top: 76, anim: 'anim-drift', delay: -3.0 },
+      { text: 'compile(passion);', font: 'body', color: 'white', left: 14, top: 86, anim: 'anim-bob', delay: -2.0 },
+      { text: 'O(1) RECRUIT', font: 'pixel', color: 'red', left: 72, top: 88, anim: 'anim-bob', delay: -4.5 }
+    ];
+    snippets.forEach(function(item){
+      var el = document.createElement('div');
+      el.className = 'ambient-code-item font-' + item.font + ' color-' + item.color + ' ' + item.anim + (item.isBadge ? ' is-badge' : '');
+      el.textContent = item.text;
+      el.style.left = item.left + '%';
+      el.style.top = item.top + '%';
+      el.style.animationDelay = item.delay + 's';
+      ambientLayer.appendChild(el);
+    });
+  }
+})();
+</script>
+</body>
+</html>

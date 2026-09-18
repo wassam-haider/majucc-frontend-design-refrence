@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Executive Community & Alumni | MAJU Code Craft</title>
+<meta name="description" content="Connecting past MAJU Code Craft leaders now driving software engineering and leadership at top technology companies worldwide.">
+<link rel="icon" type="image/png" href="logos/community_logo_clean.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mc-theme.css">
+<style>
+  /* ===== Alumni Page Styling ===== */
+  .page-hero{
+    padding:60px 24px 40px;
+    text-align:center;
+    position:relative;
+    z-index:2;
+  }
+  .page-hero-scrim{
+    display:inline-block;
+    background:rgba(6,6,8,0.55);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+    padding:28px 36px;
+    border-radius:2px;
+    box-shadow:0 0 0 1px rgba(255,138,61,0.14), 0 10px 0 rgba(0,0,0,0.3);
+    width:100%;
+    max-width:760px;
+  }
+  .hero-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--font-pixel);
+    font-size:clamp(11px, 1.35vw, 14px);
+    letter-spacing:2px;
+    color:#FFFFFF;
+    background:linear-gradient(90deg, rgba(232,68,44,0.55), rgba(255,138,61,0.4));
+    border:2px solid var(--gold);
+    padding:8px 18px;
+    box-shadow:inset 1px 1px 0 rgba(255,255,255,0.25), inset -1px -1px 0 rgba(0,0,0,0.5), 0 0 14px rgba(255,138,61,0.45);
+    text-shadow:1px 1px 0 #000, 0 0 8px rgba(255,138,61,0.6);
+    font-weight:bold;
+  }
+  .page-title{
+    font-family:var(--font-pixel);
+    font-size:clamp(20px, 3.8vw, 34px);
+    line-height:1.6;
+    color:var(--text-dark);
+    margin-bottom:14px;
+    text-shadow:3px 3px 0 rgba(0,0,0,0.4);
+  }
+  .page-title .accent{
+    background:linear-gradient(90deg, var(--ember), var(--grass-side));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .page-sub{
+    font-size:20px;
+    line-height:1.5;
+    color:#d8d8de;
+    max-width:620px;
+    margin:0 auto;
+    text-shadow:1px 1px 0 rgba(0,0,0,0.7);
+  }
+
+  /* Stats row */
+  .alumni-stats{
+    max-width:1160px;
+    margin:0 auto 34px;
+    padding:0 24px;
+    position:relative;
+    z-index:2;
+  }
+  .stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:18px;
+  }
+  .stat-card{
+    background:var(--ui-bg);
+    border:4px solid var(--ui-dark);
+    padding:16px;
+    text-align:center;
+    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.12), inset -3px -3px 0 rgba(0,0,0,0.4);
+  }
+  .stat-num{
+    font-family:var(--font-pixel);
+    font-size:22px;
+    color:var(--gold);
+    margin-bottom:6px;
+  }
+  .stat-lbl{
+    font-size:16px;
+    color:#aaa;
+  }
+
+  /* Alumni Cards */
+  .alumni-wrap{
+    max-width:1160px;
+    margin:0 auto 80px;
+    padding:0 24px;
+    position:relative;
+    z-index:2;
+  }
+  .alumni-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(340px, 1fr));
+    gap:26px;
+  }
+  .alumni-card{
+    background:var(--ui-bg);
+    border:5px solid var(--ui-dark);
+    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.15), inset -3px -3px 0 rgba(0,0,0,0.5), 0 0 0 2px rgba(232,68,44,0.22), 0 10px 0 rgba(0,0,0,0.4);
+    padding:24px;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .alumni-card:hover{
+    transform:translateY(-4px);
+    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.25), inset -3px -3px 0 rgba(0,0,0,0.5), 0 0 0 2px var(--gold), 0 14px 0 rgba(0,0,0,0.45), 0 0 20px rgba(255,138,61,0.25);
+  }
+  .alumni-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:14px;
+  }
+  .alumni-avatar{
+    width:52px;
+    height:52px;
+    background:var(--slot-bg);
+    border:3px solid var(--ui-dark);
+    box-shadow:inset 2px 2px 0 rgba(0,0,0,0.6), inset -2px -2px 0 rgba(255,138,61,0.1);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    flex-shrink:0;
+  }
+  .alumni-meta{
+    flex:1;
+  }
+  .alumni-tag{
+    font-family:var(--font-pixel);
+    font-size:8px;
+    color:var(--ember);
+    letter-spacing:1px;
+    margin-bottom:4px;
+    display:block;
+  }
+  .alumni-name{
+    font-family:var(--font-pixel);
+    font-size:14px;
+    color:#fff;
+    line-height:1.4;
+  }
+  .alumni-company{
+    font-size:18px;
+    color:var(--gold);
+    font-weight:bold;
+    margin-bottom:12px;
+  }
+  .alumni-desc{
+    font-size:17px;
+    line-height:1.5;
+    color:#c4c4ca;
+    margin-bottom:16px;
+    flex:1;
+  }
+  .alumni-action{
+    margin-top:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:12px;
+    border-top:2px solid rgba(255,138,61,0.12);
+  }
+  .alumni-connect-btn{
+    font-family:var(--font-pixel);
+    font-size:8px;
+    background:var(--slot-bg);
+    border:2px solid var(--ui-dark);
+    color:var(--ember);
+    padding:6px 10px;
+    text-decoration:none;
+    display:inline-block;
+  }
+  .alumni-connect-btn:hover{
+    background:var(--gold);
+    color:#111;
+  }
+</style>
+</head>
+<body data-biomes="cave,obsidian,nether" data-door="skip">
+
+<!-- ============ BIOME BACKGROUND ============ -->
+<div id="biome-layer">
+  <div id="biome-parallax">
+    <div id="ambient-code-layer" class="ambient-code-layer"></div>
+    <div class="biome-terrain" id="biome-terrain"></div>
+  </div>
+</div>
+
+<!-- ============ NAVBAR ============ -->
+<header class="mc-navbar">
+  <a href="index.html" class="mc-nav-brand">
+    <img src="logos/community_logo_clean.png" alt="MAJU Code Craft Logo" class="mc-brand-img">
+    <div class="mc-brand-titles">
+      <span class="mc-brand-uni">MUHAMMAD ALI JINNAH UNIVERSITY</span>
+      <span class="mc-brand-main">MAJU CODE CRAFT</span>
+    </div>
+  </a>
+  <button class="mc-nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+  <nav class="mc-nav-links">
+    <a href="index.html#about" class="mc-nav-link">About</a>
+    <a href="index.html#highlights" class="mc-nav-link">Highlights</a>
+    <a href="index.html#what-we-run" class="mc-nav-link">What We Run</a>
+    <a href="events.html" class="mc-nav-link">Events</a>
+    <a href="hierarchy.html" class="mc-nav-link">Hierarchy</a>
+    <a href="mentions.html" class="mc-nav-link">Mentions</a>
+    <a href="executive-community.html" class="mc-nav-link active">Alumni</a>
+    <a href="index.html#contact" class="mc-nav-link">Contact</a>
+    <a href="apply.html" class="mc-nav-apply" data-portal-nav="apply.html">Apply</a>
+  </nav>
+  <div class="mc-daynight" title="Toggle day / night"><div class="orb"></div></div>
+</header>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero" data-biome-trigger="cave">
+  <div class="page-hero-scrim">
+    <div class="hero-pill">&#x1F310; GLOBAL INDUSTRY ALUMNI GUILD</div>
+    <h1 class="page-title">Executive <span class="accent">Alumni</span></h1>
+    <p class="page-sub">Our alumni network connects past Code Craft leaders now driving engineering, cloud architecture, and product design at top technology companies worldwide.</p>
+  </div>
+</section>
+
+<!-- ============ ALUMNI STATS ============ -->
+<section class="alumni-stats">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num">50+</div>
+      <div class="stat-lbl">Active Alumni</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">18+</div>
+      <div class="stat-lbl">Global Tech Companies</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">100%</div>
+      <div class="stat-lbl">Campus Mentorship</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">8+</div>
+      <div class="stat-lbl">Annual Masterclasses</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ALUMNI CARDS ============ -->
+<section class="alumni-wrap" data-biome-trigger="obsidian">
+  <div class="alumni-grid">
+
+    <!-- Alumnus 1 -->
+    <div class="alumni-card">
+      <div class="alumni-header">
+        <div class="alumni-avatar">&#x1F468;&#x200D;&#x1F4BB;</div>
+        <div class="alumni-meta">
+          <span class="alumni-tag">CLASS OF 2024 &bull; PAST CHAIRPERSON</span>
+          <h3 class="alumni-name">Syed Taha Ali</h3>
+        </div>
+      </div>
+      <div class="alumni-company">Software Engineer @ Careem</div>
+      <p class="alumni-desc">Mentors campus hackathon participants and regularly conducts mock technical coding interviews for final year students preparing for top-tier software engineering roles.</p>
+      <div class="alumni-action">
+        <span style="font-size:14px; color:#9a9aa0;">Focus: Distributed Systems</span>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="alumni-connect-btn">CONNECT &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Alumnus 2 -->
+    <div class="alumni-card">
+      <div class="alumni-header">
+        <div class="alumni-avatar">&#x1F469;&#x200D;&#x1F4BB;</div>
+        <div class="alumni-meta">
+          <span class="alumni-tag">CLASS OF 2023 &bull; PAST EVENT LEAD</span>
+          <h3 class="alumni-name">Marium Jawed</h3>
+        </div>
+      </div>
+      <div class="alumni-company">Cloud Solutions Architect @ 10Pearls</div>
+      <p class="alumni-desc">Guest speaker on DevOps, AWS/GCP Kubernetes deployments, and cloud native architectures. Advises the society on industry partnership pipelines.</p>
+      <div class="alumni-action">
+        <span style="font-size:14px; color:#9a9aa0;">Focus: Cloud &amp; DevOps</span>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="alumni-connect-btn">CONNECT &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Alumnus 3 -->
+    <div class="alumni-card">
+      <div class="alumni-header">
+        <div class="alumni-avatar">&#x1F3A8;</div>
+        <div class="alumni-meta">
+          <span class="alumni-tag">CLASS OF 2022 &bull; PAST GRAPHICS HEAD</span>
+          <h3 class="alumni-name">Rehan Sheikh</h3>
+        </div>
+      </div>
+      <div class="alumni-company">Product Designer @ FinTech Lab</div>
+      <p class="alumni-desc">Curator of the MAJU UI/UX Design sprint curriculum and design critique workshops. Champions user empathy and high-craft design systems across student projects.</p>
+      <div class="alumni-action">
+        <span style="font-size:14px; color:#9a9aa0;">Focus: UI/UX &amp; Design Systems</span>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="alumni-connect-btn">CONNECT &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Alumnus 4 -->
+    <div class="alumni-card">
+      <div class="alumni-header">
+        <div class="alumni-avatar">&#x1F6E1;&#xFE0F;</div>
+        <div class="alumni-meta">
+          <span class="alumni-tag">CLASS OF 2021 &bull; PAST GENERAL SECRETARY</span>
+          <h3 class="alumni-name">Bilal Qureshi</h3>
+        </div>
+      </div>
+      <div class="alumni-company">Senior Security Engineer @ CyberGuard</div>
+      <p class="alumni-desc">Conducts ethical hacking labs, vulnerability assessments, and CTF competitions. Spearheaded the first inter-university cybersecurity war-games at MAJU.</p>
+      <div class="alumni-action">
+        <span style="font-size:14px; color:#9a9aa0;">Focus: AppSec &amp; Cryptography</span>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="alumni-connect-btn">CONNECT &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Alumnus 5 -->
+    <div class="alumni-card">
+      <div class="alumni-header">
+        <div class="alumni-avatar">&#x1F916;</div>
+        <div class="alumni-meta">
+          <span class="alumni-tag">CLASS OF 2020 &bull; PAST TECH ADVISOR</span>
+          <h3 class="alumni-name">Zainab Farooq</h3>
+        </div>
+      </div>
+      <div class="alumni-company">ML Research Scientist @ DeepMind Research Hub</div>
+      <p class="alumni-desc">Delivers keynote sessions on LLMs, neural networks, and model alignment. Provides grant pathways and research mentoring for prospective graduate applicants.</p>
+      <div class="alumni-action">
+        <span style="font-size:14px; color:#9a9aa0;">Focus: Deep Learning &amp; NLP</span>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="alumni-connect-btn">CONNECT &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Alumnus 6 -->
+    <div class="alumni-card">
+      <div class="alumni-header">
+        <div class="alumni-avatar">&#x1F680;</div>
+        <div class="alumni-meta">
+          <span class="alumni-tag">CLASS OF 2019 &bull; FOUNDING CHAIRPERSON</span>
+          <h3 class="alumni-name">Hassan Tariq</h3>
+        </div>
+      </div>
+      <div class="alumni-company">Co-Founder &amp; CTO @ ScaleFlow</div>
+      <p class="alumni-desc">Co-founded MAJU Code Craft in 2019 to foster builder culture on campus. Currently sponsors the society flagship hackathon prize pool and student project incubators.</p>
+      <div class="alumni-action">
+        <span style="font-size:14px; color:#9a9aa0;">Focus: Startups &amp; Scale</span>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="alumni-connect-btn">CONNECT &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="mc-footer" data-biome-trigger="cave">
+  <div class="mc-footer-inner">
+    <div class="mc-footer-grid">
+      <div>
+        <div class="mc-footer-brand" style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+          <img src="logos/community_logo_clean.png" alt="MAJU Code Craft" class="mc-brand-img">
+          <span style="font-family:var(--font-pixel); font-size:11px; color:#fff;">MAJU CODE CRAFT</span>
+        </div>
+        <p>The student computing and software engineering society at Muhammad Ali Jinnah University, Karachi.</p>
+        <p style="font-size:14px; margin-top:8px;">Open to all university students. Free access.</p>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="events.html">Public Events</a></li>
+          <li><a href="hierarchy.html">Leadership Tree</a></li>
+          <li><a href="apply.html">Join Code Craft</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Community</h5>
+        <ul>
+          <li><a href="mentions.html">Honourable Mentions</a></li>
+          <li><a href="executive-community.html">Alumni Network</a></li>
+          <li><a href="index.html#contact">Contact Council</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Internal Portal</h5>
+        <p style="font-size:14px; margin-bottom:10px;">For executives and department teams to plan, assign, and track operations:</p>
+        <a href="../dynamic_doc/index.html" class="mc-button" style="font-size:9px; padding:8px 12px;">Open System &rarr;</a>
+      </div>
+      <div class="footer-affiliation-wrap">
+        <div class="footer-affiliation-info">
+          <div class="footer-affiliation-title">&#x1F3DB;&#xFE0F; INSTITUTIONAL PATRONAGE &amp; ACADEMIC BACKING</div>
+          <p class="footer-affiliation-desc">
+            The <strong>Industrial Relations Committee (IRC)</strong> at <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer">Muhammad Ali Jinnah University (MAJU)</a> in Karachi is a student- and faculty-driven committee designed to bridge the gap between academic learning and industry demands.
+          </p>
+        </div>
+        <div class="footer-partner-logos">
+          <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Muhammad Ali Jinnah University (MAJU)">
+            <img src="logos/university_logo_clean.png" alt="MAJU" class="footer-partner-badge">
+          </a>
+          <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Industrial Relations Committee (IRC) - Faculty of Computing">
+            <img src="logos/irc_logo_clean.png" alt="IRC" class="footer-partner-badge">
+          </a>
+          <a href="index.html" title="MAJU Code Craft Society">
+            <img src="logos/community_logo_clean.png" alt="MCC" class="footer-partner-badge logo-dark">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="mc-footer-bottom">
+      <div>&copy; 2026 MAJU Code Craft Society. All rights reserved.</div>
+      <div>Ember &amp; Obsidian &mdash; Alumni Network</div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/mc-theme.js"></script>
+<script>
+(function(){
+  // Ambient floating code snippets
+  var ambientLayer = document.getElementById('ambient-code-layer');
+  if(ambientLayer){
+    var snippets = [
+      { text: 'icpc', font: 'pixel', color: 'ember', left: 4, top: 12, anim: 'anim-bob', isBadge: true, delay: -1.0 },
+      { text: 'hackathons', font: 'pixel', color: 'gold', left: 86, top: 15, anim: 'anim-sway', isBadge: true, delay: -2.5 },
+      { text: 'web dev', font: 'pixel', color: 'neon', left: 86, top: 48, anim: 'anim-drift', isBadge: true, delay: -3.5 },
+      { text: 'alumni.connect();', font: 'body', color: 'ember', left: 4, top: 32, anim: 'anim-drift', delay: -4.0 },
+      { text: 'mentor(student);', font: 'body', color: 'yellow', left: 80, top: 32, anim: 'anim-bob', delay: -1.2 },
+      { text: 'CAREEM / 10PEARLS', font: 'pixel', color: 'neon', left: 5, top: 60, anim: 'anim-sway', delay: -5.0 },
+      { text: 'git push --tags origin', font: 'body', color: 'gold', left: 78, top: 76, anim: 'anim-drift', delay: -3.0 },
+      { text: 'class Builder extends Alumni', font: 'body', color: 'white', left: 14, top: 86, anim: 'anim-bob', delay: -2.0 },
+      { text: 'O(1) NETWORK', font: 'pixel', color: 'red', left: 72, top: 88, anim: 'anim-bob', delay: -4.5 }
+    ];
+    snippets.forEach(function(item){
+      var el = document.createElement('div');
+      el.className = 'ambient-code-item font-' + item.font + ' color-' + item.color + ' ' + item.anim + (item.isBadge ? ' is-badge' : '');
+      el.textContent = item.text;
+      el.style.left = item.left + '%';
+      el.style.top = item.top + '%';
+      el.style.animationDelay = item.delay + 's';
+      ambientLayer.appendChild(el);
+    });
+  }
+})();
+</script>
+</body>
+</html>
