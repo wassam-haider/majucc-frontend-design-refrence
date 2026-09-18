@@ -646,6 +646,281 @@ body[data-biome="end"] #mc-clouds{ display:none; }
 }
 body[data-biome="obsidian"] .landmark-library{ opacity:0.95; }
 body[data-biome="nether"]   .landmark-castles{ opacity:0.95; }
+
+/* ---- Three Nether Castles (MAJU Blocks A&B, C, D) ---- */
+.landmark-castles{
+  bottom:130px;
+  right:5%;
+  display:flex;
+  align-items:flex-end;
+  gap:18px;
+  z-index:4;
+}
+@media (max-width: 960px){
+  .landmark-castles{
+    right:50%;
+    transform:translateX(50%);
+    gap:14px;
+    bottom:110px;
+  }
+}
+@media (max-width: 600px){
+  .landmark-castles{
+    transform:translateX(50%) scale(0.72);
+    transform-origin:bottom center;
+  }
+}
+
+.mc-castle{
+  position:relative;
+  flex-shrink:0;
+  filter:drop-shadow(0 14px 22px rgba(0,0,0,0.85));
+}
+
+.mc-castle::after{
+  content:"";
+  position:absolute;
+  bottom:-4px;
+  left:8%;
+  right:8%;
+  height:12px;
+  background:radial-gradient(ellipse at center, rgba(255,92,46,0.4), transparent 70%);
+  filter:blur(3px);
+  z-index:0;
+  pointer-events:none;
+}
+
+/* Base tower style */
+.castle-tower{
+  position:absolute;
+  bottom:0;
+  background-color:#210202;
+  background-image:
+    linear-gradient(rgba(14,1,1,0.85) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(14,1,1,0.65) 2px, transparent 2px);
+  background-size:100% 12px, 16px 100%;
+  box-shadow:
+    inset -5px 0 0 rgba(0,0,0,0.65),
+    inset 5px 0 0 rgba(255,92,46,0.12),
+    inset 0 5px 0 rgba(255,92,46,0.18);
+  border-top:3px solid #560808;
+  z-index:2;
+}
+
+/* Tower crenellations (battlements) */
+.castle-tower::before{
+  content:"";
+  position:absolute;
+  top:-11px;
+  left:-1px;
+  right:-1px;
+  height:11px;
+  background:repeating-linear-gradient(90deg,
+    #2B0707 0px, #2B0707 33%,
+    transparent 33%, transparent 66%,
+    #2B0707 66%, #2B0707 100%
+  );
+  box-shadow:inset 0 2px 0 rgba(255,92,46,0.25);
+}
+
+/* Glowing arrow-slit windows in towers */
+.castle-tower::after{
+  content:"";
+  position:absolute;
+  top:30px;
+  left:50%;
+  transform:translateX(-50%);
+  width:5px;
+  height:15px;
+  background:radial-gradient(circle at 50% 50%, #FFB238, #FF5C2E);
+  box-shadow:0 0 10px #FF5C2E, 0 0 16px rgba(255,92,46,0.65);
+  border:1px solid #140202;
+  border-radius:1px;
+}
+
+/* Castle central wall connecting towers */
+.castle-wall{
+  position:absolute;
+  bottom:0;
+  background-color:#1c0202;
+  background-image:
+    linear-gradient(rgba(12,1,1,0.85) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(12,1,1,0.65) 2px, transparent 2px);
+  background-size:100% 12px, 18px 100%;
+  box-shadow:
+    inset 0 4px 0 rgba(255,92,46,0.15),
+    inset -4px 0 0 rgba(0,0,0,0.5),
+    inset 4px 0 0 rgba(0,0,0,0.5);
+  border-top:2px solid #4a0606;
+  z-index:1;
+}
+
+/* Wall crenellations on top */
+.castle-wall::before{
+  content:"";
+  position:absolute;
+  top:-8px;
+  left:2px;
+  right:2px;
+  height:8px;
+  background:repeating-linear-gradient(90deg,
+    #240505 0px, #240505 22%,
+    transparent 22%, transparent 44%,
+    #240505 44%, #240505 66%,
+    transparent 66%, transparent 88%,
+    #240505 88%, #240505 100%
+  );
+  box-shadow:inset 0 2px 0 rgba(255,92,46,0.2);
+}
+
+/* Glowing gate at castle base */
+.castle-glow{
+  position:absolute;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  border-radius:8px 8px 0 0;
+  background:radial-gradient(circle at 50% 85%, #FFE259 0%, #FF5C2E 45%, #951C10 80%, #200202 100%);
+  box-shadow:0 0 18px rgba(255,92,46,0.85), 0 0 32px rgba(255,60,20,0.5), inset 0 0 8px rgba(0,0,0,0.7);
+  z-index:3;
+  animation:castleLavaGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes castleLavaGlow{
+  0%{ opacity:0.8; filter:brightness(0.95); }
+  50%{ opacity:1; filter:brightness(1.25); box-shadow:0 0 24px rgba(255,92,46,1), 0 0 42px rgba(255,138,61,0.65); }
+  100%{ opacity:0.85; filter:brightness(1.05); }
+}
+
+/* Mirrored MAJU BLOCK Sign */
+.castle-sign{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:4;
+  white-space:nowrap;
+  text-align:center;
+  background:rgba(20, 2, 2, 0.94);
+  border:2px solid #560808;
+  box-shadow:
+    0 3px 8px rgba(0,0,0,0.85),
+    inset 0 0 6px rgba(255,92,46,0.3);
+  border-radius:2px;
+}
+
+/* Mirrored text requirement */
+.castle-sign span{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  transform:scaleX(-1); /* MIRRORED TEXT */
+  font-family:var(--font-pixel);
+  line-height:1.25;
+  color:#FFFFFF;
+  text-shadow:1px 1px 0 #000, 0 0 8px rgba(255,138,61,0.8);
+}
+
+.castle-sign em{
+  font-style:normal;
+  letter-spacing:1.5px;
+  color:#FF8A3D;
+  text-shadow:1px 1px 0 #000, 0 0 5px rgba(255,92,46,0.65);
+  opacity:0.95;
+}
+
+/* === Castle 1: MAJU BLOCK A&B (tallest & widest, left) === */
+.mc-castle--ab{
+  width:165px;
+  height:220px;
+}
+.mc-castle--ab .castle-tower{
+  width:44px;
+  height:220px;
+}
+.mc-castle--ab .castle-tower.t1{ left:0; }
+.mc-castle--ab .castle-tower.t2{ right:0; }
+.mc-castle--ab .castle-wall{
+  left:40px;
+  right:40px;
+  height:172px;
+}
+.mc-castle--ab .castle-glow{
+  width:32px;
+  height:46px;
+}
+.mc-castle--ab .castle-sign{
+  top:24px;
+  padding:4px 8px;
+}
+.mc-castle--ab .castle-sign span{
+  font-size:12px;
+}
+.mc-castle--ab .castle-sign em{
+  font-size:7px;
+}
+
+/* === Castle 2: MAJU BLOCK C (medium, center) === */
+.mc-castle--c{
+  width:134px;
+  height:180px;
+}
+.mc-castle--c .castle-tower{
+  width:35px;
+  height:180px;
+}
+.mc-castle--c .castle-tower.t1{ left:0; }
+.mc-castle--c .castle-tower.t2{ right:0; }
+.mc-castle--c .castle-wall{
+  left:31px;
+  right:31px;
+  height:140px;
+}
+.mc-castle--c .castle-glow{
+  width:26px;
+  height:38px;
+}
+.mc-castle--c .castle-sign{
+  top:18px;
+  padding:3px 6px;
+}
+.mc-castle--c .castle-sign span{
+  font-size:11px;
+}
+.mc-castle--c .castle-sign em{
+  font-size:6.5px;
+}
+
+/* === Castle 3: MAJU BLOCK D (original style, right) === */
+.mc-castle--d{
+  width:108px;
+  height:148px;
+}
+.mc-castle--d .castle-tower{
+  width:29px;
+  height:148px;
+}
+.mc-castle--d .castle-tower.t1{ left:0; }
+.mc-castle--d .castle-tower.t2{ right:0; }
+.mc-castle--d .castle-wall{
+  left:25px;
+  right:25px;
+  height:114px;
+}
+.mc-castle--d .castle-glow{
+  width:22px;
+  height:30px;
+}
+.mc-castle--d .castle-sign{
+  top:14px;
+  padding:2px 5px;
+}
+.mc-castle--d .castle-sign span{
+  font-size:10px;
+}
+.mc-castle--d .castle-sign em{
+  font-size:6px;
+}
+
 body[data-biome="end"]      .landmark-endportal{
   bottom:60px; left:50%; transform:translateX(-50%);
   width:320px; height:170px;
