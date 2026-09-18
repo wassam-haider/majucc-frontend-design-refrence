@@ -1,698 +1,906 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAJU Code Craft | Campus Computing Society</title>
-<meta name="description" content="Maju Code Craft is the campus society for students who like shipping things. Hackathons, workshops, and weekend sessions — no login required.">
-<link rel="icon" type="image/png" href="logos/community_logo_clean.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/mc-theme.css">
-<style>
-  /* ===== Page-specific styling ===== */
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAJU Code Craft | Build. Compete. Ship.</title>
+  <meta name="description"
+    content="MAJU Code Craft is the student-run computing society at Muhammad Ali Jinnah University — hackathons, workshops, and weekend build sessions for anyone who wants to ship real projects. No login required.">
+  <link rel="icon" type="image/png" href="logos/community_logo_clean.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/mc-theme.css">
+  <style>
+    /* ===== Page-specific styling ===== */
 
-  /* ---- Hero ---- */
-  .hero-wrap{ position:relative; padding:70px 24px 90px; }
-  .hero-inner{ max-width:920px; margin:0 auto; text-align:center; position:relative; z-index:2; }
-  .hero-pill{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-family:var(--font-pixel);
-    font-size:clamp(11px, 1.35vw, 14px);
-    letter-spacing:2px;
-    color:#FFFFFF;
-    background:linear-gradient(90deg, rgba(232,68,44,0.55), rgba(255,138,61,0.4));
-    border:2px solid var(--gold);
-    padding:8px 18px;
-    box-shadow:inset 1px 1px 0 rgba(255,255,255,0.25), inset -1px -1px 0 rgba(0,0,0,0.5), 0 0 14px rgba(255,138,61,0.45);
-    text-shadow:1px 1px 0 #000, 0 0 8px rgba(255,138,61,0.6);
-    font-weight:bold;
-  }
-  .hero-title{
-    font-family:var(--font-pixel);
-    font-size:clamp(22px, 4.4vw, 40px);
-    line-height:1.7;
-    color:var(--text-dark);
-    margin-bottom:20px;
-    text-shadow:3px 3px 0 rgba(0,0,0,0.4);
-  }
-  .hero-title .accent{
-    background:linear-gradient(90deg, var(--ember), var(--grass-side));
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-  }
-  .hero-desc{
-    font-size:22px;
-    line-height:1.55;
-    color:#e4e4e8;
-    max-width:620px;
-    margin:0 auto 34px;
-    text-shadow:1px 1px 0 rgba(0,0,0,0.7), 0 0 18px rgba(0,0,0,0.5);
-  }
-  .hero-scrim{
-    display:inline-block;
-    background:rgba(6,6,8,0.5);
-    backdrop-filter:blur(3px);
-    -webkit-backdrop-filter:blur(3px);
-    padding:28px 32px;
-    border-radius:2px;
-    box-shadow:0 0 0 1px rgba(255,138,61,0.12), 0 12px 0 rgba(0,0,0,0.3);
-  }
-  .hero-scramble{
-    display:inline-block;
-    font-family:var(--font-pixel);
-    font-size:15px;
-    color:#fff;
-    background:var(--ui-bg);
-    border:4px solid var(--ui-dark);
-    padding:14px 22px;
-    margin-bottom:30px;
-    cursor:pointer;
-    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.15), inset -3px -3px 0 rgba(0,0,0,0.4), 0 6px 0 rgba(0,0,0,0.4);
-    letter-spacing:1px;
-    min-width:220px;
-  }
-  .hero-actions{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:12px; }
-  .hero-link{
-    font-size:19px;
-    color:var(--ember);
-    text-decoration:none;
-    align-self:center;
-  }
-  .hero-link:hover{ text-decoration:underline; }
+    /* ---- Hero ---- */
+    .hero-wrap {
+      position: relative;
+      padding: 70px 24px 90px;
+    }
 
-  /* Hanging sign positions for hero */
-  .hero-wrap .hanging-sign{ top:18px; }
-  .sign-left{ left:4%; }
-  .sign-right{ right:4%; animation-delay:-2s; }
-  @media (max-width:760px){ .hero-wrap .hanging-sign{ display:none; } }
+    .hero-inner {
+      max-width: 920px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
 
-  /* floating code snippets & tech keywords drifting behind hero & background */
-  .code-float{
-    position:absolute;
-    pointer-events:none;
-    user-select:none;
-    white-space:nowrap;
-    opacity:0.24;
-    will-change:transform;
-    transition:opacity 0.3s ease;
-  }
-  .code-float.font-pixel{
-    font-family:var(--font-pixel);
-    font-size:clamp(9px, 1.1vw, 12px);
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-  }
-  .code-float.font-body{
-    font-family:var(--font-body);
-    font-size:clamp(16px, 1.8vw, 22px);
-    letter-spacing:0.5px;
-  }
-  .code-float.color-ember{ color:var(--ember); text-shadow:0 0 8px rgba(255,178,56,0.35); }
-  .code-float.color-gold{ color:var(--gold); text-shadow:0 0 8px rgba(255,138,61,0.35); }
-  .code-float.color-red{ color:var(--grass-top); text-shadow:0 0 8px rgba(232,68,44,0.3); }
-  .code-float.color-yellow{ color:var(--spark-yellow); text-shadow:0 0 8px rgba(247,249,46,0.3); }
-  .code-float.color-neon{ color:var(--cave-neon); text-shadow:0 0 8px rgba(57,255,154,0.3); }
-  .code-float.color-violet{ color:var(--end-violet); text-shadow:0 0 8px rgba(185,131,255,0.3); }
-  .code-float.color-white{ color:#E4E4E8; text-shadow:0 0 8px rgba(228,228,232,0.25); }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-pixel);
+      font-size: clamp(11px, 1.35vw, 14px);
+      letter-spacing: 2px;
+      color: #FFFFFF;
+      background: linear-gradient(90deg, rgba(232, 68, 44, 0.55), rgba(255, 138, 61, 0.4));
+      border: 2px solid var(--gold);
+      padding: 8px 18px;
+      box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.25), inset -1px -1px 0 rgba(0, 0, 0, 0.5), 0 0 14px rgba(255, 138, 61, 0.45);
+      text-shadow: 1px 1px 0 #000, 0 0 8px rgba(255, 138, 61, 0.6);
+      font-weight: bold;
+    }
 
-  .code-float.is-tag{
-    background:rgba(28,28,32,0.55);
-    border:1px solid rgba(255,178,56,0.28);
-    padding:3px 8px;
-    box-shadow:inset 1px 1px 0 rgba(255,255,255,0.06), inset -1px -1px 0 rgba(0,0,0,0.5);
-  }
-  .code-float.anim-bob{ animation:floatBob 5.5s ease-in-out infinite; }
-  .code-float.anim-drift{ animation:floatDrift 8.5s ease-in-out infinite; }
-  .code-float.anim-sway{ animation:floatSway 7s ease-in-out infinite; }
+    .hero-title {
+      font-family: var(--font-pixel);
+      font-size: clamp(20px, 4.4vw, 40px);
+      line-height: 1.7;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+    }
 
-  html[data-mode="day"] .code-float{
-    opacity:0.32;
-    filter:contrast(1.3) brightness(0.65);
-  }
-  @media (max-width:760px){
-    .code-float.font-pixel{ font-size:8px; }
-    .code-float.font-body{ font-size:14px; }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .code-float{ animation:none !important; }
-  }
+    .hero-title .accent {
+      background: linear-gradient(90deg, var(--ember), var(--grass-side));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
-  /* Floating mob (simple pixel-block critter, CSS-only) */
-  .mob{
-    position:absolute;
-    width:34px; height:30px;
-    animation:floatBob 3.6s ease-in-out infinite;
-    cursor:pointer;
-  }
-  .mob-body{
-    width:100%; height:100%;
-    background:var(--stone);
-    box-shadow:inset -4px 0 0 rgba(0,0,0,0.3), inset 0 -4px 0 rgba(0,0,0,0.35), inset 4px 0 0 rgba(255,255,255,0.08);
-    position:relative;
-  }
-  .mob-body::after{
-    content:"";
-    position:absolute; top:8px; left:6px;
-    width:6px; height:6px;
-    background:#fff;
-    box-shadow:14px 0 0 #fff;
-  }
-  .mob.creeper .mob-body{ background:var(--grass-side); }
-  .mob.creeper .mob-body::after{ background:#111; box-shadow:14px 0 0 #111; }
+    .hero-desc {
+      font-size: 22px;
+      line-height: 1.55;
+      color: #e4e4e8;
+      max-width: 620px;
+      margin: 0 auto 34px;
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.7), 0 0 18px rgba(0, 0, 0, 0.5);
+    }
 
-  /* ---- About / highlights section ---- */
-  .about-lead{ text-align:center; max-width:680px; margin:0 auto 40px; }
-  .about-lead .mc-section-title{ justify-content:center; }
-  .about-lead .mc-section-sub{ margin-left:auto; margin-right:auto; }
-  .section-lead-scrim{
-    display:inline-block;
-    background:rgba(6,6,8,0.5);
-    backdrop-filter:blur(3px);
-    -webkit-backdrop-filter:blur(3px);
-    padding:22px 28px;
-    border-radius:2px;
-    box-shadow:0 0 0 1px rgba(255,138,61,0.1);
-  }
-  .about-lead .section-lead-scrim{ display:block; }
+    .hero-scrim {
+      display: inline-block;
+      background: rgba(6, 6, 8, 0.5);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      padding: 28px 32px;
+      border-radius: 2px;
+      box-shadow: 0 0 0 1px rgba(255, 138, 61, 0.12), 0 12px 0 rgba(0, 0, 0, 0.3);
+    }
 
-  /* ---- Stats as hearts/food ---- */
-  .stats-row{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(200px,1fr));
-    gap:18px;
-    margin-top:16px;
-  }
-  .stat-block{
-    background:var(--ui-bg);
-    border:4px solid var(--ui-dark);
-    padding:18px;
-    text-align:center;
-    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.12), inset -3px -3px 0 rgba(0,0,0,0.4);
-  }
-  .stat-value{
-    font-family:var(--font-pixel);
-    font-size:22px;
-    color:var(--ember);
-    margin-bottom:8px;
-  }
-  .stat-label{ font-size:17px; color:#c4c4ca; }
+    .hero-scramble {
+      display: inline-block;
+      font-family: var(--font-pixel);
+      font-size: 15px;
+      color: #fff;
+      background: var(--ui-bg);
+      border: 4px solid var(--ui-dark);
+      padding: 14px 22px;
+      margin-bottom: 30px;
+      cursor: pointer;
+      box-shadow: inset 3px 3px 0 rgba(255, 138, 61, 0.15), inset -3px -3px 0 rgba(0, 0, 0, 0.4), 0 6px 0 rgba(0, 0, 0, 0.4);
+      letter-spacing: 1px;
+      min-width: 220px;
+    }
 
-  /* ---- Contact crafting panel ---- */
-  .contact-wrap{ max-width:640px; margin:0 auto; }
-  #contactSuccess{
-    display:none; margin-top:16px; padding:14px;
-    background:rgba(57,255,154,0.08);
-    border:2px solid var(--cave-neon);
-    color:var(--cave-neon);
-    text-shadow:0 0 6px rgba(57,255,154,0.5);
-    font-size:17px; text-align:center;
-  }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
 
-  /* ---- Internal portal callout ---- */
-  .internal-callout{
-    display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
-    background:var(--ui-bg);
-    border:4px solid var(--ui-dark);
-    padding:20px 22px;
-    box-shadow:inset 3px 3px 0 rgba(255,138,61,0.12), inset -3px -3px 0 rgba(0,0,0,0.4);
-  }
-  .internal-callout p{ font-size:17px; color:#a8a8ae; max-width:480px; }
-</style>
+    .hero-link {
+      font-size: 19px;
+      color: var(--ember);
+      text-decoration: none;
+      align-self: center;
+    }
+
+    .hero-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Hanging sign positions for hero */
+    .hero-wrap .hanging-sign {
+      top: 18px;
+    }
+
+    .sign-left {
+      left: 4%;
+    }
+
+    .sign-right {
+      right: 4%;
+      animation-delay: -2s;
+    }
+
+    @media (max-width:760px) {
+      .hero-wrap .hanging-sign {
+        display: none;
+      }
+    }
+
+    /* floating code snippets & tech keywords drifting behind hero & background */
+    .code-float {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+      opacity: 0.24;
+      will-change: transform;
+      transition: opacity 0.3s ease;
+    }
+
+    .code-float.font-pixel {
+      font-family: var(--font-pixel);
+      font-size: clamp(9px, 1.1vw, 12px);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .code-float.font-body {
+      font-family: var(--font-body);
+      font-size: clamp(16px, 1.8vw, 22px);
+      letter-spacing: 0.5px;
+    }
+
+    .code-float.color-ember {
+      color: var(--ember);
+      text-shadow: 0 0 8px rgba(255, 178, 56, 0.35);
+    }
+
+    .code-float.color-gold {
+      color: var(--gold);
+      text-shadow: 0 0 8px rgba(255, 138, 61, 0.35);
+    }
+
+    .code-float.color-red {
+      color: var(--grass-top);
+      text-shadow: 0 0 8px rgba(232, 68, 44, 0.3);
+    }
+
+    .code-float.color-yellow {
+      color: var(--spark-yellow);
+      text-shadow: 0 0 8px rgba(247, 249, 46, 0.3);
+    }
+
+    .code-float.color-neon {
+      color: var(--cave-neon);
+      text-shadow: 0 0 8px rgba(57, 255, 154, 0.3);
+    }
+
+    .code-float.color-violet {
+      color: var(--end-violet);
+      text-shadow: 0 0 8px rgba(185, 131, 255, 0.3);
+    }
+
+    .code-float.color-white {
+      color: #E4E4E8;
+      text-shadow: 0 0 8px rgba(228, 228, 232, 0.25);
+    }
+
+    .code-float.is-tag {
+      background: rgba(28, 28, 32, 0.55);
+      border: 1px solid rgba(255, 178, 56, 0.28);
+      padding: 3px 8px;
+      box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.06), inset -1px -1px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    .code-float.anim-bob {
+      animation: floatBob 5.5s ease-in-out infinite;
+    }
+
+    .code-float.anim-drift {
+      animation: floatDrift 8.5s ease-in-out infinite;
+    }
+
+    .code-float.anim-sway {
+      animation: floatSway 7s ease-in-out infinite;
+    }
+
+    html[data-mode="day"] .code-float {
+      opacity: 0.32;
+      filter: contrast(1.3) brightness(0.65);
+    }
+
+    @media (max-width:760px) {
+      .code-float.font-pixel {
+        font-size: 8px;
+      }
+
+      .code-float.font-body {
+        font-size: 14px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .code-float {
+        animation: none !important;
+      }
+    }
+
+    /* Floating mob (simple pixel-block critter, CSS-only) */
+    .mob {
+      position: absolute;
+      width: 34px;
+      height: 30px;
+      animation: floatBob 3.6s ease-in-out infinite;
+      cursor: pointer;
+    }
+
+    .mob-body {
+      width: 100%;
+      height: 100%;
+      background: var(--stone);
+      box-shadow: inset -4px 0 0 rgba(0, 0, 0, 0.3), inset 0 -4px 0 rgba(0, 0, 0, 0.35), inset 4px 0 0 rgba(255, 255, 255, 0.08);
+      position: relative;
+    }
+
+    .mob-body::after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 6px;
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      box-shadow: 14px 0 0 #fff;
+    }
+
+    .mob.creeper .mob-body {
+      background: var(--grass-side);
+    }
+
+    .mob.creeper .mob-body::after {
+      background: #111;
+      box-shadow: 14px 0 0 #111;
+    }
+
+    /* ---- About / highlights section ---- */
+    .about-lead {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 40px;
+    }
+
+    .about-lead .mc-section-title {
+      justify-content: center;
+    }
+
+    .about-lead .mc-section-sub {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-lead-scrim {
+      display: inline-block;
+      background: rgba(6, 6, 8, 0.5);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      padding: 22px 28px;
+      border-radius: 2px;
+      box-shadow: 0 0 0 1px rgba(255, 138, 61, 0.1);
+    }
+
+    .about-lead .section-lead-scrim {
+      display: block;
+    }
+
+    /* ---- Stats as hearts/food ---- */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
+      margin-top: 16px;
+    }
+
+    .stat-block {
+      background: var(--ui-bg);
+      border: 4px solid var(--ui-dark);
+      padding: 18px;
+      text-align: center;
+      box-shadow: inset 3px 3px 0 rgba(255, 138, 61, 0.12), inset -3px -3px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .stat-value {
+      font-family: var(--font-pixel);
+      font-size: 22px;
+      color: var(--ember);
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 17px;
+      color: #c4c4ca;
+    }
+
+    /* ---- Contact crafting panel ---- */
+    .contact-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    #contactSuccess {
+      display: none;
+      margin-top: 16px;
+      padding: 14px;
+      background: rgba(57, 255, 154, 0.08);
+      border: 2px solid var(--cave-neon);
+      color: var(--cave-neon);
+      text-shadow: 0 0 6px rgba(57, 255, 154, 0.5);
+      font-size: 17px;
+      text-align: center;
+    }
+
+    /* ---- Internal portal callout ---- */
+    .internal-callout {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      background: var(--ui-bg);
+      border: 4px solid var(--ui-dark);
+      padding: 20px 22px;
+      box-shadow: inset 3px 3px 0 rgba(255, 138, 61, 0.12), inset -3px -3px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .internal-callout p {
+      font-size: 17px;
+      color: #a8a8ae;
+      max-width: 480px;
+    }
+  </style>
 </head>
+
 <body data-biomes="obsidian,nether,end,cave,ember" data-door="show">
 
-<!-- ============ WOODEN DOOR INTRO ============ -->
-<div id="door-intro">
-  <div class="door-half left"><div class="handle"></div></div>
-  <div class="door-half right"><div class="handle"></div></div>
-  <div id="door-logo">
-    <img src="logos/community_logo_clean.png" alt="MAJU CodeCraft" class="door-logo-img">
-    <div class="door-logo-title">MAJU CODECRAFT</div>
-    <div class="door-logo-tagline">Code . Innovate . Compete</div>
-  </div>
-</div>
-
-<!-- ============ BIOME BACKGROUND ============ -->
-<div id="biome-layer">
-  <div id="biome-parallax">
-    <div id="ambient-code-layer" class="ambient-code-layer"></div>
-    <div class="biome-terrain" id="biome-terrain"></div>
-  </div>
-</div>
-
-<!-- ============ NAVBAR ============ -->
-<header class="mc-navbar">
-  <a href="index.html" class="mc-nav-brand">
-    <img src="logos/community_logo_clean.png" alt="MAJU Code Craft Logo" class="mc-brand-img">
-    <div class="mc-brand-titles">
-      <span class="mc-brand-uni">MUHAMMAD ALI JINNAH UNIVERSITY</span>
-      <span class="mc-brand-main">MAJU CODE CRAFT</span>
+  <!-- ============ WOODEN DOOR INTRO ============ -->
+  <div id="door-intro">
+    <div class="door-half left">
+      <div class="handle"></div>
     </div>
-  </a>
-  <button class="mc-nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
-  <nav class="mc-nav-links">
-    <a href="#about" class="mc-nav-link">About</a>
-    <a href="#highlights" class="mc-nav-link">Highlights</a>
-    <a href="#what-we-run" class="mc-nav-link">What We Run</a>
-    <a href="events.html" class="mc-nav-link">Events</a>
-    <a href="hierarchy.html" class="mc-nav-link">Hierarchy</a>
-    <a href="mentions.html" class="mc-nav-link">Mentions</a>
-    <a href="executive-community.html" class="mc-nav-link">Alumni</a>
-    <a href="#contact" class="mc-nav-link">Contact</a>
-    <a href="apply.html" class="mc-nav-apply" data-portal-nav="apply.html">Apply</a>
-  </nav>
-  <div class="mc-daynight" title="Toggle day / night"><div class="orb"></div></div>
-</header>
-
-<!-- ============ HERO (biome: obsidian) ============ -->
-<section class="hero-wrap" data-biome-trigger="obsidian">
-  <div class="hanging-sign sign-left">function() {<br>&nbsp;&nbsp;build();<br>}</div>
-  <div class="hanging-sign sign-right">01001101<br>01000011<br>01000011</div>
-
-  <div class="hero-inner">
-    <div class="hero-scrim">
-      <div class="hero-top-row">
-        <div class="hero-pill">MUHAMMAD ALI JINNAH UNIVERSITY</div>
-        <div class="hero-affil-pill">
-          <span style="font-family:var(--font-pixel); font-size:8px; color:var(--ember); letter-spacing:1px; margin-right:4px;">PATRONAGE:</span>
-          <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Muhammad Ali Jinnah University (MAJU)">
-            <img src="logos/university_logo_clean.png" alt="MAJU" class="hero-affil-mini">
-          </a>
-          <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Industrial Relations Committee (IRC) - Faculty of Computing">
-            <img src="logos/irc_logo_clean.png" alt="IRC" class="hero-affil-mini">
-          </a>
-        </div>
-      </div>
-      <h1 class="hero-title">Build, compete,<br>hang out at <span class="accent">MCC</span></h1>
-      <p class="hero-desc"><strong style="color:var(--spark-yellow); font-size:1.15em;">Muhammad Ali Jinnah University (MAJU) Code Craft</strong> is the campus society for students and builders who like shipping things. Hackathons, workshops, and weekend sessions &mdash; show up and jump in. No login required.</p>
-
-      <div class="hero-scramble" id="scrambleDisplay" title="Click to view all events">Hackathon</div>
-
-      <div class="hero-actions">
-        <a href="events.html" class="mc-button">SEE EVENTS</a>
-        <a href="apply.html" class="hero-link" data-portal-nav="apply.html">Apply to join the society →</a>
-      </div>
+    <div class="door-half right">
+      <div class="handle"></div>
     </div>
-  </div>
-</section>
-
-<!-- ============ HIGHLIGHTS (biome: obsidian) ============ -->
-<section class="mc-section" id="highlights" data-biome-trigger="obsidian">
-  <div class="mc-block-grid">
-    <div class="mc-block mat-grass">
-      <div class="mc-block-lid"></div>
-      <div class="mc-block-inner">
-        <span class="mc-block-tag">⚡ COMPETITIVE</span>
-        <div class="mc-block-title">Flagship Hackathons</div>
-        <div class="mc-block-desc">24-to-48 hour sprints solving real problems with faculty and industry mentors on campus.</div>
-      </div>
-    </div>
-    <div class="mc-block mat-ember">
-      <div class="mc-block-lid"></div>
-      <div class="mc-block-inner">
-        <span class="mc-block-tag">🛠️ HANDS-ON</span>
-        <div class="mc-block-title">Technical Workshops</div>
-        <div class="mc-block-desc">Full-stack web, AI toolkits, systems programming, and cloud architecture deep-dives.</div>
-      </div>
-    </div>
-    <div class="mc-block">
-      <div class="mc-block-lid"></div>
-      <div class="mc-block-inner">
-        <span class="mc-block-tag">🤝 NETWORKING</span>
-        <div class="mc-block-title">Alumni &amp; Industry Mixers</div>
-        <div class="mc-block-desc">Connect directly with MAJU engineering alumni working across top global tech firms.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ ABOUT (biome: nether) ============ -->
-<section class="mc-section" id="about" data-biome-trigger="nether">
-  <div class="about-lead">
-    <div class="section-lead-scrim">
-      <div class="mc-section-title">ABOUT THE SOCIETY</div>
-      <h2 class="hero-title" style="font-size:clamp(18px,3vw,26px);">Built by students, for builders.</h2>
-      <p class="mc-section-sub">Code Craft bridges the gap between academic theory and high-impact software engineering. Everything we organize is open to all university students.</p>
+    <div id="door-logo">
+      <img src="logos/community_logo_clean.png" alt="MAJU CodeCraft" class="door-logo-img">
+      <div class="door-logo-title">MAJU CODECRAFT</div>
+      <div class="door-logo-tagline">Code . Innovate . Compete</div>
     </div>
   </div>
 
-  <div class="mc-block-grid">
-    <div class="mc-block mat-grass">
-      <div class="mc-block-lid"></div>
-      <div class="mc-block-inner">
-        <div class="mc-block-media">🎯</div>
-        <div class="mc-block-title">Open Access</div>
-        <div class="mc-block-desc">Every event listing, speaker deck, and registration form is public. No gated accounts for university attendees.</div>
-      </div>
-    </div>
-    <div class="mc-block mat-ember">
-      <div class="mc-block-lid"></div>
-      <div class="mc-block-inner">
-        <div class="mc-block-media">🏆</div>
-        <div class="mc-block-title">Practical Sprints</div>
-        <div class="mc-block-desc">Focus on working code, Git commits, live demos, and deployable prototypes over slide decks.</div>
-      </div>
-    </div>
-    <div class="mc-block">
-      <div class="mc-block-lid"></div>
-      <div class="mc-block-inner">
-        <div class="mc-block-media">🚀</div>
-        <div class="mc-block-title">Leadership Track</div>
-        <div class="mc-block-desc">Members manage real logistics, creative design, public awareness, and budget allocation.</div>
-      </div>
+  <!-- ============ BIOME BACKGROUND ============ -->
+  <div id="biome-layer">
+    <div id="biome-parallax">
+      <div id="ambient-code-layer" class="ambient-code-layer"></div>
+      <div class="biome-terrain" id="biome-terrain"></div>
     </div>
   </div>
-</section>
 
-<!-- ============ WHAT WE RUN (biome: nether) ============ -->
-<section class="mc-section" id="what-we-run" data-biome-trigger="nether">
-  <div class="section-lead-scrim" style="margin-bottom:36px;">
-    <div class="mc-section-title">OUR PROGRAMS</div>
-    <h2 class="hero-title" style="font-size:clamp(18px,3vw,26px);">What We Run Throughout the Year</h2>
-    <p class="mc-section-sub" style="margin-bottom:0;">From fast-paced hack sprints to technical bootcamps, here is how you can participate:</p>
-  </div>
+  <!-- ============ NAVBAR ============ -->
+  <header class="mc-navbar">
+    <a href="index.html" class="mc-nav-brand">
+      <img src="logos/community_logo_clean.png" alt="MAJU Code Craft Logo" class="mc-brand-img">
+      <div class="mc-brand-titles">
+        <span class="mc-brand-uni">MUHAMMAD ALI JINNAH UNIVERSITY</span>
+        <span class="mc-brand-main">MAJU CODE CRAFT</span>
+      </div>
+    </a>
+    <button class="mc-nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    <nav class="mc-nav-links">
+      <a href="#about" class="mc-nav-link">About</a>
+      <a href="#highlights" class="mc-nav-link">Highlights</a>
+      <a href="#what-we-run" class="mc-nav-link">What We Run</a>
+      <a href="events.html" class="mc-nav-link">Events</a>
+      <a href="hierarchy.html" class="mc-nav-link">Hierarchy</a>
+      <a href="mentions.html" class="mc-nav-link">Mentions</a>
+      <a href="executive-community.html" class="mc-nav-link">Alumni</a>
+      <a href="#contact" class="mc-nav-link">Contact</a>
+      <a href="apply.html" class="mc-nav-apply" data-portal-nav="apply.html">Apply</a>
+    </nav>
+    <div class="mc-daynight" title="Toggle day / night">
+      <div class="orb"></div>
+    </div>
+  </header>
 
-  <div class="mc-block-grid">
-    <div class="mc-block mat-grass">
-      <div class="mc-block-lid"></div>
-      <div class="mc-block-inner">
-        <div class="mc-block-media">⚔️ HACKATHONS</div>
-        <span class="mc-block-tag">Active Season</span>
-        <div class="mc-block-title">Code Incognito</div>
-        <div class="mc-rating">
-          <div class="mc-hearts">
-            <span class="heart"></span><span class="heart"></span><span class="heart"></span><span class="heart"></span><span class="heart empty"></span>
+  <!-- ============ HERO (biome: obsidian) ============ -->
+  <section class="hero-wrap" data-biome-trigger="obsidian">
+    <div class="hanging-sign sign-left">function() {<br>&nbsp;&nbsp;build();<br>}</div>
+    <div class="hanging-sign sign-right">01001101<br>01000011<br>01000011</div>
+
+    <div class="hero-inner">
+      <div class="hero-scrim">
+        <div class="hero-top-row">
+          <div class="hero-pill">MUHAMMAD ALI JINNAH UNIVERSITY</div>
+          <div class="hero-affil-pill">
+            <span
+              style="font-family:var(--font-pixel); font-size:8px; color:var(--ember); letter-spacing:1px; margin-right:4px;">PATRONAGE:</span>
+            <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer"
+              title="Muhammad Ali Jinnah University (MAJU)">
+              <img src="logos/university_logo_clean.png" alt="MAJU" class="hero-affil-mini">
+            </a>
+            <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer"
+              title="Industrial Relations Committee (IRC) - Faculty of Computing">
+              <img src="logos/irc_logo_clean.png" alt="IRC" class="hero-affil-mini">
+            </a>
           </div>
         </div>
-        <div class="mc-block-desc">Our flagship multi-track coding battle where student teams build production-grade web apps, games, and tools under a countdown timer.</div>
-        <a href="events.html" class="mc-button" style="align-self:flex-start; margin-top:6px;">Browse Schedule</a>
+        <h1 class="hero-title">Code, Innovate, Compete<br>& ship at <span class="accent">MCC</span></h1>
+        <p class="hero-desc"><strong style="color:var(--spark-yellow); font-size:1.15em;">Muhammad Ali Jinnah University
+            (MAJU) Code Craft</strong> is the campus society for students who want to actually build things. Hackathons,
+          workshops, and weekend sessions &mdash; show up, write code, and take something real away with you. No login
+          required.</p>
+
+        <div class="hero-scramble" id="scrambleDisplay" title="Click to view all events">Hackathon</div>
+
+        <div class="hero-actions">
+          <a href="events.html" class="mc-button">SEE EVENTS</a>
+          <a href="apply.html" class="hero-link" data-portal-nav="apply.html">Apply to join the society →</a>
+        </div>
       </div>
     </div>
-    <div class="mc-block mat-ember">
-      <div class="mc-block-lid"></div>
-      <div class="mc-block-inner">
-        <div class="mc-block-media">🧪 WORKSHOPS</div>
-        <span class="mc-block-tag">Bi-Weekly</span>
-        <div class="mc-block-title">Craft Lab Sessions</div>
-        <div class="mc-rating">
-          <div class="mc-hearts">
-            <span class="heart"></span><span class="heart"></span><span class="heart"></span><span class="heart"></span><span class="heart"></span>
+  </section>
+
+  <!-- ============ HIGHLIGHTS (biome: obsidian) ============ -->
+  <section class="mc-section" id="highlights" data-biome-trigger="obsidian">
+    <div class="mc-block-grid">
+      <div class="mc-block mat-grass">
+        <div class="mc-block-lid"></div>
+        <div class="mc-block-inner">
+          <span class="mc-block-tag">⚡ COMPETITIVE</span>
+          <div class="mc-block-title">Flagship Hackathons</div>
+          <div class="mc-block-desc">24-to-48 hour sprints solving real problems, with faculty and industry mentors on
+            the ground at MAJU.</div>
+        </div>
+      </div>
+      <div class="mc-block mat-ember">
+        <div class="mc-block-lid"></div>
+        <div class="mc-block-inner">
+          <span class="mc-block-tag">🛠️ HANDS-ON</span>
+          <div class="mc-block-title">Technical Workshops</div>
+          <div class="mc-block-desc">Full-stack web, AI toolkits, systems programming, and cloud architecture — taught
+            by students, for students.</div>
+        </div>
+      </div>
+      <div class="mc-block">
+        <div class="mc-block-lid"></div>
+        <div class="mc-block-inner">
+          <span class="mc-block-tag">🤝 NETWORKING</span>
+          <div class="mc-block-title">Alumni &amp; Industry Mixers</div>
+          <div class="mc-block-desc">Direct access to MAJU engineering alumni now working at top tech companies across
+            the world.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT (biome: nether) ============ -->
+  <section class="mc-section" id="about" data-biome-trigger="nether">
+    <div class="about-lead">
+      <div class="section-lead-scrim">
+        <div class="mc-section-title">ABOUT THE SOCIETY</div>
+        <h2 class="hero-title" style="font-size:clamp(18px,3vw,26px);">Built by students, for builders.</h2>
+        <p class="mc-section-sub">Code Craft bridges the gap between what's taught in class and what it actually takes
+          to ship software. Every event we run is open to all MAJU students.</p>
+      </div>
+    </div>
+
+    <div class="mc-block-grid">
+      <div class="mc-block mat-grass">
+        <div class="mc-block-lid"></div>
+        <div class="mc-block-inner">
+          <div class="mc-block-media">🎯</div>
+          <div class="mc-block-title">Open Access</div>
+          <div class="mc-block-desc">Every event listing, speaker deck, and registration form is public. No gated
+            accounts for university attendees.</div>
+        </div>
+      </div>
+      <div class="mc-block mat-ember">
+        <div class="mc-block-lid"></div>
+        <div class="mc-block-inner">
+          <div class="mc-block-media">🏆</div>
+          <div class="mc-block-title">Practical Sprints</div>
+          <div class="mc-block-desc">We care about working code, real commits, live demos, and prototypes you can
+            actually deploy — not slide decks.</div>
+        </div>
+      </div>
+      <div class="mc-block">
+        <div class="mc-block-lid"></div>
+        <div class="mc-block-inner">
+          <div class="mc-block-media">🚀</div>
+          <div class="mc-block-title">Leadership Track</div>
+          <div class="mc-block-desc">Members run real logistics, creative design, public awareness, and budget decisions
+            — not just attend events.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT WE RUN (biome: nether) ============ -->
+  <section class="mc-section" id="what-we-run" data-biome-trigger="nether">
+    <div class="section-lead-scrim" style="margin-bottom:36px;">
+      <div class="mc-section-title">OUR PROGRAMS</div>
+      <h2 class="hero-title" style="font-size:clamp(18px,3vw,26px);">What We Run Throughout the Year</h2>
+      <p class="mc-section-sub" style="margin-bottom:0;">From fast-paced hack sprints to hands-on bootcamps, here's how
+        you can get involved:</p>
+    </div>
+
+    <div class="mc-block-grid">
+      <div class="mc-block mat-grass">
+        <div class="mc-block-lid"></div>
+        <div class="mc-block-inner">
+          <div class="mc-block-media">⚔️ HACKATHONS</div>
+          <span class="mc-block-tag">Active Season</span>
+          <div class="mc-block-title">Code Incognito</div>
+          <div class="mc-rating">
+            <div class="mc-hearts">
+              <span class="heart"></span><span class="heart"></span><span class="heart"></span><span
+                class="heart"></span><span class="heart empty"></span>
+            </div>
+          </div>
+          <div class="mc-block-desc">Our flagship multi-track coding battle. Teams build production-grade web apps,
+            games, and tools under a countdown timer.</div>
+          <a href="events.html" class="mc-button" style="align-self:flex-start; margin-top:6px;">Browse Schedule</a>
+        </div>
+      </div>
+      <div class="mc-block mat-ember">
+        <div class="mc-block-lid"></div>
+        <div class="mc-block-inner">
+          <div class="mc-block-media">🧪 WORKSHOPS</div>
+          <span class="mc-block-tag">Bi-Weekly</span>
+          <div class="mc-block-title">Craft Lab Sessions</div>
+          <div class="mc-rating">
+            <div class="mc-hearts">
+              <span class="heart"></span><span class="heart"></span><span class="heart"></span><span
+                class="heart"></span><span class="heart"></span>
+            </div>
+          </div>
+          <div class="mc-block-desc">2-hour Saturday bootcamps on Next.js, Rust fundamentals, PostgreSQL, Docker, and
+            modern Git workflows.</div>
+          <a href="events.html" class="mc-button" style="align-self:flex-start; margin-top:6px;">Explore Topics</a>
+        </div>
+      </div>
+      <div class="mc-block">
+        <div class="mc-block-lid"></div>
+        <div class="mc-block-inner">
+          <div class="mc-block-media">📡 TALKS</div>
+          <span class="mc-block-tag">Monthly</span>
+          <div class="mc-block-title">Industry Radar</div>
+          <div class="mc-rating">
+            <div class="mc-hearts">
+              <span class="heart"></span><span class="heart"></span><span class="heart"></span><span
+                class="heart empty"></span><span class="heart empty"></span>
+            </div>
+          </div>
+          <div class="mc-block-desc">Senior engineers and founders break down how high-scale products get built, how to
+            pass technical interviews, and how to start contributing to open source.</div>
+          <a href="events.html" class="mc-button" style="align-self:flex-start; margin-top:6px;">View Archive</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STATS (biome: end) ============ -->
+  <section class="mc-section" data-biome-trigger="end" style="position:relative;">
+
+
+    <div class="end-portal"
+      style="width:100%; max-width:960px; margin:0 auto 28px; height:240px; min-height:200px; border:6px solid #111; border-radius:4px; box-shadow:0 15px 40px rgba(0,0,0,0.8), inset 0 0 50px rgba(0,0,0,0.9), 0 0 30px rgba(161,43,224,0.4); display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+      <div
+        style="position:relative; z-index:2; text-align:center; background:rgba(3,0,5,0.75); padding:16px 28px; border:2px solid rgba(176,59,235,0.6); box-shadow:0 0 20px rgba(161,43,224,0.5); backdrop-filter:blur(3px);">
+        <div
+          style="font-family:var(--font-pixel); font-size:16px; color:#f1ccff; text-shadow:0 0 10px rgba(238,186,255,0.8); margin-bottom:6px;">
+          COMMUNITY PORTAL ACTIVE</div>
+        <p style="font-size:17px; color:#d27df0; margin:0; font-family:var(--font-body);">Open to All Students &bull; No
+          Login Required &bull; Build Something Together at MAJU</p>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-block"
+        style="background:rgba(18,11,35,0.85); border-color:#40105e; box-shadow:inset 2px 2px 0 rgba(210,125,240,0.2), 0 4px 12px rgba(0,0,0,0.5);">
+        <div class="stat-value" style="color:#eebaff; text-shadow:0 0 8px rgba(238,186,255,0.6);">500+</div>
+        <div class="stat-label">Event Attendees</div>
+      </div>
+      <div class="stat-block"
+        style="background:rgba(18,11,35,0.85); border-color:#40105e; box-shadow:inset 2px 2px 0 rgba(210,125,240,0.2), 0 4px 12px rgba(0,0,0,0.5);">
+        <div class="stat-value" style="color:#eebaff; text-shadow:0 0 8px rgba(238,186,255,0.6);">10+</div>
+        <div class="stat-label">Workshops &amp; Sprints</div>
+      </div>
+      <div class="stat-block"
+        style="background:rgba(18,11,35,0.85); border-color:#40105e; box-shadow:inset 2px 2px 0 rgba(210,125,240,0.2), 0 4px 12px rgba(0,0,0,0.5);">
+        <div class="stat-value" style="color:#eebaff; text-shadow:0 0 8px rgba(238,186,255,0.6);">6+</div>
+        <div class="stat-label">Core Departments</div>
+      </div>
+      <div class="stat-block"
+        style="background:rgba(18,11,35,0.85); border-color:#40105e; box-shadow:inset 2px 2px 0 rgba(210,125,240,0.2), 0 4px 12px rgba(0,0,0,0.5);">
+        <div class="stat-value" style="color:#eebaff; text-shadow:0 0 8px rgba(238,186,255,0.6);">100%</div>
+        <div class="stat-label">Student Organized</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT (biome: cave) ============ -->
+  <section class="mc-section" id="contact" data-biome-trigger="cave">
+    <div class="contact-wrap">
+      <div class="crafting-panel">
+        <div class="mc-section-title" style="display:flex; justify-content:center; text-align:center;">GET IN TOUCH
+        </div>
+        <p class="mc-section-sub" style="text-align:center; margin:0 auto 24px;">Reach out to the Code Craft executive
+          council or ask about upcoming event partnerships.</p>
+
+        <form id="contactForm">
+          <div class="field">
+            <label class="field-label" for="cName">Your Name</label>
+            <input type="text" id="cName" placeholder="e.g. Ali Ahmed" required>
+          </div>
+          <div class="field">
+            <label class="field-label" for="cEmail">University Email</label>
+            <input type="email" id="cEmail" placeholder="student@maju.edu.pk" required>
+          </div>
+          <div class="field">
+            <label class="field-label" for="cMessage">Message or Query</label>
+            <textarea id="cMessage" rows="4" placeholder="How can we help you?" required></textarea>
+          </div>
+          <button type="submit" class="mc-button" style="width:100%;">Send Message</button>
+        </form>
+        <div id="contactSuccess">✅ Thank you! Your message has been received. A council member will reply shortly.</div>
+      </div>
+
+      <div class="internal-callout" style="margin-top:24px;">
+        <div>
+          <div class="mc-block-title" style="margin-bottom:6px;">Internal Portal</div>
+          <p>For executives and department teams to plan, assign, and track operations.</p>
+        </div>
+        <a href="../dynamic_doc/index.html" class="mc-button secondary">Open Internal System →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EMBER FORGE (biome: ember) ============ -->
+  <section class="mc-section" data-biome-trigger="ember">
+    <div class="section-lead-scrim" style="margin-bottom:36px;">
+      <div class="mc-section-title">FORGED AT MCC</div>
+      <h2 class="hero-title" style="font-size:clamp(18px,3vw,26px);">Where the flagship hackathon gets built.</h2>
+      <p class="mc-section-sub" style="margin-bottom:0;">Every Code Incognito badge, every workshop certificate, every
+        shipped project passes through the forge before it goes out the door.</p>
+    </div>
+
+    <div class="mc-block-grid">
+      <div class="mc-block mat-forge">
+        <div class="mc-block-lid"></div>
+        <div class="mc-block-inner">
+          <span class="mc-block-tag">🔨 FLAGSHIP</span>
+          <div class="mc-block-title">Code Incognito</div>
+          <div class="mc-block-desc">Our anvil event — teams hammer out production-grade apps, games, and tools under a
+            countdown timer at MAJU Block D.</div>
+        </div>
+      </div>
+      <div class="mc-block mat-forge">
+        <div class="mc-block-lid"></div>
+        <div class="mc-block-inner">
+          <span class="mc-block-tag">🏅 ACHIEVEMENT</span>
+          <div class="mc-block-title">100+ Builds Shipped</div>
+          <div class="mc-block-desc">Projects tempered across hackathons and Craft Lab sessions since the society's
+            founding — each one forged, tested, and demoed live.</div>
+        </div>
+      </div>
+      <div class="mc-block mat-forge">
+        <div class="mc-block-lid"></div>
+        <div class="mc-block-inner">
+          <span class="mc-block-tag">⚒️ CRAFT</span>
+          <div class="mc-block-title">Code Incognito Tech Track</div>
+          <div class="mc-block-desc">The Council of Veterans runs six tracks — Programming, Web, AI, Web3, Mobile, and
+            Game Dev — tempering the next generation of leads.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER — Eternal Cave ============ -->
+  <footer class="mc-footer">
+    <div class="mc-footer-content">
+      <div class="mc-footer-grid">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;"><img
+              src="logos/community_logo_clean.png" alt="MAJU Code Craft" class="mc-brand-img">
+            <h4 style="margin-bottom:0;">MAJU Code Craft</h4>
+          </div>
+          <p>The student-run computing and software development society at Muhammad Ali Jinnah University, Karachi.</p>
+          <p style="margin-top:10px; font-size:14px;">Free and open to all university students.</p>
+        </div>
+        <div>
+          <h5>Quick Links</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="events.html">Public Events</a></li>
+            <li><a href="hierarchy.html">Leadership Tree</a></li>
+            <li><a href="apply.html">Join Code Craft</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Community</h5>
+          <ul>
+            <li><a href="mentions.html">Honourable Mentions</a></li>
+            <li><a href="executive-community.html">Alumni Network</a></li>
+            <li><a href="#contact">Contact Council</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Internal Portal</h5>
+          <p style="font-size:14px; margin-bottom:10px;">For executives and department teams to plan, assign, and track
+            operations:</p>
+          <a href="../dynamic_doc/index.html" class="mc-button" style="font-size:9px; padding:8px 12px;">Open System
+            →</a>
+        </div>
+        <div class="footer-affiliation-wrap">
+          <div class="footer-affiliation-info">
+            <div class="footer-affiliation-title">&#x1F3DB;&#xFE0F; INSTITUTIONAL PATRONAGE &amp; ACADEMIC BACKING</div>
+            <p class="footer-affiliation-desc">
+              The <strong>Industrial Relations Committee (IRC)</strong> at <a href="https://jinnah.edu/" target="_blank"
+                rel="noopener noreferrer">Muhammad Ali Jinnah University (MAJU)</a> in Karachi is a student- and
+              faculty-driven committee designed to bridge the gap between academic learning and industry demands.
+            </p>
+          </div>
+          <div class="footer-partner-logos">
+            <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer"
+              title="Muhammad Ali Jinnah University (MAJU)">
+              <img src="logos/university_logo_clean.png" alt="MAJU" class="footer-partner-badge">
+            </a>
+            <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer"
+              title="Industrial Relations Committee (IRC) - Faculty of Computing">
+              <img src="logos/irc_logo_clean.png" alt="IRC" class="footer-partner-badge">
+            </a>
+            <a href="index.html" title="MAJU Code Craft Society">
+              <img src="logos/community_logo_clean.png" alt="MCC" class="footer-partner-badge logo-dark">
+            </a>
           </div>
         </div>
-        <div class="mc-block-desc">Interactive 2-hour Saturday bootcamps on Next.js, Rust fundamentals, PostgreSQL databases, Docker containerization, and modern Git flows.</div>
-        <a href="events.html" class="mc-button" style="align-self:flex-start; margin-top:6px;">Explore Topics</a>
+      </div>
+      <div class="mc-footer-bottom">
+        <div>© 2026 MAJU Code Craft Society. All rights reserved.</div>
+        <div>Ember &amp; Obsidian — MCC Portal</div>
       </div>
     </div>
-    <div class="mc-block">
-      <div class="mc-block-lid"></div>
-      <div class="mc-block-inner">
-        <div class="mc-block-media">📡 TALKS</div>
-        <span class="mc-block-tag">Monthly</span>
-        <div class="mc-block-title">Industry Radar</div>
-        <div class="mc-rating">
-          <div class="mc-hearts">
-            <span class="heart"></span><span class="heart"></span><span class="heart"></span><span class="heart empty"></span><span class="heart empty"></span>
-          </div>
-        </div>
-        <div class="mc-block-desc">Senior engineers and tech founders dissect how high-scale products are built, how to pass technical interviews, and how to contribute to open-source.</div>
-        <a href="events.html" class="mc-button" style="align-self:flex-start; margin-top:6px;">View Archive</a>
-      </div>
-    </div>
-  </div>
-</section>
+  </footer>
 
-<!-- ============ STATS (biome: end) ============ -->
-<section class="mc-section" data-biome-trigger="end" style="position:relative;">
+  <script src="assets/mc-theme.js"></script>
+  <script>
+    (function () {
+      // ---------- Floating Code Snippets & Words (ICPC, Hackathons, Web Dev) ----------
+      var ambientSnippets = [
+        // Core requested words & keywords
+        { text: 'icpc', font: 'pixel', color: 'ember', left: 4, top: 8, anim: 'anim-bob', isBadge: true, delay: -1.2, dur: 6.5 },
+        { text: 'hackathons', font: 'pixel', color: 'gold', left: 85, top: 12, anim: 'anim-sway', isBadge: true, delay: -2.8, dur: 7.8 },
+        { text: 'web dev', font: 'pixel', color: 'neon', left: 88, top: 46, anim: 'anim-drift', isBadge: true, delay: -3.5, dur: 9.0 },
+        { text: 'competitive programming', font: 'pixel', color: 'yellow', left: 2, top: 52, anim: 'anim-bob', isBadge: true, delay: -4.0, dur: 8.2 },
+        { text: 'code incognito', font: 'pixel', color: 'red', left: 78, top: 82, anim: 'anim-sway', isBadge: true, delay: -1.5, dur: 7.2 },
+        { text: 'full stack', font: 'pixel', color: 'white', left: 14, top: 88, anim: 'anim-drift', isBadge: true, delay: -5.2, dur: 9.5 },
 
+        // ICPC / Competitive programming code snippets
+        { text: '#include <bits/stdc++.h>', font: 'body', color: 'ember', left: 3, top: 22, anim: 'anim-drift', delay: -4.1, dur: 8.5 },
+        { text: 'while (t--) { solve(); }', font: 'body', color: 'yellow', left: 83, top: 26, anim: 'anim-bob', delay: -0.7, dur: 6.0 },
+        { text: 'vector<int> dp(n + 1, 0);', font: 'body', color: 'neon', left: 5, top: 38, anim: 'anim-sway', delay: -5.3, dur: 7.5 },
+        { text: 'cout << "ACCEPTED\\n";', font: 'body', color: 'yellow', left: 82, top: 62, anim: 'anim-bob', delay: -2.1, dur: 6.2 },
+        { text: 'priority_queue<int> pq;', font: 'body', color: 'white', left: 16, top: 72, anim: 'anim-drift', delay: -6.4, dur: 9.8 },
+        { text: 'int mid = l + (r - l) / 2;', font: 'body', color: 'ember', left: 66, top: 88, anim: 'anim-sway', delay: -1.9, dur: 7.0 },
+        { text: 'O(N log N)', font: 'pixel', color: 'red', left: 7, top: 65, anim: 'anim-bob', delay: -3.8, dur: 5.8 },
 
-  <div class="end-portal" style="width:100%; max-width:960px; margin:0 auto 28px; height:240px; min-height:200px; border:6px solid #111; border-radius:4px; box-shadow:0 15px 40px rgba(0,0,0,0.8), inset 0 0 50px rgba(0,0,0,0.9), 0 0 30px rgba(161,43,224,0.4); display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; overflow:hidden;">
-    <div style="position:relative; z-index:2; text-align:center; background:rgba(3,0,5,0.75); padding:16px 28px; border:2px solid rgba(176,59,235,0.6); box-shadow:0 0 20px rgba(161,43,224,0.5); backdrop-filter:blur(3px);">
-      <div style="font-family:var(--font-pixel); font-size:16px; color:#f1ccff; text-shadow:0 0 10px rgba(238,186,255,0.8); margin-bottom:6px;">COMMUNITY PORTAL ACTIVE</div>
-      <p style="font-size:17px; color:#d27df0; margin:0; font-family:var(--font-body);">Open to All Students &bull; No Login Required &bull; Build Something Together at MAJU</p>
-    </div>
-  </div>
+        // Web Dev / Software Engineering code snippets
+        { text: 'const [craft, setCraft] = useState();', font: 'body', color: 'gold', left: 24, top: 5, anim: 'anim-sway', delay: -2.4, dur: 7.6 },
+        { text: 'export default function App()', font: 'body', color: 'white', left: 58, top: 6, anim: 'anim-drift', delay: -4.7, dur: 9.2 },
+        { text: 'border: 4px solid var(--ember);', font: 'body', color: 'red', left: 74, top: 37, anim: 'anim-bob', delay: -3.2, dur: 6.8 },
+        { text: 'SELECT * FROM builders;', font: 'body', color: 'neon', left: 70, top: 70, anim: 'anim-drift', delay: -5.8, dur: 8.6 },
+        { text: '<CraftProvider value={mcc} />', font: 'body', color: 'violet', left: 28, top: 92, anim: 'anim-sway', delay: -0.5, dur: 8.0 },
 
-  <div class="stats-row">
-    <div class="stat-block" style="background:rgba(18,11,35,0.85); border-color:#40105e; box-shadow:inset 2px 2px 0 rgba(210,125,240,0.2), 0 4px 12px rgba(0,0,0,0.5);"><div class="stat-value" style="color:#eebaff; text-shadow:0 0 8px rgba(238,186,255,0.6);">500+</div><div class="stat-label">Event Attendees</div></div>
-    <div class="stat-block" style="background:rgba(18,11,35,0.85); border-color:#40105e; box-shadow:inset 2px 2px 0 rgba(210,125,240,0.2), 0 4px 12px rgba(0,0,0,0.5);"><div class="stat-value" style="color:#eebaff; text-shadow:0 0 8px rgba(238,186,255,0.6);">24+</div><div class="stat-label">Workshops &amp; Sprints</div></div>
-    <div class="stat-block" style="background:rgba(18,11,35,0.85); border-color:#40105e; box-shadow:inset 2px 2px 0 rgba(210,125,240,0.2), 0 4px 12px rgba(0,0,0,0.5);"><div class="stat-value" style="color:#eebaff; text-shadow:0 0 8px rgba(238,186,255,0.6);">12+</div><div class="stat-label">Industry Partners</div></div>
-    <div class="stat-block" style="background:rgba(18,11,35,0.85); border-color:#40105e; box-shadow:inset 2px 2px 0 rgba(210,125,240,0.2), 0 4px 12px rgba(0,0,0,0.5);"><div class="stat-value" style="color:#eebaff; text-shadow:0 0 8px rgba(238,186,255,0.6);">100%</div><div class="stat-label">Student Led</div></div>
-  </div>
-</section>
+        // Hackathon & Ops snippets
+        { text: 'git commit -m "ship it 🚀"', font: 'body', color: 'gold', left: 84, top: 74, anim: 'anim-drift', delay: -4.2, dur: 8.8 },
+        { text: 'npm run dev --host', font: 'body', color: 'yellow', left: 4, top: 80, anim: 'anim-bob', delay: -1.6, dur: 6.4 },
+        { text: 'docker compose up -d', font: 'body', color: 'white', left: 8, top: 94, anim: 'anim-sway', delay: -3.7, dur: 7.4 },
+        { text: 'fn solve() -> Result<Ship, Err>', font: 'body', color: 'ember', left: 45, top: 94, anim: 'anim-drift', delay: -2.9, dur: 10.0 },
+        { text: '/* 48-HOUR SPRINT */', font: 'body', color: 'red', left: 40, top: 4, anim: 'anim-bob', delay: -6.0, dur: 6.6 }
+      ];
 
-<!-- ============ CONTACT (biome: cave) ============ -->
-<section class="mc-section" id="contact" data-biome-trigger="cave">
-  <div class="contact-wrap">
-    <div class="crafting-panel">
-      <div class="mc-section-title" style="display:flex; justify-content:center; text-align:center;">GET IN TOUCH</div>
-      <p class="mc-section-sub" style="text-align:center; margin:0 auto 24px;">Reach out to the Code Craft executive council or enquire about upcoming event partnerships.</p>
+      // Ambient backdrop generation (spans the entire canvas behind content)
+      var ambientLayer = document.getElementById('ambient-code-layer');
+      if (ambientLayer) {
+        ambientSnippets.forEach(function (item) {
+          var el = document.createElement('div');
+          el.className = 'ambient-code-item font-' + item.font + ' color-' + item.color + ' ' + item.anim + (item.isBadge ? ' is-badge' : '');
+          el.textContent = item.text;
+          el.style.left = item.left + '%';
+          el.style.top = item.top + '%';
+          el.style.animationDelay = item.delay + 's';
+          el.style.animationDuration = item.dur + 's';
+          ambientLayer.appendChild(el);
+        });
+      }
 
-      <form id="contactForm">
-        <div class="field">
-          <label class="field-label" for="cName">Your Name</label>
-          <input type="text" id="cName" placeholder="e.g. Ali Ahmed" required>
-        </div>
-        <div class="field">
-          <label class="field-label" for="cEmail">University Email</label>
-          <input type="email" id="cEmail" placeholder="student@maju.edu.pk" required>
-        </div>
-        <div class="field">
-          <label class="field-label" for="cMessage">Message or Query</label>
-          <textarea id="cMessage" rows="4" placeholder="How can we help you?" required></textarea>
-        </div>
-        <button type="submit" class="mc-button" style="width:100%;">Send Message</button>
-      </form>
-      <div id="contactSuccess">✅ Thank you! Your message has been received. A council member will reply shortly.</div>
-    </div>
+      // Hero-specific floating code snippets surrounding the hero scrim
+      var heroSnippets = [
+        { text: 'ICPC', font: 'pixel', color: 'ember', left: 7, top: 12, anim: 'anim-bob', isTag: true, delay: -0.8, dur: 5.4 },
+        { text: 'HACKATHONS', font: 'pixel', color: 'gold', left: 80, top: 14, anim: 'anim-drift', isTag: true, delay: -2.2, dur: 7.2 },
+        { text: 'WEB DEV', font: 'pixel', color: 'neon', left: 8, top: 82, anim: 'anim-sway', isTag: true, delay: -3.0, dur: 6.8 },
+        { text: '// Code Incognito', font: 'body', color: 'yellow', left: 78, top: 76, anim: 'anim-bob', delay: -1.7, dur: 5.8 },
+        { text: 'while (t--) { build(); }', font: 'body', color: 'white', left: 5, top: 46, anim: 'anim-drift', delay: -4.1, dur: 8.0 },
+        { text: 'fast_io();', font: 'body', color: 'neon', left: 84, top: 42, anim: 'anim-sway', delay: -1.3, dur: 6.2 },
+        { text: 'git push origin main', font: 'body', color: 'ember', left: 18, top: 92, anim: 'anim-bob', delay: -2.6, dur: 5.6 },
+        { text: 'vector<int> dp;', font: 'body', color: 'yellow', left: 72, top: 90, anim: 'anim-drift', delay: -3.6, dur: 7.5 },
+        { text: '#include <bits/stdc++.h>', font: 'body', color: 'gold', left: 4, top: 64, anim: 'anim-sway', delay: -4.8, dur: 8.4 },
+        { text: 'cout << "ACCEPTED\\n"', font: 'body', color: 'neon', left: 81, top: 60, anim: 'anim-bob', delay: -2.0, dur: 6.0 }
+      ];
 
-    <div class="internal-callout" style="margin-top:24px;">
-      <div>
-        <div class="mc-block-title" style="margin-bottom:6px;">Internal Portal</div>
-        <p>For executives and department teams to plan, assign, and track operations.</p>
-      </div>
-      <a href="../dynamic_doc/index.html" class="mc-button secondary">Open Internal System →</a>
-    </div>
-  </div>
-</section>
+      var heroWrap = document.querySelector('.hero-wrap');
+      if (heroWrap) {
+        heroSnippets.forEach(function (item) {
+          var el = document.createElement('div');
+          el.className = 'code-float font-' + item.font + ' color-' + item.color + ' ' + item.anim + (item.isTag ? ' is-tag' : '');
+          el.textContent = item.text;
+          el.style.left = item.left + '%';
+          el.style.top = item.top + '%';
+          el.style.animationDelay = item.delay + 's';
+          el.style.animationDuration = item.dur + 's';
+          heroWrap.appendChild(el);
+        });
+      }
 
-<!-- ============ EMBER FORGE (biome: ember) ============ -->
-<section class="mc-section" data-biome-trigger="ember">
-  <div class="section-lead-scrim" style="margin-bottom:36px;">
-    <div class="mc-section-title">FORGED AT MCC</div>
-    <h2 class="hero-title" style="font-size:clamp(18px,3vw,26px);">Where the flagship hackathon gets built.</h2>
-    <p class="mc-section-sub" style="margin-bottom:0;">Every Code Incognito badge, every workshop certificate, every shipped project passes through the forge before it goes out the door.</p>
-  </div>
+      // ---------- Floating mobs ----------
+      var mobTypes = ['', 'creeper'];
+      for (var m = 0; m < 4; m++) {
+        var mob = document.createElement('div');
+        mob.className = 'mob ' + mobTypes[m % mobTypes.length];
+        mob.style.left = (6 + Math.random() * 86) + '%';
+        mob.style.top = (14 + Math.random() * 60) + '%';
+        mob.style.animationDelay = (-Math.random() * 3) + 's';
+        mob.innerHTML = '<div class="mob-body"></div>';
+        mob.setAttribute('data-breakable', '');
+        heroWrap.appendChild(mob);
+      }
 
-  <div class="mc-block-grid">
-    <div class="mc-block mat-forge">
-      <div class="mc-block-lid"></div>
-      <div class="mc-block-inner">
-        <span class="mc-block-tag">🔨 FLAGSHIP</span>
-        <div class="mc-block-title">Code Incognito</div>
-        <div class="mc-block-desc">Our anvil event — teams hammer out production-grade apps, games, and tools under a countdown timer at MAJU Block D.</div>
-      </div>
-    </div>
-    <div class="mc-block mat-forge">
-      <div class="mc-block-lid"></div>
-      <div class="mc-block-inner">
-        <span class="mc-block-tag">🏅 ACHIEVEMENT</span>
-        <div class="mc-block-title">100+ Builds Shipped</div>
-        <div class="mc-block-desc">Projects tempered across hackathons and Craft Lab sessions since the society's founding — each one forged, tested, and demoed live.</div>
-      </div>
-    </div>
-    <div class="mc-block mat-forge">
-      <div class="mc-block-lid"></div>
-      <div class="mc-block-inner">
-        <span class="mc-block-tag">⚒️ CRAFT</span>
-        <div class="mc-block-title">Code Incognito Tech Track</div>
-        <div class="mc-block-desc">The Council of Veterans runs six tracks — Programming, Web, AI, Web3, Mobile, and Game Dev — tempering the next generation of leads.</div>
-      </div>
-    </div>
-  </div>
-</section>
+      // ---------- Scramble hero word ----------
+      var eventTypes = ["Hackathon", "Session", "Workshop", "Talk", "Meetup", "Bootcamp", "Sprint"];
+      var scrambleChars = "!<>-_/[]{}—=+*^?#________";
+      var typeIndex = 0;
+      var scrambleEl = document.getElementById("scrambleDisplay");
+      function scrambleText(text) {
+        return text.split("").map(function (c) { return c === " " ? " " : scrambleChars[Math.floor(Math.random() * scrambleChars.length)]; }).join("");
+      }
+      function runScramble(targetWord) {
+        var frame = 0, totalFrames = 15;
+        var interval = setInterval(function () {
+          if (frame < totalFrames) { scrambleEl.textContent = scrambleText(targetWord); frame++; }
+          else { scrambleEl.textContent = targetWord; clearInterval(interval); }
+        }, 35);
+      }
+      setInterval(function () {
+        typeIndex = (typeIndex + 1) % eventTypes.length;
+        runScramble(eventTypes[typeIndex]);
+      }, 2500);
+      scrambleEl.addEventListener("click", function () { window.location.href = "events.html"; });
 
-<!-- ============ FOOTER — Eternal Cave ============ -->
-<footer class="mc-footer">
-  <div class="mc-footer-content">
-    <div class="mc-footer-grid">
-      <div>
-        <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;"><img src="logos/community_logo_clean.png" alt="MAJU Code Craft" class="mc-brand-img"><h4 style="margin-bottom:0;">MAJU Code Craft</h4></div>
-        <p>The student-run computing and software development society at Muhammad Ali Jinnah University, Karachi.</p>
-        <p style="margin-top:10px; font-size:14px;">Free and open to all university students.</p>
-      </div>
-      <div>
-        <h5>Quick Links</h5>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="events.html">Public Events</a></li>
-          <li><a href="hierarchy.html">Leadership Tree</a></li>
-          <li><a href="apply.html">Join Code Craft</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Community</h5>
-        <ul>
-          <li><a href="mentions.html">Honourable Mentions</a></li>
-          <li><a href="executive-community.html">Alumni Network</a></li>
-          <li><a href="#contact">Contact Council</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Internal Portal</h5>
-        <p style="font-size:14px; margin-bottom:10px;">For executives and department teams to plan, assign, and track operations:</p>
-        <a href="../dynamic_doc/index.html" class="mc-button" style="font-size:9px; padding:8px 12px;">Open System →</a>
-      </div>
-      <div class="footer-affiliation-wrap">
-        <div class="footer-affiliation-info">
-          <div class="footer-affiliation-title">&#x1F3DB;&#xFE0F; INSTITUTIONAL PATRONAGE &amp; ACADEMIC BACKING</div>
-          <p class="footer-affiliation-desc">
-            The <strong>Industrial Relations Committee (IRC)</strong> at <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer">Muhammad Ali Jinnah University (MAJU)</a> in Karachi is a student- and faculty-driven committee designed to bridge the gap between academic learning and industry demands.
-          </p>
-        </div>
-        <div class="footer-partner-logos">
-          <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Muhammad Ali Jinnah University (MAJU)">
-            <img src="logos/university_logo_clean.png" alt="MAJU" class="footer-partner-badge">
-          </a>
-          <a href="https://jinnah.edu/" target="_blank" rel="noopener noreferrer" title="Industrial Relations Committee (IRC) - Faculty of Computing">
-            <img src="logos/irc_logo_clean.png" alt="IRC" class="footer-partner-badge">
-          </a>
-          <a href="index.html" title="MAJU Code Craft Society">
-            <img src="logos/community_logo_clean.png" alt="MCC" class="footer-partner-badge logo-dark">
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="mc-footer-bottom">
-      <div>© 2026 MAJU Code Craft Society. All rights reserved.</div>
-      <div>Ember &amp; Obsidian — MCC Portal</div>
-    </div>
-  </div>
-</footer>
-
-<script src="assets/mc-theme.js"></script>
-<script>
-(function(){
-  // ---------- Floating Code Snippets & Words (ICPC, Hackathons, Web Dev) ----------
-  var ambientSnippets = [
-    // Core requested words & keywords
-    { text: 'icpc', font: 'pixel', color: 'ember', left: 4, top: 8, anim: 'anim-bob', isBadge: true, delay: -1.2, dur: 6.5 },
-    { text: 'hackathons', font: 'pixel', color: 'gold', left: 85, top: 12, anim: 'anim-sway', isBadge: true, delay: -2.8, dur: 7.8 },
-    { text: 'web dev', font: 'pixel', color: 'neon', left: 88, top: 46, anim: 'anim-drift', isBadge: true, delay: -3.5, dur: 9.0 },
-    { text: 'competitive programming', font: 'pixel', color: 'yellow', left: 2, top: 52, anim: 'anim-bob', isBadge: true, delay: -4.0, dur: 8.2 },
-    { text: 'code incognito', font: 'pixel', color: 'red', left: 78, top: 82, anim: 'anim-sway', isBadge: true, delay: -1.5, dur: 7.2 },
-    { text: 'full stack', font: 'pixel', color: 'white', left: 14, top: 88, anim: 'anim-drift', isBadge: true, delay: -5.2, dur: 9.5 },
-
-    // ICPC / Competitive programming code snippets
-    { text: '#include <bits/stdc++.h>', font: 'body', color: 'ember', left: 3, top: 22, anim: 'anim-drift', delay: -4.1, dur: 8.5 },
-    { text: 'while (t--) { solve(); }', font: 'body', color: 'yellow', left: 83, top: 26, anim: 'anim-bob', delay: -0.7, dur: 6.0 },
-    { text: 'vector<int> dp(n + 1, 0);', font: 'body', color: 'neon', left: 5, top: 38, anim: 'anim-sway', delay: -5.3, dur: 7.5 },
-    { text: 'cout << "ACCEPTED\\n";', font: 'body', color: 'yellow', left: 82, top: 62, anim: 'anim-bob', delay: -2.1, dur: 6.2 },
-    { text: 'priority_queue<int> pq;', font: 'body', color: 'white', left: 16, top: 72, anim: 'anim-drift', delay: -6.4, dur: 9.8 },
-    { text: 'int mid = l + (r - l) / 2;', font: 'body', color: 'ember', left: 66, top: 88, anim: 'anim-sway', delay: -1.9, dur: 7.0 },
-    { text: 'O(N log N)', font: 'pixel', color: 'red', left: 7, top: 65, anim: 'anim-bob', delay: -3.8, dur: 5.8 },
-
-    // Web Dev / Software Engineering code snippets
-    { text: 'const [craft, setCraft] = useState();', font: 'body', color: 'gold', left: 24, top: 5, anim: 'anim-sway', delay: -2.4, dur: 7.6 },
-    { text: 'export default function App()', font: 'body', color: 'white', left: 58, top: 6, anim: 'anim-drift', delay: -4.7, dur: 9.2 },
-    { text: 'border: 4px solid var(--ember);', font: 'body', color: 'red', left: 74, top: 37, anim: 'anim-bob', delay: -3.2, dur: 6.8 },
-    { text: 'SELECT * FROM builders;', font: 'body', color: 'neon', left: 70, top: 70, anim: 'anim-drift', delay: -5.8, dur: 8.6 },
-    { text: '<CraftProvider value={mcc} />', font: 'body', color: 'violet', left: 28, top: 92, anim: 'anim-sway', delay: -0.5, dur: 8.0 },
-
-    // Hackathon & Ops snippets
-    { text: 'git commit -m "ship it 🚀"', font: 'body', color: 'gold', left: 84, top: 74, anim: 'anim-drift', delay: -4.2, dur: 8.8 },
-    { text: 'npm run dev --host', font: 'body', color: 'yellow', left: 4, top: 80, anim: 'anim-bob', delay: -1.6, dur: 6.4 },
-    { text: 'docker compose up -d', font: 'body', color: 'white', left: 8, top: 94, anim: 'anim-sway', delay: -3.7, dur: 7.4 },
-    { text: 'fn solve() -> Result<Ship, Err>', font: 'body', color: 'ember', left: 45, top: 94, anim: 'anim-drift', delay: -2.9, dur: 10.0 },
-    { text: '/* 48-HOUR SPRINT */', font: 'body', color: 'red', left: 40, top: 4, anim: 'anim-bob', delay: -6.0, dur: 6.6 }
-  ];
-
-  // Ambient backdrop generation (spans the entire canvas behind content)
-  var ambientLayer = document.getElementById('ambient-code-layer');
-  if(ambientLayer){
-    ambientSnippets.forEach(function(item){
-      var el = document.createElement('div');
-      el.className = 'ambient-code-item font-' + item.font + ' color-' + item.color + ' ' + item.anim + (item.isBadge ? ' is-badge' : '');
-      el.textContent = item.text;
-      el.style.left = item.left + '%';
-      el.style.top = item.top + '%';
-      el.style.animationDelay = item.delay + 's';
-      el.style.animationDuration = item.dur + 's';
-      ambientLayer.appendChild(el);
-    });
-  }
-
-  // Hero-specific floating code snippets surrounding the hero scrim
-  var heroSnippets = [
-    { text: 'ICPC', font: 'pixel', color: 'ember', left: 7, top: 12, anim: 'anim-bob', isTag: true, delay: -0.8, dur: 5.4 },
-    { text: 'HACKATHONS', font: 'pixel', color: 'gold', left: 80, top: 14, anim: 'anim-drift', isTag: true, delay: -2.2, dur: 7.2 },
-    { text: 'WEB DEV', font: 'pixel', color: 'neon', left: 8, top: 82, anim: 'anim-sway', isTag: true, delay: -3.0, dur: 6.8 },
-    { text: '// Code Incognito', font: 'body', color: 'yellow', left: 78, top: 76, anim: 'anim-bob', delay: -1.7, dur: 5.8 },
-    { text: 'while (t--) { build(); }', font: 'body', color: 'white', left: 5, top: 46, anim: 'anim-drift', delay: -4.1, dur: 8.0 },
-    { text: 'fast_io();', font: 'body', color: 'neon', left: 84, top: 42, anim: 'anim-sway', delay: -1.3, dur: 6.2 },
-    { text: 'git push origin main', font: 'body', color: 'ember', left: 18, top: 92, anim: 'anim-bob', delay: -2.6, dur: 5.6 },
-    { text: 'vector<int> dp;', font: 'body', color: 'yellow', left: 72, top: 90, anim: 'anim-drift', delay: -3.6, dur: 7.5 },
-    { text: '#include <bits/stdc++.h>', font: 'body', color: 'gold', left: 4, top: 64, anim: 'anim-sway', delay: -4.8, dur: 8.4 },
-    { text: 'cout << "ACCEPTED\\n"', font: 'body', color: 'neon', left: 81, top: 60, anim: 'anim-bob', delay: -2.0, dur: 6.0 }
-  ];
-
-  var heroWrap = document.querySelector('.hero-wrap');
-  if(heroWrap){
-    heroSnippets.forEach(function(item){
-      var el = document.createElement('div');
-      el.className = 'code-float font-' + item.font + ' color-' + item.color + ' ' + item.anim + (item.isTag ? ' is-tag' : '');
-      el.textContent = item.text;
-      el.style.left = item.left + '%';
-      el.style.top = item.top + '%';
-      el.style.animationDelay = item.delay + 's';
-      el.style.animationDuration = item.dur + 's';
-      heroWrap.appendChild(el);
-    });
-  }
-
-  // ---------- Floating mobs ----------
-  var mobTypes = ['', 'creeper'];
-  for(var m=0; m<4; m++){
-    var mob = document.createElement('div');
-    mob.className = 'mob ' + mobTypes[m % mobTypes.length];
-    mob.style.left = (6 + Math.random()*86) + '%';
-    mob.style.top = (14 + Math.random()*60) + '%';
-    mob.style.animationDelay = (-Math.random()*3) + 's';
-    mob.innerHTML = '<div class="mob-body"></div>';
-    mob.setAttribute('data-breakable','');
-    heroWrap.appendChild(mob);
-  }
-
-  // ---------- Scramble hero word ----------
-  var eventTypes = ["Hackathon", "Session", "Workshop", "Talk", "Meetup", "Bootcamp"];
-  var scrambleChars = "!<>-_/[]{}—=+*^?#________";
-  var typeIndex = 0;
-  var scrambleEl = document.getElementById("scrambleDisplay");
-  function scrambleText(text){
-    return text.split("").map(function(c){ return c === " " ? " " : scrambleChars[Math.floor(Math.random()*scrambleChars.length)]; }).join("");
-  }
-  function runScramble(targetWord){
-    var frame = 0, totalFrames = 15;
-    var interval = setInterval(function(){
-      if(frame < totalFrames){ scrambleEl.textContent = scrambleText(targetWord); frame++; }
-      else{ scrambleEl.textContent = targetWord; clearInterval(interval); }
-    }, 35);
-  }
-  setInterval(function(){
-    typeIndex = (typeIndex + 1) % eventTypes.length;
-    runScramble(eventTypes[typeIndex]);
-  }, 2500);
-  scrambleEl.addEventListener("click", function(){ window.location.href = "events.html"; });
-
-  // ---------- Contact form ----------
-  document.getElementById('contactForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    this.reset();
-    document.getElementById('contactSuccess').style.display = 'block';
-  });
-})();
-</script>
+      // ---------- Contact form ----------
+      document.getElementById('contactForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        this.reset();
+        document.getElementById('contactSuccess').style.display = 'block';
+      });
+    })();
+  </script>
 </body>
+
 </html>
