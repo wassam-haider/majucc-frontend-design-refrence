@@ -1,4 +1,5 @@
 .playwright-mcp/
+design refrence files/
 *.log
 .DS_Store
 Thumbs.db
